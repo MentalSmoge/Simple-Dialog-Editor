@@ -12,31 +12,24 @@ const sourceHandleStyleB: CSSProperties = {
 const ResizeableText: FC<NodeProps> = ({ data, xPos, yPos }) => {
   const [textContent, setTextContent] = useState(data.text);
   return (
-    <>
-      <NodeResizer />
+    <div>
+      {/* <NodeResizer /> */}
       <Handle type="target" position={Position.Top} />
-      <div>
-        <label htmlFor="text">Text:</label>
-        <textarea
-          id="text"
-          name="text"
-          onChange={(e) => {
-            setTextContent(e.target.value);
-            data.text = e.target.value;
-          }}
-          value={textContent}
-          className="nodrag"
-        />
-        <div>
-          Label: <strong>{data.label}</strong>
-        </div>
-        <div>
-          Position:{' '}
-          <strong>
-            {xPos.toFixed(2)},{yPos.toFixed(2)}
-          </strong>
-        </div>
-      </div>
+      {/* <textarea
+        id="text"
+        name="text"
+        onChange={(e) => {
+          setTextContent(e.target.value);
+          data.text = e.target.value;
+        }}
+        value={textContent}
+        className="nodrag"
+      /> */}
+      <p className="fillTheVoid">
+        <strong>Text editor:</strong>{' '}
+        <span className="textarea nodrag" role="textbox" contentEditable></span>
+      </p>
+      <div>Another</div>
 
       <Handle
         type="source"
@@ -50,7 +43,7 @@ const ResizeableText: FC<NodeProps> = ({ data, xPos, yPos }) => {
         id="b"
         style={sourceHandleStyleB}
       />
-    </>
+    </div>
   );
 };
 
