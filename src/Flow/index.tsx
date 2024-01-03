@@ -10,6 +10,8 @@ import ReactFlow, {
 
 import CustomNode from './Node_Types/CustomNode';
 import ResizeableText from './Node_Types/ResizeableText';
+import TextNode from './Node_Types/TextNode';
+import TextEditor from './TextEditor';
 
 // this is important! You need to import the styles from the lib to make it work
 import 'reactflow/dist/style.css';
@@ -19,6 +21,7 @@ import './Flow.css';
 const nodeTypes = {
   custom: CustomNode,
   resizable: ResizeableText,
+  text: TextNode,
 };
 
 const initialNodes: Node[] = [
@@ -46,9 +49,9 @@ const initialNodes: Node[] = [
   },
   {
     id: '5',
-    data: { label: 'Node 5' },
+    data: { label: 'Node 5', text: 'This is text   das'},
     position: { x: 200, y: 200 },
-    type: 'resizable',
+    type: 'text',
   },
 ];
 
