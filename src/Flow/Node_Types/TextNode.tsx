@@ -2,6 +2,7 @@ import { memo, type FC, type CSSProperties } from 'react';
 import { Handle, Position, type NodeProps } from 'reactflow';
 import { useState } from 'react';
 
+import TextEditor from '../TextEditor';
 
 const sourceHandleStyleA: CSSProperties = {};
 
@@ -22,7 +23,7 @@ const TextNode: FC<NodeProps> = ({ data, xPos, yPos }) => {
         id="a"
         style={sourceHandleStyleA}
       />
-      <button onClick={handleEditClick}>Edit</button>
+      <TextEditor></TextEditor>
     </div>
   );
 };
