@@ -1,0 +1,10 @@
+.textInNode {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  overflow-y: scroll;
+  /* height: 100%; */
+  max-height: 75px;
+  margin-top: 0px;
+  border: 1px solid black;
+}

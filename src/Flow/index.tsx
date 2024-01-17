@@ -49,8 +49,14 @@ const initialNodes: Node[] = [
   },
   {
     id: '5',
-    data: { label: 'Node 5', text: 'This is text   das'},
+    data: { label: 'Node 5', text: 'This is text   das\n cool ass hat maaaan   wo w ddddddddddddddddd dddddddddddddd ddddddddddddddddddddd sad asd asd asd wqe  s yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy' },
     position: { x: 200, y: 200 },
+    type: 'text',
+  },
+  {
+    id: '6',
+    data: { label: 'Node 6', text: 'This is ыфы' },
+    position: { x: 0, y: 200 },
     type: 'text',
   },
 ];
