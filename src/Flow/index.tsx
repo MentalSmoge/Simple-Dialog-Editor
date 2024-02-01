@@ -6,17 +6,18 @@ import ReactFlow, {
   type Connection,
   type Edge,
   type Node,
+  ReactFlowProvider,
 } from 'reactflow';
 
 import CustomNode from './Node_Types/CustomNode';
 import ResizeableText from './Node_Types/ResizeableText';
 import TextNode from './Node_Types/TextNode';
-import TextEditor from './TextEditor';
 
 // this is important! You need to import the styles from the lib to make it work
 import 'reactflow/dist/style.css';
 
 import './Flow.css';
+// import TextEditorStore from '../store/TextEditorStore';
 
 const nodeTypes = {
   custom: CustomNode,
@@ -75,17 +76,20 @@ function Flow() {
   );
 
   return (
+    <ReactFlowProvider>
+
     <div className="Flow">
-      <ReactFlow
-        nodes={nodes}
-        onNodesChange={onNodesChange}
-        edges={edges}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        fitView
-        nodeTypes={nodeTypes}
-      />
-    </div>
+        <ReactFlow
+          nodes={nodes}
+          onNodesChange={onNodesChange}
+          edges={edges}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          fitView
+          nodeTypes={nodeTypes}
+        />
+      </div>
+    </ReactFlowProvider>
   );
 }
 

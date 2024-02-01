@@ -1,16 +1,20 @@
-.wrapper {
-  height: 70vh;
-  width: 80vw;
-  background: rgb(231, 14, 255);
-  display: flex;
-}
-
 .modal {
+
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
   font-size: 18px;
   background: rgb(234, 234, 234);
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+}
+
+textarea {
+  resize: none;
+  height: fit-content;
 }
 
 .modal>.header {

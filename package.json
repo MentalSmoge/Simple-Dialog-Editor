@@ -101,11 +101,13 @@
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^6.1.4",
+    "mobx": "^6.12.0",
+    "mobx-react-lite": "^4.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.16.0",
     "reactflow": "^11.8.3",
-    "reactjs-popup": "^2.0.6",
     "reactstrap": "^9.2.0"
   },
   "devDependencies": {
@@ -120,6 +122,7 @@
     "@types/node": "20.6.2",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
+    "@types/react-modal": "^3.16.3",
     "@types/react-test-renderer": "^18.0.1",
     "@types/terser-webpack-plugin": "^5.0.4",
     "@types/webpack-bundle-analyzer": "^4.6.0",
