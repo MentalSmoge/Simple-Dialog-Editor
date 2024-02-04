@@ -6,8 +6,7 @@ import Store from '../store/TextEditorStore';
 
 
 const TextEditorView = observer(() => {
-
-  function closeModal() {
+  const closeModal = () => {
     Store.closeEditor();
   }
   return (
@@ -21,7 +20,7 @@ const TextEditorView = observer(() => {
           <h2>Text Edit</h2>
           <textarea className="textArea" value={Store.currentText} onChange={e => Store.changeText(e.target.value)} />
           <br/>
-          <button onClick={() => Store.closeEditor()}>close</button>
+          <button onClick={() => Store.closeEditor()} type="button">close</button>
         </Modal>
     )
   }

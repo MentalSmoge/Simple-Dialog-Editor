@@ -8,7 +8,7 @@ import './TextNode.css';
 const sourceHandleStyleA: CSSProperties = {};
 
 // eslint-disable-next-line react/function-component-definition
-const TextNode: FC<NodeProps> = ({ data, xPos, yPos }) => {
+const ChoiceNode: FC<NodeProps> = ({ data, xPos, yPos }) => {
   const id = useNodeId() as string;
   const resetSelectedElements = useStore(a => a.resetSelectedElements)
   const reactFlow = useReactFlow();
