@@ -63,7 +63,7 @@ const initialNodes: Node[] = [
     type: 'text',
   },
   {
-    id: '7',
+    id: '9',
     data: { label: 'Node 6', text: 'This is ыфы' },
     position: { x: 0, y: 0 },
     type: 'choice',

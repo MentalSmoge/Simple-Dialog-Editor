@@ -4,7 +4,8 @@ import { useState } from 'react';
 import Select from 'react-select'
 
 import t from "../../store/VariablesStore"
-import './ChoiceNode.css';
+// import './ChoiceNode.css';
+import ChoiceRow from '../ChoiceRow';
 
 // eslint-disable-next-line react/function-component-definition
 const ChoiceNode: FC<NodeProps> = ({ id, data, xPos, yPos }) => {
@@ -33,18 +34,7 @@ const ChoiceNode: FC<NodeProps> = ({ id, data, xPos, yPos }) => {
       {/* <NodeResizer></NodeResizer> */}
       <Handle type="target" position={Position.Left} />
       {Array.from({ length: handleCount }).map((_, index) => (
-        <div className='container' key={index}>
-
-          <Select className='nodrag' options={options} />
-          <Select className='nodrag' options={optionsCompare} defaultValue={optionsCompare[1]}/>
-          <Select className='nodrag' options={options} />
-          <Handle
-            type="source"
-            position={Position.Right}
-            id={`handle-${index}`}
-            style={getStyle(index)}
-          />
-        </div>
+          <ChoiceRow key={index} row={index} />
       ))}
 
       <div>

@@ -32,14 +32,18 @@ ipcMain.on('ipc-example', async (event, arg) => {
 });
 
 if (process.env.NODE_ENV === 'production') {
+  console.log("not debug");
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
 }
-
+if (process.env.NODE_ENV !== 'development') {
+  console.log("debug");
+}
 const isDebug =
   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
 if (isDebug) {
+  console.log("debug");
   require('electron-debug')();
 }
 
