@@ -12,6 +12,7 @@ import ReactFlow, {
 import CustomNode from './Node_Types/CustomNode';
 import ResizeableText from './Node_Types/ResizeableText';
 import TextNode from './Node_Types/TextNode';
+import ChoiceNode from './Node_Types/ChoiceNode';
 
 // this is important! You need to import the styles from the lib to make it work
 import 'reactflow/dist/style.css';
@@ -23,6 +24,7 @@ const nodeTypes = {
   custom: CustomNode,
   resizable: ResizeableText,
   text: TextNode,
+  choice : ChoiceNode
 };
 
 const initialNodes: Node[] = [
@@ -59,6 +61,12 @@ const initialNodes: Node[] = [
     data: { label: 'Node 6', text: 'This is ыфы' },
     position: { x: 0, y: 200 },
     type: 'text',
+  },
+  {
+    id: '7',
+    data: { label: 'Node 6', text: 'This is ыфы' },
+    position: { x: 0, y: 0 },
+    type: 'choice',
   },
 ];
 

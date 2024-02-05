@@ -1,5 +1,4 @@
 import { makeAutoObservable } from "mobx"
-import { Node } from "reactflow"
 
 class TextEditorStore {
   isOpen=false

@@ -1,41 +1,59 @@
-import { memo, type FC, type CSSProperties } from 'react';
-import { Handle, Position, type NodeProps, useReactFlow, Node, useNodeId, useStore } from 'reactflow';
+import { memo, type FC, type CSSProperties, useCallback } from 'react';
+import { Handle, Position, type NodeProps, useReactFlow, Node, useNodeId, useStore, useUpdateNodeInternals } from 'reactflow';
 import { useState } from 'react';
+import Select from 'react-select'
 
-import t from "../../store/TextEditorStore"
-import './TextNode.css';
-
-const sourceHandleStyleA: CSSProperties = {};
+import t from "../../store/VariablesStore"
+import './ChoiceNode.css';
 
 // eslint-disable-next-line react/function-component-definition
-const ChoiceNode: FC<NodeProps> = ({ data, xPos, yPos }) => {
-  const id = useNodeId() as string;
-  const resetSelectedElements = useStore(a => a.resetSelectedElements)
-  const reactFlow = useReactFlow();
-  const [textContent, setTextContent] = useState(data.text);
-  function applyTextChange(newText : string) {
-    setTextContent(newText);
+const ChoiceNode: FC<NodeProps> = ({ id, data, xPos, yPos }) => {
+  const updateNodeInternals = useUpdateNodeInternals();
+  const [handleCount, setHandleCount] = useState(0);
+  const randomizeHandleCount = useCallback(() => {
+    setHandleCount(Math.floor(Math.random() * 100));
+    updateNodeInternals(id);
+  }, [id, updateNodeInternals]);
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }
+  ]
+  const optionsCompare = [
+    { value: '>', label: '>' },
+    { value: '=', label: '=' },
+    { value: '<', label: '<' }
+  ]
+  const getStyle = (index : number) => {
+    return { top: 38 * index + 19 };
   }
-  function handleEditClick() {
-    resetSelectedElements();
-    const getNode = reactFlow.getNode(id) as Node
-    t.openEditor(textContent, applyTextChange);
-  }
+
   return (
     <div>
       {/* <NodeResizer></NodeResizer> */}
       <Handle type="target" position={Position.Left} />
-      <p className='textInNode'>{textContent}</p>
-      <button className='nodrag' onClick={() => handleEditClick()}>Open Modal</button>
-      <Handle
-        type="source"
-        position={Position.Right}
-        id="a"
-        style={sourceHandleStyleA}
-      />
+      {Array.from({ length: handleCount }).map((_, index) => (
+        <div className='container' key={index}>
+
+          <Select className='nodrag' options={options} />
+          <Select className='nodrag' options={optionsCompare} defaultValue={optionsCompare[1]}/>
+          <Select className='nodrag' options={options} />
+          <Handle
+            type="source"
+            position={Position.Right}
+            id={`handle-${index}`}
+            style={getStyle(index)}
+          />
+        </div>
+      ))}
+
+      <div>
+        <button onClick={randomizeHandleCount}>Randomize handle count</button>
+        <p>There are {handleCount} handles on this node.</p>
+      </div>
 
     </div>
   );
 };
 
-export default memo(TextNode);
+export default memo(ChoiceNode);

@@ -1,0 +1,4 @@
+.container {
+  display: inline-block; /*Add this*/
+  width: 300px;
+}
