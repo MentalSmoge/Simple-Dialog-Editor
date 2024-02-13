@@ -1,12 +1,12 @@
 export interface rowProps {
-  id : number,
+  idOfRow : number,
   data : {
     firstVar : { value: string, label: string },
     secondVar : { value: string, label: string }
   }
 }
 export interface rowDisplayProps {
-  id : number,
+  idOfRow : number,
   position : number,
   deleteFunc : Function,
   renderDelete : boolean,

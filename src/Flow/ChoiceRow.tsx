@@ -7,7 +7,7 @@ import "./ChoiceRow.css"
 
 
 
-function ChoiceRow({id, data, renderDelete, position, deleteFunc} : rowDisplayProps) {
+function ChoiceRow({idOfRow, data, renderDelete, position, deleteFunc} : rowDisplayProps) {
 
   const getStyle = (index : number) => {
     return { top: 38 * index + 29 };
@@ -20,18 +20,19 @@ function ChoiceRow({id, data, renderDelete, position, deleteFunc} : rowDisplayPr
   ]
 
   return(
-  <div className="content" key={id}>
+  <div className="content" key={idOfRow}>
       <Handle
       type="source"
       position={Position.Right}
-      id={`handle-${id}`}
+      id={`handle-${idOfRow}`}
       style={getStyle(position)}
       />
       <Select value={data.firstVar} options={Store.variables} className='nodrag child'/>
       <Select components={{DropdownIndicator:() => null, IndicatorSeparator:() => null}} options={optionsCompare} isSearchable={false} defaultValue={optionsCompare[1]} className='nodrag child' />
       <Select options={Store.variables} className='nodrag child' />
+      <p>{idOfRow}</p>
       {renderDelete ? (
-        <button className='nodrag child' type='button' onClick={() => deleteFunc(id)}>Удалить</button>) : (<div/>)}
+        <button className='nodrag child' type='button' onClick={() => deleteFunc(idOfRow)}>Удалить</button>) : (<div/>)}
   </div>
   );
 }

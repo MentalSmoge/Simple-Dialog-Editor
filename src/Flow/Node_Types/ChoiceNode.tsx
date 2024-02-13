@@ -29,14 +29,7 @@ const ChoiceNode: FC<NodeProps> = ({ id, data, xPos, yPos }) => {
   // }, [handleCount, id, updateNodeInternals]);
 
   const testButton = () => {
-    const updatedList = rows.map(item =>
-      {
-        const newData = item.data
-        newData.firstVar = "saaas"
-        return {...item, data: newData};
-      });
 
-    setRows(updatedList); // set state to new object with updated list
   }
 const options = [
     { value: 'chocolate', label: 'Chocolate' },
@@ -47,7 +40,7 @@ const options = [
   const addRow = useCallback(() => {
     setIncrement(increment + 1)
     const newElement : rowProps = {
-      id: increment,
+      idOfRow: increment,
       data: {
         firstVar: options[0],
         secondVar: options[0]
@@ -70,15 +63,11 @@ const options = [
     return { top: 38 * index + 29 };
   }
   const deleteRow = (Id : number) => {
-    updateNodeInternals(id);
-    const edge = reactFlow.getEdges().filter(variant => variant.source === id && variant.sourceHandle === `handle-${Id}`)
-    console.log(edge)
-
-    const result = edges.filter(item => !edge.includes(item));
+    const result = reactFlow.getEdges().filter(item => item.source !== id || item.sourceHandle !== `handle-${Id}`);
     console.log(result)
 
     reactFlow.setEdges(result);
-    setRows(rows.filter(a => a.id !== Id))
+    setRows(rows.filter(a => a.idOfRow !== Id))
     updateNodeInternals(id);
 
   };
@@ -88,7 +77,7 @@ const options = [
       <Handle type="target" position={Position.Left} />
       <div className='wrapper'>
       {rows.map((row, index) => (
-          <ChoiceRow key={row.id} id={row.id} data={row.data} position={index} deleteFunc={deleteRow} renderDelete={rows.length > 2}/>
+          <ChoiceRow key={row.idOfRow} idOfRow={row.idOfRow} data={row.data} position={index} deleteFunc={deleteRow} renderDelete={rows.length > 2}/>
         ))}
         {/* {Array.from({ length: handleCount }).map((_, index) => (
           <>
@@ -113,8 +102,12 @@ const options = [
         <p>There are {handleCount} handles on this node.</p>
       </div> */}
       <div>
-        <button type="button" onClick={addRow}>Add handle</button>
+        <button type="button" onClick={addRow}>Добавить условие</button>
       </div>
+      <div>
+        <button type="button" onClick={testButton}>Вывести условия</button>
+      </div>
+
 
     </div>
   );
