@@ -1,12 +1,13 @@
 import { makeAutoObservable } from "mobx"
 
-interface Variable {
-  name: string,
-  value : number
-}
+
 
 class VariableStore {
-  variables : Array<Variable> = [];
+  variables = [
+    { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' },
+  { value: 'Очень длинная переменная', label: 'Очень длинная переменная' }];
 
   constructor(){
     makeAutoObservable(this)

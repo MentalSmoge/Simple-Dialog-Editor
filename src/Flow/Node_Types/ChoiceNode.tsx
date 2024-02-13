@@ -6,6 +6,8 @@ import Select from 'react-select'
 import t from "../../store/VariablesStore"
 import './ChoiceNode.css';
 import ChoiceRow from '../ChoiceRow';
+import { rowProps } from '../types';
+
 
 // eslint-disable-next-line react/function-component-definition
 const ChoiceNode: FC<NodeProps> = ({ id, data, xPos, yPos }) => {
@@ -13,40 +15,52 @@ const ChoiceNode: FC<NodeProps> = ({ id, data, xPos, yPos }) => {
   const edges = reactFlow.getEdges();
 
   const [increment, setIncrement] = useState(0);
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState<rowProps[]>([]);
 
   const updateNodeInternals = useUpdateNodeInternals();
-  const [handleCount, setHandleCount] = useState(4);
-  const randomizeHandleCount = useCallback(() => {
-    setHandleCount(Math.floor(Math.random() * 10));
-    updateNodeInternals(id);
-  }, [id, updateNodeInternals]);
+  // const randomizeHandleCount = useCallback(() => {
+  //   setHandleCount(Math.floor(Math.random() * 10));
+  //   updateNodeInternals(id);
+  // }, [id, updateNodeInternals]);
 
-  const addHandle = useCallback(() => {
-    setHandleCount(handleCount + 1);
-    updateNodeInternals(id);
-  }, [handleCount, id, updateNodeInternals]);
+  // const addHandle = useCallback(() => {
+  //   setHandleCount(handleCount + 1);
+  //   updateNodeInternals(id);
+  // }, [handleCount, id, updateNodeInternals]);
 
-  const addRow = useCallback(() => {
-    setIncrement(increment + 1)
-    setHandleCount(handleCount + 1);
-    const newElement = {
-      id: increment
-    };
+  const testButton = () => {
+    const updatedList = rows.map(item =>
+      {
+        const newData = item.data
+        newData.firstVar = "saaas"
+        return {...item, data: newData};
+      });
 
-    setRows([...rows, <ChoiceRow />])
-
-    updateNodeInternals(id);
-
-
-  }, [handleCount, id, updateNodeInternals]);
-
-  const options = [
+    setRows(updatedList); // set state to new object with updated list
+  }
+const options = [
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },
     { value: 'vanilla', label: 'Vanilla' },
     { value: 'Очень длинная переменная', label: 'Очень длинная переменная' }
   ]
+  const addRow = useCallback(() => {
+    setIncrement(increment + 1)
+    const newElement : rowProps = {
+      id: increment,
+      data: {
+        firstVar: options[0],
+        secondVar: options[0]
+      }
+    };
+
+    setRows([...rows, newElement])
+
+    updateNodeInternals(id);
+
+  }, [id, increment, rows, updateNodeInternals]);
+
+
   const optionsCompare = [
     { value: '>', label: '>' },
     { value: '=', label: '=' },
@@ -55,21 +69,28 @@ const ChoiceNode: FC<NodeProps> = ({ id, data, xPos, yPos }) => {
   const getStyle = (index : number) => {
     return { top: 38 * index + 29 };
   }
-  const deleteHandle = useCallback((handleId : String) => {
-    setHandleCount(handleCount - 1);
+  const deleteRow = (Id : number) => {
     updateNodeInternals(id);
-    const edge = edges.filter(variant => variant.source === id && variant.sourceHandle === handleId)
+    const edge = reactFlow.getEdges().filter(variant => variant.source === id && variant.sourceHandle === `handle-${Id}`)
+    console.log(edge)
 
     const result = edges.filter(item => !edge.includes(item));
-    reactFlow.setEdges(result);
+    console.log(result)
 
-  }, [edges, handleCount, id, reactFlow, updateNodeInternals]);
+    reactFlow.setEdges(result);
+    setRows(rows.filter(a => a.id !== Id))
+    updateNodeInternals(id);
+
+  };
 
   return (
     <div>
       <Handle type="target" position={Position.Left} />
       <div className='wrapper'>
-        {Array.from({ length: handleCount }).map((_, index) => (
+      {rows.map((row, index) => (
+          <ChoiceRow key={row.id} id={row.id} data={row.data} position={index} deleteFunc={deleteRow} renderDelete={rows.length > 2}/>
+        ))}
+        {/* {Array.from({ length: handleCount }).map((_, index) => (
           <>
             <Handle
             key={index}
@@ -85,14 +106,14 @@ const ChoiceNode: FC<NodeProps> = ({ id, data, xPos, yPos }) => {
               <button className='nodrag child' type='button' onClick={() => deleteHandle("handle-2")}>Удалить</button>) : (<div/>)}
 
           </>
-        ))}
+        ))} */}
       </div>
-      <div>
+      {/* <div>
         <button type="button" onClick={randomizeHandleCount}>Randomize handle count</button>
         <p>There are {handleCount} handles on this node.</p>
-      </div>
+      </div> */}
       <div>
-        <button type="button" onClick={addHandle}>Add handle</button>
+        <button type="button" onClick={addRow}>Add handle</button>
       </div>
 
     </div>

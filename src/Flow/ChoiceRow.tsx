@@ -1,28 +1,39 @@
 import Select from "react-select";
-import { Handle } from "reactflow";
+import { observer } from 'mobx-react-lite';
+import { Handle, Position } from "reactflow";
+import { rowDisplayProps } from "./types";
+import Store from '../store/VariablesStore';
+import "./ChoiceRow.css"
 
-interface ChoiceRowProps {
-  index : number;
-}
 
-function ChoiceRow({sas} : ChoiceRowProps) {
+
+function ChoiceRow({id, data, renderDelete, position, deleteFunc} : rowDisplayProps) {
+
+  const getStyle = (index : number) => {
+    return { top: 38 * index + 29 };
+  }
+
+  const optionsCompare = [
+    { value: '>', label: '>' },
+    { value: '=', label: '=' },
+    { value: '<', label: '<' }
+  ]
+
   return(
-  <>
+  <div className="content" key={id}>
       <Handle
-      key={index}
       type="source"
       position={Position.Right}
-      id={`handle-${index}`}
-      style={getStyle(index)}
+      id={`handle-${id}`}
+      style={getStyle(position)}
       />
-      <Select options={options} className='nodrag child'/>
+      <Select value={data.firstVar} options={Store.variables} className='nodrag child'/>
       <Select components={{DropdownIndicator:() => null, IndicatorSeparator:() => null}} options={optionsCompare} isSearchable={false} defaultValue={optionsCompare[1]} className='nodrag child' />
-      <Select options={options} className='nodrag child' />
-      {handleCount > 2 ? (
-        <button className='nodrag child' type='button' onClick={() => deleteHandle("handle-2")}>Удалить</button>) : (<div/>)}
-
-  </>
+      <Select options={Store.variables} className='nodrag child' />
+      {renderDelete ? (
+        <button className='nodrag child' type='button' onClick={() => deleteFunc(id)}>Удалить</button>) : (<div/>)}
+  </div>
   );
 }
 
-export default ChoiceRow;
+export default observer(ChoiceRow);
