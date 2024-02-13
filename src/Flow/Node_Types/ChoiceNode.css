@@ -1,5 +1,13 @@
-.container {
-  width: 300px;
-  display: flex;
-  flex-direction: 'row';
+.wrapper {
+  display: grid;
+  grid-template-columns: auto 30px auto auto;
+}
+
+.child {
+
+  display: inline-block;
+}
+
+.content {
+  display: contents;
 }

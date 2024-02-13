@@ -1,37 +1,28 @@
-import { memo } from 'react';
-import { Handle, Position, type NodeProps} from 'reactflow';
-import Select from 'react-select'
-import "./ChoiceRow.css";
+import Select from "react-select";
+import { Handle } from "reactflow";
 
-// eslint-disable-next-line react/function-component-definition
-const ChoiceRow = ({row}) => {
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ]
-  const optionsCompare = [
-    { value: '>', label: '>' },
-    { value: '=', label: '=' },
-    { value: '<', label: '<' }
-  ]
-  const getStyle = () => {
-    console.log(38 * row + 19)
-    return { top: 38 * row + 19 };
-  }
-  return (
-    <div className='container'>
-        <Select className='nodrag' options={options} />
-        <Select className='nodrag' options={optionsCompare} defaultValue={optionsCompare[1]}/>
-        <Select className='nodrag' options={options} />
-        <Handle
-          type="source"
-          position={Position.Right}
-          id={`handle-${row}`}
-          style={getStyle()}
-        />
-    </div>
+interface ChoiceRowProps {
+  index : number;
+}
+
+function ChoiceRow({sas} : ChoiceRowProps) {
+  return(
+  <>
+      <Handle
+      key={index}
+      type="source"
+      position={Position.Right}
+      id={`handle-${index}`}
+      style={getStyle(index)}
+      />
+      <Select options={options} className='nodrag child'/>
+      <Select components={{DropdownIndicator:() => null, IndicatorSeparator:() => null}} options={optionsCompare} isSearchable={false} defaultValue={optionsCompare[1]} className='nodrag child' />
+      <Select options={options} className='nodrag child' />
+      {handleCount > 2 ? (
+        <button className='nodrag child' type='button' onClick={() => deleteHandle("handle-2")}>Удалить</button>) : (<div/>)}
+
+  </>
   );
-};
+}
 
-export default memo(ChoiceRow);
+export default ChoiceRow;

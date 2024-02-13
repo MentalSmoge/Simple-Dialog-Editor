@@ -6,7 +6,9 @@ import ReactFlow, {
   type Connection,
   type Edge,
   type Node,
+  type EdgeProps,
   ReactFlowProvider,
+  Background,
 } from 'reactflow';
 
 import CustomNode from './Node_Types/CustomNode';
@@ -73,6 +75,7 @@ const initialNodes: Node[] = [
 const initialEdges: Edge[] = [
   { id: 'e1-2', source: '1', target: '2', animated: true },
   { id: 'e1-3', source: '1', target: '3', animated: true },
+  { id: 'e1-4', source: '9', target: '3', sourceHandle: "handle-2", animated: true },
 ];
 
 function Flow() {
@@ -95,7 +98,11 @@ function Flow() {
           onConnect={onConnect}
           fitView
           nodeTypes={nodeTypes}
-        />
+          snapToGrid
+          snapGrid={[25, 25]}
+        >
+          <Background color="#ccc" variant='cross' gap={25} size={4} />
+        </ReactFlow>
       </div>
     </ReactFlowProvider>
   );
