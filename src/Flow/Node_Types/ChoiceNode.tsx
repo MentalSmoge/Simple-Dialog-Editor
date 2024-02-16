@@ -12,26 +12,17 @@ import { rowProps } from '../types';
 // eslint-disable-next-line react/function-component-definition
 const ChoiceNode: FC<NodeProps> = ({ id, data, xPos, yPos }) => {
   const reactFlow = useReactFlow();
-  const edges = reactFlow.getEdges();
 
   const [increment, setIncrement] = useState(0);
   const [rows, setRows] = useState<rowProps[]>([]);
 
   const updateNodeInternals = useUpdateNodeInternals();
-  // const randomizeHandleCount = useCallback(() => {
-  //   setHandleCount(Math.floor(Math.random() * 10));
-  //   updateNodeInternals(id);
-  // }, [id, updateNodeInternals]);
-
-  // const addHandle = useCallback(() => {
-  //   setHandleCount(handleCount + 1);
-  //   updateNodeInternals(id);
-  // }, [handleCount, id, updateNodeInternals]);
 
   const testButton = () => {
 
   }
 const options = [
+    { value: '', label: '' },
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },
     { value: 'vanilla', label: 'Vanilla' },
@@ -79,28 +70,7 @@ const options = [
       {rows.map((row, index) => (
           <ChoiceRow key={row.idOfRow} idOfRow={row.idOfRow} data={row.data} position={index} deleteFunc={deleteRow} renderDelete={rows.length > 2}/>
         ))}
-        {/* {Array.from({ length: handleCount }).map((_, index) => (
-          <>
-            <Handle
-            key={index}
-            type="source"
-            position={Position.Right}
-            id={`handle-${index}`}
-            style={getStyle(index)}
-            />
-            <Select options={options} className='nodrag child'/>
-            <Select components={{DropdownIndicator:() => null, IndicatorSeparator:() => null}} options={optionsCompare} isSearchable={false} defaultValue={optionsCompare[1]} className='nodrag child' />
-            <Select options={options} className='nodrag child' />
-            {handleCount > 2 ? (
-              <button className='nodrag child' type='button' onClick={() => deleteHandle("handle-2")}>Удалить</button>) : (<div/>)}
-
-          </>
-        ))} */}
       </div>
-      {/* <div>
-        <button type="button" onClick={randomizeHandleCount}>Randomize handle count</button>
-        <p>There are {handleCount} handles on this node.</p>
-      </div> */}
       <div>
         <button type="button" onClick={addRow}>Добавить условие</button>
       </div>

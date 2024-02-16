@@ -4,7 +4,7 @@
     ".prettierrc": "jsonc",
     ".eslintignore": "ignore"
   },
-  
+
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -15,7 +15,7 @@
   "javascript.validate.enable": false,
   "javascript.format.enable": false,
   "typescript.format.enable": false,
-
+  "doki.sticker.path": "d:\\Downloads Edge\\16c2e90fdc618b48c1d0170044a1cb93c646dd8c_hq.gif",
   "search.exclude": {
     ".git": true,
     ".eslintcache": true,

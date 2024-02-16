@@ -27,7 +27,7 @@ function ChoiceRow({idOfRow, data, renderDelete, position, deleteFunc} : rowDisp
       id={`handle-${idOfRow}`}
       style={getStyle(position)}
       />
-      <Select value={data.firstVar} options={Store.variables} className='nodrag child'/>
+      <Select onChange={} value={data.firstVar} options={Store.variables} className='nodrag child'/>
       <Select components={{DropdownIndicator:() => null, IndicatorSeparator:() => null}} options={optionsCompare} isSearchable={false} defaultValue={optionsCompare[1]} className='nodrag child' />
       <Select options={Store.variables} className='nodrag child' />
       <p>{idOfRow}</p>
