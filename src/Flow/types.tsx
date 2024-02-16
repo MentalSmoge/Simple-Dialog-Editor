@@ -1,8 +1,9 @@
 export interface rowProps {
   idOfRow : number,
   data : {
-    firstVar : { value: string, label: string },
-    secondVar : { value: string, label: string }
+    firstVar? : { value: string, label: string },
+    secondVar? : { value: string, label: string },
+    thirdVar? : { value: string, label: string }
   }
 }
 export interface rowDisplayProps {
@@ -10,9 +11,11 @@ export interface rowDisplayProps {
   position : number,
   deleteFunc : Function,
   renderDelete : boolean,
+  changeVar : Function,
   data : {
-    firstVar : { value: string, label: string },
-    secondVar : { value: string, label: string }
+    firstVar? : { value: string, label: string },
+    secondVar? : { value: string, label: string },
+    thirdVar? : { value: string, label: string }
   }
 }
 

@@ -7,7 +7,7 @@ import "./ChoiceRow.css"
 
 
 
-function ChoiceRow({idOfRow, data, renderDelete, position, deleteFunc} : rowDisplayProps) {
+function ChoiceRow({idOfRow, data, renderDelete, position, deleteFunc, changeVar} : rowDisplayProps) {
 
   const getStyle = (index : number) => {
     return { top: 38 * index + 29 };
@@ -27,10 +27,12 @@ function ChoiceRow({idOfRow, data, renderDelete, position, deleteFunc} : rowDisp
       id={`handle-${idOfRow}`}
       style={getStyle(position)}
       />
-      <Select onChange={} value={data.firstVar} options={Store.variables} className='nodrag child'/>
-      <Select components={{DropdownIndicator:() => null, IndicatorSeparator:() => null}} options={optionsCompare} isSearchable={false} defaultValue={optionsCompare[1]} className='nodrag child' />
-      <Select options={Store.variables} className='nodrag child' />
-      <p>{idOfRow}</p>
+      {/* Первая переменная */}
+      <Select onChange={(val) => changeVar(idOfRow, 'first', val)} value={data.firstVar} options={Store.variables} className='nodrag child'/>
+      {/* Сравнение */}
+      <Select onChange={(val) => changeVar(idOfRow, 'second', val)} components={{DropdownIndicator:() => null, IndicatorSeparator:() => null}} options={optionsCompare} isSearchable={false} defaultValue={optionsCompare[1]} className='nodrag child' />
+      {/* Вторая переменная */}
+      <Select onChange={(val) => changeVar(idOfRow, 'third', val)} options={Store.variables} className='nodrag child' />
       {renderDelete ? (
         <button className='nodrag child' type='button' onClick={() => deleteFunc(idOfRow)}>Удалить</button>) : (<div/>)}
   </div>
