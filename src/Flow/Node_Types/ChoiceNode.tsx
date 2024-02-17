@@ -8,7 +8,7 @@ import { rowProps } from '../types';
 
 
 // eslint-disable-next-line react/function-component-definition
-const ChoiceNode: FC<NodeProps> = ({ id, data, xPos, yPos }) => {
+const ChoiceNode: FC<NodeProps> = ({ id }) => {
   const reactFlow = useReactFlow();
   const initialValue = [{
     idOfRow: 0,

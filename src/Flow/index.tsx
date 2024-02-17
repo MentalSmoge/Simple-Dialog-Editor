@@ -6,9 +6,9 @@ import ReactFlow, {
   type Connection,
   type Edge,
   type Node,
-  type EdgeProps,
   ReactFlowProvider,
   Background,
+  BackgroundVariant,
 } from 'reactflow';
 
 import CustomNode from './Node_Types/CustomNode';
@@ -101,7 +101,7 @@ function Flow() {
           snapToGrid
           snapGrid={[25, 25]}
         >
-          <Background color="#ccc" variant='cross' gap={25} size={4} />
+          <Background color="#ccc" variant={BackgroundVariant.Cross} gap={25} size={4} />
         </ReactFlow>
       </div>
     </ReactFlowProvider>

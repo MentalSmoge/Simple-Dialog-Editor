@@ -8,7 +8,7 @@ import './TextNode.css';
 const sourceHandleStyleA: CSSProperties = {};
 
 // eslint-disable-next-line react/function-component-definition
-const TextNode: FC<NodeProps> = ({ data, xPos, yPos }) => {
+const TextNode: FC<NodeProps> = ({ data }) => {
   const resetSelectedElements = useStore(a => a.resetSelectedElements)
   const [textContent, setTextContent] = useState(data.text);
   function applyTextChange(newText : string) {
