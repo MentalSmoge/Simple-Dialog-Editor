@@ -5,7 +5,27 @@ import { useState } from 'react';
 import './ChoiceNode.css';
 import ChoiceRow from '../ChoiceRow';
 import { rowProps } from '../types';
+import { ColumnDef, createColumnHelper, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 
+
+const columns = [
+  {
+    accessorKey: 'first',
+    header: 'First',
+    cell: (props) => <p>{props.getValue()}</p>
+  },
+  {
+    accessorKey: 'second',
+    header: 'Second',
+    cell: (props) => <p>{props.getValue()}</p>
+  },
+
+  {
+    accessorKey: 'third',
+    header: 'Third',
+    cell: (props) => <p>{props.getValue()}</p>
+  },
+]
 
 // eslint-disable-next-line react/function-component-definition
 const ChoiceNode: FC<NodeProps> = ({ id }) => {
@@ -35,7 +55,11 @@ const ChoiceNode: FC<NodeProps> = ({ id }) => {
       console.log(`${element.idOfRow} ${element.data.firstVar?.label} ${element.data.secondVar?.label} ${element.data.thirdVar?.label}`)
     });
   }
-
+  type rowType = {
+    first: string
+    second: string
+    third: number
+  }
   const addRow = useCallback(() => {
     setIncrement(increment + 1)
     const newElement : rowProps = {
