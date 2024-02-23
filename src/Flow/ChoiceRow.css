@@ -1,3 +1,7 @@
 .content {
   display: contents;
 }
+
+.coolselect {
+  border-width: 10px;
+}

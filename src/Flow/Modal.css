@@ -1,44 +1,42 @@
 .modal {
-
+  --pos: 70px;
+  border-radius: 10px;
+  border-width: 5px;
+  border-color: black;
   position: absolute;
-  top: 40px;
-  left: 40px;
-  right: 40px;
-  bottom: 40px;
+  top: var(--pos);
+  left: var(--pos);
+  right: var(--pos);
+  bottom: var(--pos);
   font-size: 18px;
   background: rgb(234, 234, 234);
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-}
-
-textarea {
-  resize: none;
-  height: fit-content;
+  min-width: 150px;
 }
 
 .modal>.header {
   width: 100%;
+  border-radius: 10px;
   border-bottom: 1px solid gray;
+  background-color: #cfcece;
   font-size: 18px;
   text-align: center;
   padding: 5px 0px;
+  margin-bottom: 1rem;
+  margin-top: 0;
 }
 
-.modal>.content {
-  width: 100%;
-  flex-grow: 1;
-  padding: 10px 0px;
-  display: flex;
-}
-
-.modal>.content>.textArea {
-  width: 100%;
+.modal>.textArea {
   height: 100%;
+  margin: 1rem;
   resize: none;
   flex-grow: 1;
-  margin: 1rem;
   box-sizing: border-box;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  overflow-y: auto;
 
   flex-direction: column;
 }
@@ -49,15 +47,21 @@ textarea {
   text-align: center;
 }
 
-.modal>.close {
+.modal>.button-row {
+  display: flex;
+  align-self: center;
+  width: 80%;
+  gap: 10px;
+}
+
+.modal>.button-row>.close {
   cursor: pointer;
-  position: absolute;
   display: block;
-  padding: 2px 5px;
+  width: 100%;
+  padding: 5px 5px;
+  margin: 0 0rem 1rem 0rem;
   line-height: 20px;
-  right: -10px;
-  top: -10px;
-  font-size: 24px;
+  font-size: 18px;
   background: #ffffff;
   border-radius: 18px;
   border: 1px solid #cfcece;

@@ -1,13 +1,9 @@
 .wrapper {
   display: grid;
-  grid-template-columns: auto 30px auto auto;
+  grid-template-columns: auto auto auto auto;
 }
 
 .child {
-
+  margin-bottom: 8px;
   display: inline-block;
-}
-
-.content {
-  display: contents;
 }

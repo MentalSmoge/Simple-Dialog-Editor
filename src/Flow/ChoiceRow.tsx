@@ -10,7 +10,7 @@ import "./ChoiceRow.css"
 function ChoiceRow({idOfRow, data, renderDelete, position, deleteFunc, changeVar} : rowDisplayProps) {
 
   const getStyle = (index : number) => {
-    return { top: 38 * index + 29 };
+    return { top: (38+8) * index + 29 };
   }
 
   const optionsCompare = [
@@ -20,7 +20,7 @@ function ChoiceRow({idOfRow, data, renderDelete, position, deleteFunc, changeVar
   ]
 
   return(
-  <div className="content" key={idOfRow}>
+  <>
       <Handle
       type="source"
       position={Position.Right}
@@ -28,14 +28,29 @@ function ChoiceRow({idOfRow, data, renderDelete, position, deleteFunc, changeVar
       style={getStyle(position)}
       />
       {/* Первая переменная */}
-      <Select onChange={(val) => changeVar(idOfRow, 'first', val)} value={data.firstVar} options={Store.variables} className='nodrag child'/>
+      <Select onChange={(val) => changeVar(idOfRow, 'first', val)} value={data.firstVar} options={Store.variables} className='nodrag child coolselect' styles={{
+    control: (baseStyles, state) => ({
+          ...baseStyles,
+          borderRadius:"8px 0 0 8px",
+        }),
+      }}/>
       {/* Сравнение */}
-      <Select onChange={(val) => changeVar(idOfRow, 'second', val)} components={{DropdownIndicator:() => null, IndicatorSeparator:() => null}} options={optionsCompare} isSearchable={false} defaultValue={optionsCompare[1]} className='nodrag child' />
+      <Select onChange={(val) => changeVar(idOfRow, 'second', val)} components={{DropdownIndicator:() => null, IndicatorSeparator:() => null}} options={optionsCompare} isSearchable={false} defaultValue={optionsCompare[1]} className='nodrag child coolselect' styles={{
+    control: (baseStyles, state) => ({
+          ...baseStyles,
+          borderRadius:"0",
+        }),
+      }}/>
       {/* Вторая переменная */}
-      <Select onChange={(val) => changeVar(idOfRow, 'third', val)} options={Store.variables} className='nodrag child' />
+      <Select onChange={(val) => changeVar(idOfRow, 'third', val)} options={Store.variables} className='nodrag child coolselect' styles={{
+    control: (baseStyles, state) => ({
+          ...baseStyles,
+          borderRadius:"0 8px 8px 0",
+        }),
+      }}/>
       {renderDelete ? (
-        <button className='nodrag child' type='button' onClick={() => deleteFunc(idOfRow)}>Удалить</button>) : (<div/>)}
-  </div>
+        <button className='nodrag child' type='button' onClick={() => deleteFunc(idOfRow)}>Удалить</button>) : (<div />)}
+  </>
   );
 }
 

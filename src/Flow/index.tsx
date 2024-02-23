@@ -31,28 +31,6 @@ const nodeTypes = {
 
 const initialNodes: Node[] = [
   {
-    id: '1',
-    type: 'input',
-    data: { label: 'Node 1' },
-    position: { x: 250, y: 5 },
-  },
-  {
-    id: '2',
-    data: { label: 'Node 2' },
-    position: { x: 100, y: 100 },
-  },
-  {
-    id: '3',
-    data: { label: 'Node 3' },
-    position: { x: 400, y: 100 },
-  },
-  {
-    id: '4',
-    data: { label: 'Node 4' },
-    position: { x: 400, y: 200 },
-    type: 'custom',
-  },
-  {
     id: '5',
     data: { label: 'Node 5', text: 'This is text   das\n cool ass hat maaaan   wo w ddddddddddddddddd dddddddddddddd ddddddddddddddddddddd sad asd asd asd wqe  s yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy' },
     position: { x: 200, y: 200 },
@@ -101,7 +79,7 @@ function Flow() {
           snapToGrid
           snapGrid={[25, 25]}
         >
-          <Background color="#ccc" variant={BackgroundVariant.Cross} gap={25} size={4} />
+          <Background color="#bbc872" variant={BackgroundVariant.Cross} gap={25} size={4} />
         </ReactFlow>
       </div>
     </ReactFlowProvider>
