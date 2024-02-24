@@ -1,8 +1,9 @@
-import { memo, type FC } from 'react';
+import Select from "react-select";
+import { memo, type FC, type CSSProperties } from 'react';
 import { Handle, Position, type NodeProps, useStore, NodeResizer } from 'reactflow';
 import { useState } from 'react';
 
-import t from "../../store/TextEditorStore"
+import Store from "../../store/CharacterStore"
 import './TextNode.css';
 
 
@@ -17,26 +18,27 @@ const TextNode: FC<NodeProps> = ({ data, selected }) => {
     resetSelectedElements();
     t.openEditor(textContent, applyTextChange);
   }
+  const handleStyle: CSSProperties = {
+    width:10,
+    height:10 }
+
+  const lineStyle: CSSProperties ={
+    borderWidth:2
+  }
+  const [character, setCharacter] = useState()
+
   return (
-      <div className='container-text'>
-      <NodeResizer color="#ff0071" handleStyle={{
-        width:10,
-        height:10
-
-      }}
-      lineStyle={{
-        borderWidth:2
-        }} isVisible={selected} minWidth={125} minHeight={100} />
+    <div className='TextNode-container'>
       <Handle type="target" position={Position.Left} />
-      <div className='textContainer'>
-        <textarea value={textContent} readOnly className='textInNode nodrag nowheel'/>
-        <Handle
-          type="source"
-          position={Position.Right}
-        />
+      <Handle type="source" position={Position.Right} />
+      <NodeResizer color="#ff0071" handleStyle= {handleStyle} lineStyle={lineStyle} isVisible={selected} minWidth={125} minHeight={125} />
 
+      <Select value={character} options={Store.character_options} className='nodrag' />
+
+      <div className='TextNode-wrapper'>
+        <textarea value={textContent} readOnly className='TextNode-textarea nodrag nowheel'/>
+        <button className='TextNode-button nodrag' type='button' onClick={() => handleEditClick()}>Изменить текст</button>
       </div>
-      <button className='nodrag textButton' type='button' onClick={() => handleEditClick()}>Изменить текст</button>
     </div>
   );
 };

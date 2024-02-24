@@ -1,6 +1,8 @@
 import { makeAutoObservable } from "mobx"
 
-
+type Variable = {
+  value: string, label: string
+}
 
 class VariableStore {
   variables = [

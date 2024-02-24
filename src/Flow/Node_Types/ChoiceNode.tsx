@@ -5,6 +5,7 @@ import { useState } from 'react';
 import './ChoiceNode.css';
 import ChoiceRow from '../ChoiceRow';
 import { rowProps } from '../types';
+import Store from '../../store/VariablesStore';
 
 
 // eslint-disable-next-line react/function-component-definition
@@ -31,9 +32,7 @@ const ChoiceNode: FC<NodeProps> = ({ id }) => {
   const updateNodeInternals = useUpdateNodeInternals();
 
   const testButton = () => {
-    rows.forEach(element => {
-      console.log(`${element.idOfRow} ${element.data.firstVar?.label} ${element.data.secondVar?.label} ${element.data.thirdVar?.label}`)
-    });
+    Store.addVar({label:"sas", value: "Sas"})
   }
 
   const addRow = useCallback(() => {
@@ -88,6 +87,7 @@ const ChoiceNode: FC<NodeProps> = ({ id }) => {
         ))}
       </div>
         <button type="button" className='buttonInChoice' onClick={addRow}>Добавить условие</button>
+        <button type="button" className='buttonInChoice' onClick={testButton}>Тестовая</button>
 
     </div>
   );

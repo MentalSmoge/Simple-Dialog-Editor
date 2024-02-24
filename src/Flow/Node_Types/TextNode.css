@@ -7,34 +7,48 @@
   /* Минимальная длина бегунка скроллбара (ширина горизонтального, высота вертикального) */
 }
 
-.textInNode::-webkit-scrollbar {
+.TextNode-textarea::-webkit-scrollbar {
   height: var(--scrollbar-size);
   width: var(--scrollbar-size);
 }
 
-.textInNode::-webkit-scrollbar-track {
+.TextNode-textarea::-webkit-scrollbar-track {
   background-color: var(--scrollbar-track-color);
 }
 
-.textInNode::-webkit-scrollbar:hover {
+.TextNode-textarea::-webkit-scrollbar:hover {
   background-color: rgba(0, 0, 0, .1);
   cursor: pointer;
 }
 
-.textInNode::-webkit-scrollbar-thumb {
+.TextNode-textarea::-webkit-scrollbar-thumb {
   background-color: var(--scrollbar-color);
   /* Если нужно - добавьте :hover и:active */
 }
 
-.textInNode::-webkit-scrollbar-thumb:vertical {
+.TextNode-textarea::-webkit-scrollbar-thumb:vertical {
   min-height: var(--scrollbar-minlength);
 }
 
-.textInNode::-webkit-scrollbar-thumb:horizontal {
+.TextNode-textarea::-webkit-scrollbar-thumb:horizontal {
   min-width: var(--scrollbar-minlength);
 }
 
-.textInNode {
+.TextNode-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.TextNode-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.TextNode-textarea {
   white-space: pre-wrap;
   overflow-wrap: break-word;
   overflow-y: auto;
@@ -49,29 +63,27 @@
   font: inherit;
 }
 
-.container-text {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: space-between;
-  padding: 10px;
-}
-
-.textContainer {
-  display: flex;
-  flex-direction: column;
-}
-
-.textButton {
+.TextNode-button {
   border-radius: 10px;
   background-color: var(--neutral-button-color);
   font: inherit;
   height: 2rem;
+  min-height: 2rem;
   min-width: 73px;
+  margin-bottom: auto
 }
 
-.header {
+.TextNode-header {
   background-color: aqua;
   margin: 0;
   border-radius: 10px;
 }
+
+.textInNode {}
+
+.container-text {}
+
+
+.textButton {}
+
+.header {}
