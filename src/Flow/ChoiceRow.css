@@ -5,3 +5,10 @@
 .coolselect {
   border-width: 10px;
 }
+
+.deleteButton {
+  border-radius: 10px;
+  background-color: var(--delete-button-color);
+  font: inherit;
+  margin-left: 1rem;
+}

@@ -20,14 +20,16 @@ import ChoiceNode from './Node_Types/ChoiceNode';
 import 'reactflow/dist/style.css';
 
 import './Flow.css';
+import StaticEdge from './Edge_Types/StaticEdge';
 // import TextEditorStore from '../store/TextEditorStore';
 
 const nodeTypes = {
-  custom: CustomNode,
-  resizable: ResizeableText,
   text: TextNode,
   choice : ChoiceNode
 };
+const edgeTypes = {
+  'static-edge': StaticEdge
+}
 
 const initialNodes: Node[] = [
   {
@@ -50,17 +52,16 @@ const initialNodes: Node[] = [
   },
 ];
 
-const initialEdges: Edge[] = [
-  { id: 'e1-2', source: '1', target: '2', animated: true },
-  { id: 'e1-3', source: '1', target: '3', animated: true },
-  { id: 'e1-4', source: '9', target: '3', sourceHandle: "handle-2", animated: true },
-];
+const initialEdges: Edge[] = [];
 
 function Flow() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const onConnect = useCallback(
-    (params: Connection | Edge) => setEdges((eds) => addEdge(params, eds)),
+    (params: Connection | Edge) => {
+      const edge = { ...params, type: 'static-edge' };
+      setEdges((eds) => addEdge(edge, eds))
+    },
     [setEdges],
   );
 
@@ -78,6 +79,7 @@ function Flow() {
           nodeTypes={nodeTypes}
           snapToGrid
           snapGrid={[25, 25]}
+          edgeTypes={edgeTypes}
         >
           <Background color="#bbc872" variant={BackgroundVariant.Cross} gap={25} size={4} />
         </ReactFlow>

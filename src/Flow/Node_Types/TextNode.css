@@ -1,3 +1,39 @@
+:root {
+  --scrollbar-track-color: transparent;
+  --scrollbar-color: rgba(0, 0, 0, .2);
+
+  --scrollbar-size: .5rem;
+  --scrollbar-minlength: 1.5rem;
+  /* Минимальная длина бегунка скроллбара (ширина горизонтального, высота вертикального) */
+}
+
+.textInNode::-webkit-scrollbar {
+  height: var(--scrollbar-size);
+  width: var(--scrollbar-size);
+}
+
+.textInNode::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-track-color);
+}
+
+.textInNode::-webkit-scrollbar:hover {
+  background-color: rgba(0, 0, 0, .1);
+  cursor: pointer;
+}
+
+.textInNode::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-color);
+  /* Если нужно - добавьте :hover и:active */
+}
+
+.textInNode::-webkit-scrollbar-thumb:vertical {
+  min-height: var(--scrollbar-minlength);
+}
+
+.textInNode::-webkit-scrollbar-thumb:horizontal {
+  min-width: var(--scrollbar-minlength);
+}
+
 .textInNode {
   white-space: pre-wrap;
   overflow-wrap: break-word;
@@ -7,15 +43,35 @@
   border: 1px solid black;
   margin-bottom: 1em;
   background-color: var(--node-text-color);
-  scrollbar-width: thin;
-  z-index: 10;
+  resize: none;
+  outline: none;
+  border: none;
+  font: inherit;
+}
+
+.container-text {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  padding: 10px;
 }
 
 .textContainer {
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
-.textButton {}
+.textButton {
+  border-radius: 10px;
+  background-color: var(--neutral-button-color);
+  font: inherit;
+  height: 2rem;
+  min-width: 73px;
+}
+
+.header {
+  background-color: aqua;
+  margin: 0;
+  border-radius: 10px;
+}

@@ -1,11 +1,10 @@
-import { memo, type FC, type CSSProperties } from 'react';
+import { memo, type FC } from 'react';
 import { Handle, Position, type NodeProps, useStore, NodeResizer } from 'reactflow';
 import { useState } from 'react';
 
 import t from "../../store/TextEditorStore"
 import './TextNode.css';
 
-const sourceHandleStyleA: CSSProperties = {};
 
 // eslint-disable-next-line react/function-component-definition
 const TextNode: FC<NodeProps> = ({ data, selected }) => {
@@ -19,18 +18,25 @@ const TextNode: FC<NodeProps> = ({ data, selected }) => {
     t.openEditor(textContent, applyTextChange);
   }
   return (
-    <div className='textContainer'>
-      <NodeResizer color="#ff0071" isVisible={selected} minWidth={125} minHeight={100} />
-      <Handle type="target" position={Position.Left} />
-      <p className='textInNode nodrag nowheel'>{textContent}</p>
-      <button className='nodrag textButton' type='button' onClick={() => handleEditClick()}>Open Modal</button>
-      <Handle
-        type="source"
-        position={Position.Right}
-        id="a"
-        style={sourceHandleStyleA}
-      />
+      <div className='container-text'>
+      <NodeResizer color="#ff0071" handleStyle={{
+        width:10,
+        height:10
 
+      }}
+      lineStyle={{
+        borderWidth:2
+        }} isVisible={selected} minWidth={125} minHeight={100} />
+      <Handle type="target" position={Position.Left} />
+      <div className='textContainer'>
+        <textarea value={textContent} readOnly className='textInNode nodrag nowheel'/>
+        <Handle
+          type="source"
+          position={Position.Right}
+        />
+
+      </div>
+      <button className='nodrag textButton' type='button' onClick={() => handleEditClick()}>Изменить текст</button>
     </div>
   );
 };

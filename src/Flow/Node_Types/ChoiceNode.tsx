@@ -80,20 +80,14 @@ const ChoiceNode: FC<NodeProps> = ({ id }) => {
   }
 
   return (
-    <div>
+    <div className='container'>
       <Handle type="target" position={Position.Left} />
       <div className='wrapper'>
       {rows.map((row, index) => (
           <ChoiceRow key={row.idOfRow} idOfRow={row.idOfRow} data={row.data} changeVar={changeVar} position={index} deleteFunc={deleteRow} renderDelete={rows.length > 2}/>
         ))}
       </div>
-      <div>
-        <button type="button" onClick={addRow}>Добавить условие</button>
-      </div>
-      <div>
-        <button type="button" onClick={testButton}>Вывести условия</button>
-      </div>
-
+        <button type="button" className='buttonInChoice' onClick={addRow}>Добавить условие</button>
 
     </div>
   );

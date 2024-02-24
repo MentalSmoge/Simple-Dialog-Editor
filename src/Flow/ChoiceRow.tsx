@@ -49,7 +49,7 @@ function ChoiceRow({idOfRow, data, renderDelete, position, deleteFunc, changeVar
         }),
       }}/>
       {renderDelete ? (
-        <button className='nodrag child' type='button' onClick={() => deleteFunc(idOfRow)}>Удалить</button>) : (<div />)}
+        <button className='nodrag child deleteButton' type='button' onClick={() => deleteFunc(idOfRow)}>Удалить</button>) : (<div />)}
   </>
   );
 }
