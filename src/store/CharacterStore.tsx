@@ -1,12 +1,9 @@
 import { makeAutoObservable } from "mobx"
+import { CharacterLabel } from "../Flow/types";
 
 type Character = {
   name : string,
   bio : string
-}
-type ReturnLabel = {
-  value : string,
-  label : string
 }
 
 class CharacterStore {
@@ -15,7 +12,7 @@ class CharacterStore {
     {name:"Second One", bio:"Not so special tbh"}
   ];
 
-  character_options : ReturnLabel[] = [
+  character_options : CharacterLabel[] = [
     {value:"First One", label:"The Chosen One"},
     {value:"Second One", label:"Not so special tbh"}
   ];

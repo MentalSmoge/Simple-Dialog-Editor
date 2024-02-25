@@ -19,3 +19,12 @@ export interface rowDisplayProps {
   }
 }
 
+export interface CharacterLabel {
+  value : string,
+  label : string
+}
+
+export interface DefaultInputProps {
+  textContent : string,
+  readOnly : boolean
+}

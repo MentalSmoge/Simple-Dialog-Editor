@@ -28,7 +28,7 @@ function ChoiceRow({idOfRow, data, renderDelete, position, deleteFunc, changeVar
       style={getStyle(position)}
       />
       {/* Первая переменная */}
-      <Select onChange={(val) => changeVar(idOfRow, 'first', val)} value={data.firstVar} options={Store.variables} className='nodrag child coolselect' styles={{
+      <Select isClearable onChange={(val) => changeVar(idOfRow, 'first', val)} value={data.firstVar} options={Store.variables} className='nodrag child coolselect' styles={{
     control: (baseStyles, state) => ({
           ...baseStyles,
           borderRadius:"8px 0 0 8px",
@@ -42,7 +42,7 @@ function ChoiceRow({idOfRow, data, renderDelete, position, deleteFunc, changeVar
         }),
       }}/>
       {/* Вторая переменная */}
-      <Select onChange={(val) => changeVar(idOfRow, 'third', val)} options={Store.variables} className='nodrag child coolselect' styles={{
+      <Select isClearable onChange={(val) => changeVar(idOfRow, 'third', val)} options={Store.variables} className='nodrag child coolselect' styles={{
     control: (baseStyles, state) => ({
           ...baseStyles,
           borderRadius:"0 8px 8px 0",
