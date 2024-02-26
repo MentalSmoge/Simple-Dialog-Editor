@@ -28,3 +28,7 @@ export interface DefaultInputProps {
   textContent : string,
   readOnly : boolean
 }
+
+export interface ProportionalImageProps {
+  src : string
+}

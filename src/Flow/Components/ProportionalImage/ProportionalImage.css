@@ -1,0 +1,5 @@
+.ProportionalImage-image {
+  width:100px; /* you can use % */
+  height: auto;
+  max-width: 100px;
+}

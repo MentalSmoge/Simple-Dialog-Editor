@@ -23,6 +23,8 @@
 
 .react-flow__node-choice,
 .react-flow__node-text {
+  min-width: fit-content;
+  min-height: max-content;
   border-radius: 10px;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
   background-color: var(--node-color);

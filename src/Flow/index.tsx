@@ -11,8 +11,6 @@ import ReactFlow, {
   BackgroundVariant,
 } from 'reactflow';
 
-import CustomNode from './Node_Types/CustomNode';
-import ResizeableText from './Node_Types/ResizeableText';
 import TextNode from './Node_Types/TextNode';
 import ChoiceNode from './Node_Types/ChoiceNode';
 
@@ -34,7 +32,7 @@ const edgeTypes = {
 const initialNodes: Node[] = [
   {
     id: '5',
-    data: { label: 'Node 5', text: 'This is text   das\n cool ass hat maaaan   wo w ddddddddddddddddd dddddddddddddd ddddddddddddddddddddd sad asd asd asd wqe  s yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy' },
+    data: { label: 'Node 5', text: 'This is text   das\n cool ass hat maaaan' },
     position: { x: 200, y: 200 },
     type: 'text',
   },
@@ -47,7 +45,7 @@ const initialNodes: Node[] = [
   {
     id: '9',
     data: { label: 'Node 6', text: 'This is ыфы' },
-    position: { x: 0, y: 0 },
+    position: { x: 0, y: -100 },
     type: 'choice',
   },
 ];
