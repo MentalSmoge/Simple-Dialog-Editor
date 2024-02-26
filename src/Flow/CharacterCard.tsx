@@ -8,8 +8,7 @@ function CharacterCard() {
 
   return(
   <div className="CharacterCard-container">
-    <textarea cols={30}/>
-    <ProportionalImage src='file:///D:/Downloads Edge/MyAva.jpg' />
+    <ProportionalImage src='file:///D:\Документы и прочее\Pictures\novice.jpg' />
   </div>
   );
 }

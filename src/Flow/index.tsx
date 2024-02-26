@@ -32,7 +32,7 @@ const edgeTypes = {
 const initialNodes: Node[] = [
   {
     id: '5',
-    data: { label: 'Node 5', text: 'This is text   das\n cool ass hat maaaan' },
+    data: { label: 'Node 5', text: 'This is text   das\n cool ass hat maaaan\n cool ass hat maaaan\n cool ass hat maaaan\n cool ass hat maaaan' },
     position: { x: 200, y: 200 },
     type: 'text',
   },
