@@ -24,8 +24,9 @@ const electronHandler = {
   },
 };
 
-contextBridge.exposeInMainWorld('electron', electronHandler);
+// contextBridge.exposeInMainWorld('electron', electronHandler);
 contextBridge.exposeInMainWorld('electron', {
+  electronHandler,
   showDialog: async () => ipcRenderer.invoke('dialog:open'),
 })
 

@@ -31,11 +31,6 @@ ipcMain.on('ipc-example', async (event, arg) => {
   event.reply('ipc-example', msgTemplate('pong'));
 });
 
-ipcMain.handle('dialog:open', async (_, args) => {
-  const result = await dialog.showOpenDialog({ properties: ['openFile'] })
-  console.log("dialog_open")
-  return result
-})
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -81,7 +76,6 @@ const createWindow = async () => {
     icon: getAssetPath('icon.png'),
     webPreferences: {
       nodeIntegration: true,
-      // contextIsolation: false,
       webSecurity: false,
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
@@ -143,3 +137,8 @@ app
     });
   })
   .catch(console.log);
+
+ipcMain.handle('dialog:open', async (_, args) => {
+  const result = await dialog.showOpenDialog({ properties: ['openFile'] })
+  return result
+})
