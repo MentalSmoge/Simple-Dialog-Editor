@@ -1,2 +1,11 @@
 .CharacterCard-container {
+  display: flex;
+  flex-direction: column;
+  max-width: min-content;
+}
+.CharacterCard-button {
+  border-radius: 10px;
+  margin: 0 0.5rem;
+  background-color: var(--neutral-button-color);
+  font: inherit;
 }

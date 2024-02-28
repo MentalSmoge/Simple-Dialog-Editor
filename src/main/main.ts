@@ -31,6 +31,18 @@ ipcMain.on('ipc-example', async (event, arg) => {
   event.reply('ipc-example', msgTemplate('pong'));
 });
 
+ipcMain.handle('dialog:openFile', async (_, args) => {
+  console.log('running openFile', _, args)
+  const result = await dialog.showOpenDialog({
+    properties: ['openFile'],
+    filters: [
+      { name: 'Images', extensions: ['jpg', 'png'] }
+    ],
+    defaultPath : args
+  })
+  return result
+})
+
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -137,8 +149,3 @@ app
     });
   })
   .catch(console.log);
-
-ipcMain.handle('dialog:open', async (_, args) => {
-  const result = await dialog.showOpenDialog({ properties: ['openFile'] })
-  return result
-})

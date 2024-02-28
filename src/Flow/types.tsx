@@ -32,3 +32,18 @@ export interface DefaultInputProps {
 export interface ProportionalImageProps {
   src : string
 }
+
+export interface CharacterCardProps {
+  folder : string
+}
+
+export type DialogFileData = {
+  /**
+   * Did user cancel dialog?
+   */
+  cancelled: boolean
+  /**
+   * Array of file paths that user selected
+   */
+  filePaths: string[]
+}

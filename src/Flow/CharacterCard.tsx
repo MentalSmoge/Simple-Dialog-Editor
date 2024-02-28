@@ -2,27 +2,24 @@ import Select from "react-select";
 import { Handle, Position } from "reactflow";
 import "./CharacterCard.css"
 import ProportionalImage from "./Components/ProportionalImage";
+import { useState } from "react";
+import { DialogFileData } from "./types";
 
-export type DialogFileData = {
-  /**
-   * Did user cancel dialog?
-   */
-  cancelled: boolean
-  /**
-   * Array of file paths that user selected
-   */
-  filePaths: string[]
-}
 
-function CharacterCard() {
+
+function CharacterCard({character}) {
+  const [currentPicture, setCurrentPicture] = useState<string>()
   async function OpenPortrait() {
-    const files: DialogFileData = await window.electron.showDialog()
-console.log('user files', files)
+    const files: DialogFileData = await window.electron.showOpenDialog("D:\\Downloads Edge")
+    if (files.cancelled) {
+      return;
+    }
+    setCurrentPicture(files.filePaths[0])
   }
   return(
   <div className="CharacterCard-container">
-    <button type='button' onClick={OpenPortrait}>Выбрать портрет</button>
-    <ProportionalImage src='file:///D:\Документы и прочее\Pictures\novice.jpg' />
+    <ProportionalImage src={currentPicture}/>
+    <button className="CharacterCard-button" type='button' onClick={OpenPortrait}>Выбрать портрет</button>
   </div>
   );
 }

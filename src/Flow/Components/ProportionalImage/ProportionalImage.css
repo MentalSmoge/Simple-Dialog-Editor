@@ -1,5 +1,12 @@
 .ProportionalImage-image {
-  width:100px; /* you can use % */
-  height: auto;
-  max-width: 100px;
+  max-width: 200px;
+  max-height: 200px;
+  width: 100px;
+  min-height: 100px;
+  object-fit: scale-down;
+  border-radius: 10px;
+  border-color: black;
+  border-width: 2px;
+  border-style: solid;
+  margin: 0.5rem;
 }

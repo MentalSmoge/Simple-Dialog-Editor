@@ -22,13 +22,6 @@ const TextNode: FC<NodeProps> = ({ data, selected }) => {
     resetSelectedElements();
     t.openEditor(textContent, applyTextChange);
   }
-  const handleStyle: CSSProperties = {
-    width:10,
-    height:10 }
-
-  const lineStyle: CSSProperties ={
-    borderWidth:2
-  }
   const [character, setCharacter] = useState<CharacterLabel|undefined|null>()
   function changeCharacter(newSelection : { value: string | undefined, label: string | undefined }) {
     if (newSelection.value === undefined && newSelection.label === undefined) {
