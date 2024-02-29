@@ -11,15 +11,16 @@ function CharacterCard({character}) {
   const [currentPicture, setCurrentPicture] = useState<string>()
   async function OpenPortrait() {
     const files: DialogFileData = await window.electron.showOpenDialog("D:\\Downloads Edge")
-    if (files.cancelled) {
-      return;
+    if (files.canceled === false) {
+      setCurrentPicture(files.filePaths[0])
+      console.log("not cancelled")
+      console.log(files)
     }
-    setCurrentPicture(files.filePaths[0])
   }
   return(
   <div className="CharacterCard-container">
     <ProportionalImage src={currentPicture}/>
-    <button className="CharacterCard-button" type='button' onClick={OpenPortrait}>Выбрать портрет</button>
+    <button className="CharacterCard-button button_neutral" type='button' onClick={OpenPortrait}>Выбрать портрет</button>
   </div>
   );
 }

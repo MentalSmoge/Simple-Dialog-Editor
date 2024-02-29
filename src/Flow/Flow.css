@@ -1,11 +1,20 @@
 :root {
-  --node-color: #a6b457;
-  --flow-background-color: #f8f9f2;
-  --node-text-color: #ecf0d5;
-  --handle-color: #6557b4;
-  --delete-button-color: #cf573c;
-  --good-button-color: #e8c170;
-  --neutral-button-color: #a4dddb;
+  /* Colors */
+  --flow-background-color: #fff9ec;
+  --node-color: #FCB1A6;
+  --node-text-color: #FFDCCC;
+  --handle-color: #5D2A42;
+  --delete-button-color: #FB6376;
+  --good-button-color: #FFDCCC;
+  --neutral-button-color: #FFDCCC;
+
+  --rounding: 10px;
+}
+
+.button_neutral {
+  background-color: var(--neutral-button-color);
+  font: inherit;
+  border-radius: 10px;
 }
 
 .Flow {
