@@ -14,28 +14,6 @@ interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
 
 contextMenu({
 	prepend: (defaultActions, parameters, browserWindow : BrowserWindow) => [
-    {
-      label: "Sas",
-      click: () => {
-        console.log(parameters);
-        const sas = browserWindow.webContents.executeJavaScript('console.log(document.elementFromPoint(parameters.x, parameters.y))');
-        console.log(sas);
-
-      }
-    },
-		{
-			label: 'Rainbow',
-			// Only show it when right-clicking images
-			visible: parameters.mediaType === 'image'
-		},
-		{
-			label: 'Search Google for “{selection}”',
-			// Only show it when right-clicking text
-			visible: parameters.selectionText.trim().length > 0,
-			click: () => {
-				shell.openExternal(`https://google.com/search?q=${encodeURIComponent(parameters.selectionText)}`);
-			}
-		}
 	],
   showSelectAll: false
 });

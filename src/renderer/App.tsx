@@ -16,11 +16,7 @@ function App() {
   //   }
   //   })
   return (
-    <div className="App" onContextMenu={ (e) => {
-      e.preventDefault();
-      console.log(e.target)
-      console.log("Right")
-    }}>
+    <div className="App">
       <header className="App-header">React Flow - CRA Example</header>
       {/* <FpsView/> */}
       <TextEditorView />

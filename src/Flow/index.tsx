@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import ReactFlow, {
   addEdge,
   useNodesState,
@@ -9,6 +9,9 @@ import ReactFlow, {
   ReactFlowProvider,
   Background,
   BackgroundVariant,
+  useReactFlow,
+  Position,
+  XYPosition,
 } from 'reactflow';
 
 import TextNode from './Node_Types/TextNode';
@@ -19,6 +22,8 @@ import 'reactflow/dist/style.css';
 
 import './Flow.css';
 import StaticEdge from './Edge_Types/StaticEdge';
+import AddNodeContextMenu from './Components/AddNodeContextMenu';
+import { nanoid } from 'nanoid';
 // import TextEditorStore from '../store/TextEditorStore';
 
 const nodeTypes = {
@@ -50,11 +55,17 @@ const initialNodes: Node[] = [
   },
 ];
 
+
 const initialEdges: Edge[] = [];
 
 function Flow() {
+  // Для контекстного меню
+  const [isOpen, setOpen] = useState(false);
+  const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
+  //
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const reactflow = useReactFlow()
   const onConnect = useCallback(
     (params: Connection | Edge) => {
       const edge = { ...params, type: 'static-edge' };
@@ -63,10 +74,23 @@ function Flow() {
     [setEdges],
   );
 
-  return (
-    <ReactFlowProvider>
+  const addNode = useCallback((pos, nodeType) => {
+    const position = reactflow.screenToFlowPosition({
+      x: pos.x,
+      y: pos.y,
+    });
+    const newNode = {
+      id: nanoid(),
+      position,
+      data: {},
+      type: nodeType,
+    };
 
-    <div className="Flow">
+    setNodes((nds) => nds.concat(newNode))
+  }, [reactflow, setNodes]);
+
+  return (
+    <div className="Flow" >
         <ReactFlow
           nodes={nodes}
           onNodesChange={onNodesChange}
@@ -76,14 +100,26 @@ function Flow() {
           fitView
           nodeTypes={nodeTypes}
           snapToGrid
+          nodeOrigin={[0.5,0.5]}
           snapGrid={[25, 25]}
           edgeTypes={edgeTypes}
+          onContextMenu={ (e) => {
+            if (e.target.classList.contains('react-flow__pane')) {
+              e.preventDefault();
+              setAnchorPoint({ x: e.clientX, y: e.clientY });
+              setOpen(true);
+            }
+          }}
         >
+          <AddNodeContextMenu anchorPoint={anchorPoint} isOpen={isOpen} setOpen={setOpen} addNode={addNode} />
           <Background color="#bbc872" variant={BackgroundVariant.Cross} gap={25} size={4} />
         </ReactFlow>
       </div>
-    </ReactFlowProvider>
   );
 }
 
-export default Flow;
+export default function() {
+  return <ReactFlowProvider>
+    <Flow />
+  </ReactFlowProvider>
+};

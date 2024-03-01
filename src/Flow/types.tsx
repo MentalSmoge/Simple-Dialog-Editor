@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react"
+
 export interface rowProps {
   idOfRow : number,
   data : {
@@ -46,4 +48,11 @@ export type DialogFileData = {
    * Array of file paths that user selected
    */
   filePaths: string[]
+}
+
+export interface AddNodeContextMenuProps {
+  anchorPoint : {x:number, y:number},
+  isOpen : boolean,
+  setOpen : Dispatch<SetStateAction<boolean>>,
+  addNode : Function
 }

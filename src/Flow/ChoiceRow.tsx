@@ -4,6 +4,7 @@ import { Handle, Position } from "reactflow";
 import { rowDisplayProps } from "./types";
 import Store from '../store/VariablesStore';
 import "./ChoiceRow.css"
+import LimitedHandleChoice from "./Node_Types/LimitedHandleChoice";
 
 
 
@@ -21,12 +22,12 @@ function ChoiceRow({idOfRow, data, renderDelete, position, deleteFunc, changeVar
 
   return(
   <>
-      <Handle
-      type="source"
+      <LimitedHandleChoice type="source"
       position={Position.Right}
       id={`handle-${idOfRow}`}
       style={getStyle(position)}
-      />
+      isConnectable={1}
+      handleId={`handle-${idOfRow}`} />
       {/* Первая переменная */}
       <Select isClearable onChange={(val) => changeVar(idOfRow, 'first', val)} value={data.firstVar} options={Store.variables} className='nodrag child coolselect' styles={{
     control: (baseStyles, state) => ({

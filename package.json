@@ -96,6 +96,7 @@
     }
   },
   "dependencies": {
+    "@szhsin/react-menu": "^4.1.0",
     "axios": "^1.5.0",
     "bootstrap": "^5.3.2",
     "electron-context-menu": "^3.6.1",
@@ -104,6 +105,7 @@
     "electron-updater": "^6.1.4",
     "mobx": "^6.12.0",
     "mobx-react-lite": "^4.0.5",
+    "nanoid": "^5.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-fps": "^1.0.6",
@@ -111,7 +113,7 @@
     "react-router-dom": "^6.16.0",
     "react-select": "^5.8.0",
     "react-textarea-autosize": "^8.5.3",
-    "reactflow": "^11.8.3",
+    "reactflow": "^11.10.4",
     "reactstrap": "^9.2.0"
   },
   "devDependencies": {

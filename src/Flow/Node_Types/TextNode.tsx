@@ -9,6 +9,7 @@ import './TextNode.css';
 import { CharacterLabel } from "../types";
 import DefaultInput from "../Components/DefaultInput";
 import CharacterCard from "../CharacterCard";
+import LimitedHandle from "./LimitedHandle";
 
 
 // eslint-disable-next-line react/function-component-definition
@@ -38,7 +39,7 @@ const TextNode: FC<NodeProps> = ({ data, selected }) => {
         <button className='TextNode-button nodrag' type='button' onClick={() => handleEditClick()}>Изменить текст</button>
       </NodeToolbar>
       <Handle type="target" position={Position.Left} />
-      <Handle type="source" position={Position.Right} />
+      <LimitedHandle type="source" position={Position.Right} isConnectable={1} />
       <Select isClearable onChange={(val) => changeCharacter({label:val?.label, value:val?.value})} value={character} options={Store.character_options} className='nodrag' />
       {character!==undefined && <> <CharacterCard/> </>}
 

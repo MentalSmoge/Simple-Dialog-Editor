@@ -23,7 +23,6 @@ class TextEditorStore {
   }
 
   changeText(newText : string) {
-    console.log(newText)
     this.currentText = newText
   }
 }
