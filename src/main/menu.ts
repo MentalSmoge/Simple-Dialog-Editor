@@ -5,12 +5,40 @@ import {
   BrowserWindow,
   MenuItemConstructorOptions,
 } from 'electron';
+const contextMenu = require('electron-context-menu');
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string;
   submenu?: DarwinMenuItemConstructorOptions[] | Menu;
 }
 
+contextMenu({
+	prepend: (defaultActions, parameters, browserWindow : BrowserWindow) => [
+    {
+      label: "Sas",
+      click: () => {
+        console.log(parameters);
+        const sas = browserWindow.webContents.executeJavaScript('console.log(document.elementFromPoint(parameters.x, parameters.y))');
+        console.log(sas);
+
+      }
+    },
+		{
+			label: 'Rainbow',
+			// Only show it when right-clicking images
+			visible: parameters.mediaType === 'image'
+		},
+		{
+			label: 'Search Google for “{selection}”',
+			// Only show it when right-clicking text
+			visible: parameters.selectionText.trim().length > 0,
+			click: () => {
+				shell.openExternal(`https://google.com/search?q=${encodeURIComponent(parameters.selectionText)}`);
+			}
+		}
+	],
+  showSelectAll: false
+});
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
 
@@ -23,7 +51,7 @@ export default class MenuBuilder {
       process.env.NODE_ENV === 'development' ||
       process.env.DEBUG_PROD === 'true'
     ) {
-      this.setupDevelopmentEnvironment();
+
     }
 
     const template =
@@ -37,20 +65,7 @@ export default class MenuBuilder {
     return menu;
   }
 
-  setupDevelopmentEnvironment(): void {
-    this.mainWindow.webContents.on('context-menu', (_, props) => {
-      const { x, y } = props;
 
-      Menu.buildFromTemplate([
-        {
-          label: 'Inspect element',
-          click: () => {
-            this.mainWindow.webContents.inspectElement(x, y);
-          },
-        },
-      ]).popup({ window: this.mainWindow });
-    });
-  }
 
   buildDarwinTemplate(): MenuItemConstructorOptions[] {
     const subMenuAbout: DarwinMenuItemConstructorOptions = {

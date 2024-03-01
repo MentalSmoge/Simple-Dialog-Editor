@@ -28,6 +28,7 @@ const electronHandler = {
 contextBridge.exposeInMainWorld('electron', {
   electronHandler,
   showOpenDialog: async (args) => ipcRenderer.invoke('dialog:openFile',  args),
+  sendMessage: () => ipcRenderer.send('countdown-start')
 })
 
 export type ElectronHandler = typeof electronHandler;
