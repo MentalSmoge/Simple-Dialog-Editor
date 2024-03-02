@@ -14,6 +14,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import { writeFile } from 'fs';
 
 class AppUpdater {
   constructor() {
@@ -42,7 +43,34 @@ ipcMain.handle('dialog:openFile', async (_, args) => {
   })
   return result
 })
+ipcMain.on('save-file-value', (_event, value) => {
+  // console.log(_event)
+  // console.log(value) // will print value to Node console
+  dialog.showSaveDialog({
+    filters: [
+      { name: 'JSON', extensions: ['json'] }
+    ],
+  }).then(result => {
+    console.log(result.canceled)
+    if (!result.canceled) {
+      writeFile(result.filePath, JSON.stringify(value), function(error){
+        if(error){  // если ошибка
+            return console.log(error);
+        }
+        console.log("Файл успешно записан");
+    });
+    }
+  }).catch(err => {
+    console.log(err)
+  })
+})
 
+async function handleFileOpen () {
+  const { canceled, filePaths } = await dialog.showOpenDialog({})
+  if (!canceled) {
+    return filePaths[0]
+  }
+}
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -141,6 +169,7 @@ app.on('window-all-closed', () => {
 app
   .whenReady()
   .then(() => {
+    ipcMain.handle('dialog:open', handleFileOpen)
     createWindow();
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the

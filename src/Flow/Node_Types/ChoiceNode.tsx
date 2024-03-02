@@ -10,6 +10,7 @@ import Store from '../../store/VariablesStore';
 
 // eslint-disable-next-line react/function-component-definition
 const ChoiceNode: FC<NodeProps> = ({ id }) => {
+
   const reactFlow = useReactFlow();
   const initialValue = [{
     idOfRow: 0,
@@ -32,6 +33,7 @@ const ChoiceNode: FC<NodeProps> = ({ id }) => {
   const updateNodeInternals = useUpdateNodeInternals();
 
   const testButton = () => {
+    // console.log(reactFlow.toObject())
     Store.addVar({label:"sas", value: "Sas"})
   }
 

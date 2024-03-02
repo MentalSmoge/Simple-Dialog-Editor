@@ -1,11 +1,12 @@
 import { FpsView } from 'react-fps';
+import { ReactFlowProvider } from 'reactflow';
 import Flow from '../Flow';
 import TextEditorView from '../Flow/TextEditorView';
 
 import './App.css';
 
 function App() {
-
+  // const reactflow = useReactFlow()
   // document.body.onmousedown(event => {
   //   console.log("sas");
   //   if( event.which === 3) {
@@ -16,6 +17,7 @@ function App() {
   //   }
   //   })
   return (
+    <ReactFlowProvider>
     <div className="App">
       <header className="App-header">React Flow - CRA Example</header>
       {/* <FpsView/> */}
@@ -23,6 +25,7 @@ function App() {
       <Flow />
       <footer className="App-footer">React Flow - CRA Example</footer>
     </div>
+    </ReactFlowProvider>
   );
 }
 

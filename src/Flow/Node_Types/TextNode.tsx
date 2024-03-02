@@ -13,11 +13,12 @@ import LimitedHandle from "./LimitedHandle";
 
 
 // eslint-disable-next-line react/function-component-definition
-const TextNode: FC<NodeProps> = ({ data, selected }) => {
+const TextNode: FC<NodeProps> = ({ data }) => {
   const resetSelectedElements = useStore(a => a.resetSelectedElements)
   const [textContent, setTextContent] = useState(data.text);
   function applyTextChange(newText : string) {
     setTextContent(newText);
+    data.text = newText
   }
   function handleEditClick() {
     resetSelectedElements();

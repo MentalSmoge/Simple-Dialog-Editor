@@ -27,7 +27,7 @@ function ChoiceRow({idOfRow, data, renderDelete, position, deleteFunc, changeVar
       id={`handle-${idOfRow}`}
       style={getStyle(position)}
       isConnectable={1}
-      handleId={`handle-${idOfRow}`} />
+      handleid={`handle-${idOfRow}`} />
       {/* Первая переменная */}
       <Select isClearable onChange={(val) => changeVar(idOfRow, 'first', val)} value={data.firstVar} options={Store.variables} className='nodrag child coolselect' styles={{
     control: (baseStyles, state) => ({

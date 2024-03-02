@@ -5,7 +5,7 @@ import './index.css';
 const container = document.getElementById('root') as HTMLElement;
 const root = createRoot(container);
 root.render(<App />);
-root.render(<App />);
+// root.render(<App />);
 
 // calling IPC exposed from preload script
 // window.electron.ipcRenderer.once('ipc-example', (arg) => {

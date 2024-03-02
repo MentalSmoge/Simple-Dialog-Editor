@@ -4,6 +4,8 @@ import {
   shell,
   BrowserWindow,
   MenuItemConstructorOptions,
+  dialog,
+  ipcMain,
 } from 'electron';
 const contextMenu = require('electron-context-menu');
 
@@ -190,6 +192,12 @@ export default class MenuBuilder {
       {
         label: '&File',
         submenu: [
+          {
+            label: '&Save',
+            accelerator: 'Ctrl+S',
+            click: () => {
+              this.mainWindow.webContents.send('save-file-command')},
+          },
           {
             label: '&Open',
             accelerator: 'Ctrl+O',

@@ -55,10 +55,10 @@ const initialNodes: Node[] = [
   },
 ];
 
-
 const initialEdges: Edge[] = [];
 
 function Flow() {
+  const [saveListener, setSaveListener] = useState(true)
   // Для контекстного меню
   const [isOpen, setOpen] = useState(false);
   const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
@@ -73,7 +73,13 @@ function Flow() {
     },
     [setEdges],
   );
-
+  if (saveListener) {
+    window.electron.onSaveFile(() => {
+      const responce = reactflow.toObject()
+      window.electron.saveFile(responce)
+    })
+    setSaveListener(false)
+  }
   const addNode = useCallback((pos, nodeType) => {
     const position = reactflow.screenToFlowPosition({
       x: pos.x,
@@ -89,9 +95,11 @@ function Flow() {
     setNodes((nds) => nds.concat(newNode))
   }, [reactflow, setNodes]);
 
+  const proOptions = { hideAttribution: true };
   return (
     <div className="Flow" >
         <ReactFlow
+          proOptions={proOptions}
           nodes={nodes}
           onNodesChange={onNodesChange}
           edges={edges}
@@ -119,7 +127,5 @@ function Flow() {
 }
 
 export default function() {
-  return <ReactFlowProvider>
-    <Flow />
-  </ReactFlowProvider>
+  return <Flow />
 };

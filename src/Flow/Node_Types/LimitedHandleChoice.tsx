@@ -17,7 +17,7 @@ const LimitedHandleChoice = (props) => {
       const connectedEdges = getConnectedEdges([node], edges);
       let connectedFromMe = 0;
       connectedEdges.forEach(element => {
-        if ((element.source === nodeId) && (element.sourceHandle === props.handleId)) connectedFromMe += 1
+        if ((element.source === nodeId) && (element.sourceHandle === props.handleid)) connectedFromMe += 1
       })
 
       return connectedFromMe < props.isConnectable;
