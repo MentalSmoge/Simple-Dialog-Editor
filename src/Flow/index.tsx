@@ -13,26 +13,17 @@ import ReactFlow, {
   Position,
   XYPosition,
 } from 'reactflow';
-
-import TextNode from './Node_Types/TextNode';
-import ChoiceNode from './Node_Types/ChoiceNode';
+import FlowStore from '../store/FlowStore';
 
 // this is important! You need to import the styles from the lib to make it work
 import 'reactflow/dist/style.css';
 
 import './Flow.css';
-import StaticEdge from './Edge_Types/StaticEdge';
 import AddNodeContextMenu from './Components/AddNodeContextMenu';
-import { nanoid } from 'nanoid';
+import { observer } from 'mobx-react-lite';
 // import TextEditorStore from '../store/TextEditorStore';
 
-const nodeTypes = {
-  text: TextNode,
-  choice : ChoiceNode
-};
-const edgeTypes = {
-  'static-edge': StaticEdge
-}
+
 
 const initialNodes: Node[] = [
   {
@@ -63,16 +54,8 @@ function Flow() {
   const [isOpen, setOpen] = useState(false);
   const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
   //
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+
   const reactflow = useReactFlow()
-  const onConnect = useCallback(
-    (params: Connection | Edge) => {
-      const edge = { ...params, type: 'static-edge' };
-      setEdges((eds) => addEdge(edge, eds))
-    },
-    [setEdges],
-  );
   if (saveListener) {
     window.electron.onSaveFile(() => {
       const responce = reactflow.toObject()
@@ -80,37 +63,33 @@ function Flow() {
     })
     setSaveListener(false)
   }
-  const addNode = useCallback((pos, nodeType) => {
+  const getPosition = useCallback((pos) => {
     const position = reactflow.screenToFlowPosition({
       x: pos.x,
       y: pos.y,
     });
-    const newNode = {
-      id: nanoid(),
-      position,
-      data: {},
-      type: nodeType,
-    };
-
-    setNodes((nds) => nds.concat(newNode))
-  }, [reactflow, setNodes]);
+    return position
+  }, [reactflow])
+  const addNode = useCallback((pos, nodeType) => {
+    FlowStore.addNode(getPosition(pos), nodeType)
+  }, [getPosition]);
 
   const proOptions = { hideAttribution: true };
   return (
     <div className="Flow" >
         <ReactFlow
           proOptions={proOptions}
-          nodes={nodes}
-          onNodesChange={onNodesChange}
-          edges={edges}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
+          nodes={FlowStore.nodes}
+          onNodesChange={FlowStore.onNodesChange}
+          edges={FlowStore.edges}
+          onEdgesChange={FlowStore.onEdgesChange}
+          onConnect={FlowStore.onConnect}
           fitView
-          nodeTypes={nodeTypes}
+          nodeTypes={FlowStore.nodeTypes}
           snapToGrid
           nodeOrigin={[0.5,0.5]}
           snapGrid={[25, 25]}
-          edgeTypes={edgeTypes}
+          edgeTypes={FlowStore.edgeTypes}
           onContextMenu={ (e) => {
             if (e.target.classList.contains('react-flow__pane')) {
               e.preventDefault();
@@ -126,6 +105,4 @@ function Flow() {
   );
 }
 
-export default function() {
-  return <Flow />
-};
+export default observer(Flow);

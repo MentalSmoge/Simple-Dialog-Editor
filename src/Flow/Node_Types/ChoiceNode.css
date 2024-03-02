@@ -1,10 +1,11 @@
 .wrapper {
   display: grid;
   grid-template-columns: auto auto auto auto;
+  row-gap: 0.5rem;
 }
 
 .child {
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
   display: inline-block;
 }
 
