@@ -44,7 +44,7 @@ ipcMain.handle('dialog:openFile', async (_, args) => {
   return result
 })
 ipcMain.on('save-file-value', (_event, value) => {
-  // console.log(_event)
+  console.log(_event)
   // console.log(value) // will print value to Node console
   dialog.showSaveDialog({
     filters: [
@@ -53,7 +53,7 @@ ipcMain.on('save-file-value', (_event, value) => {
   }).then(result => {
     console.log(result.canceled)
     if (!result.canceled) {
-      writeFile(result.filePath, JSON.stringify(value), function(error){
+      writeFile(result.filePath, JSON.parse(JSON.stringify(value)), function(error){
         if(error){  // если ошибка
             return console.log(error);
         }

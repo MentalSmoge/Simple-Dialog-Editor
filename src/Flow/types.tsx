@@ -9,11 +9,10 @@ export interface rowProps {
   }
 }
 export interface rowDisplayProps {
+  id : string,
   idOfRow : number,
   position : number,
-  deleteFunc : Function,
   renderDelete : boolean,
-  changeVar : Function,
   data : {
     firstVar? : { value: string, label: string },
     secondVar? : { value: string, label: string },
