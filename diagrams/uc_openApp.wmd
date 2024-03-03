@@ -1,0 +1,20 @@
+@startuml
+actor Пользователь as user
+
+package "Операционная система" {
+usecase "Открыть файл проекта" as UC1
+}
+
+package Программа {
+usecase "Создать новый проект" as UC3
+usecase "Ввести название\nпроекта" as UC4
+usecase "Выбрать директорию\nпроекта" as UC5
+usecase "Выбрать и открыть проект" as UC6
+}
+
+user -- UC1
+user -- UC3
+user -- UC6
+UC3 .down.> UC4 : include
+UC3 .down.> UC5 : include
+@enduml

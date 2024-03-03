@@ -1,0 +1,32 @@
+@startuml
+actor Пользователь as user
+left to right direction
+package "Панель инструментов" {
+  usecase "Сохранить файл" as save
+  usecase "Сохранить как... файл" as saveAs
+  usecase "Открыть проект" as open
+  usecase "Перейти в режим холста" as char
+  usecase "Перейти в режим\nредактирования персонажей" as var
+}
+package "Панель переменных" {
+  usecase "Выбрать отображаемую\nпеременную" as choose
+  usecase "Создать переменную" as create
+  usecase "Удалить переменную" as delete
+}
+package "Панель изменения переменных" {
+  usecase "Переименовать переменную" as Ncreate
+  usecase "Изменить описание переменной" as Nchange
+}
+save -- user
+saveAs -- user
+open -- user
+char -- user
+var -- user
+
+user -- choose
+user -- create
+user -- delete
+
+user -- Ncreate
+user -- Nchange
+@enduml

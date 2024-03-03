@@ -1,0 +1,40 @@
+@startuml
+actor Пользователь as user
+left to right direction
+package "Панель инструментов" {
+  usecase "Сохранить файл" as save
+  usecase "Сохранить как... файл" as saveAs
+  usecase "Открыть проект" as open
+  usecase "Перейти в режим\nредактирования персонажей" as char
+  usecase "Перейти в режим\nредактирования переменных" as var
+}
+package "Панель диалогов" {
+  usecase "Выбрать отображаемый\nдиалог" as choose
+  usecase "Создать диалог" as create
+  usecase "Удалить диалог" as delete
+  usecase "Переименовать диалог" as rename
+}
+package "Холст" {
+  usecase "Создать узел" as Ncreate
+  usecase "Удалить узел" as Ndelete
+  usecase "Передвинуть узел" as Nmove
+  usecase "Изменить данные\nвнутри узла" as Nchange
+  usecase "Соединить узлы" as Nconnect
+}
+save -- user
+saveAs -- user
+open -- user
+char -- user
+var -- user
+
+user -- choose
+user -- create
+user -- delete
+user -- rename
+
+user -- Ncreate
+user -- Ndelete
+user -- Nmove
+user -- Nchange
+user -- Nconnect
+@enduml

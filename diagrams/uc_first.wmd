@@ -1,0 +1,9 @@
+@startuml
+actor Пользователь as user
+
+usecase "Открыть файл проекта" as UC1
+usecase "Открыть программу" as UC2
+
+user -- UC1
+user -- UC2
+@enduml
