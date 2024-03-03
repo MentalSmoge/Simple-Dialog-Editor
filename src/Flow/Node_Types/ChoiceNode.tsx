@@ -9,26 +9,9 @@ import Store from '../../store/VariablesStore';
 
 
 // eslint-disable-next-line react/function-component-definition
-const ChoiceNode: FC<NodeProps> = ({ id }) => {
+const ChoiceNode: FC<NodeProps> = ({ id, data }) => {
 
   const reactFlow = useReactFlow();
-  const initialValue = [{
-    idOfRow: 0,
-    data: {
-      firstVar: undefined,
-      secondVar: { value: '=', label: '=' },
-      thirdVar: undefined
-    }
-  }, {
-    idOfRow: 1,
-    data: {
-      firstVar: undefined,
-      secondVar: { value: '=', label: '=' },
-      thirdVar: undefined
-    }
-  }]
-  const [increment, setIncrement] = useState(2);
-  const [rows, setRows] = useState<rowProps[]>(initialValue);
 
   const updateNodeInternals = useUpdateNodeInternals();
 

@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx"
+import { makeAutoObservable, set } from "mobx"
 import {
   Connection,
   Edge,
@@ -17,6 +17,7 @@ import { nanoid } from 'nanoid';
 import TextNode from "../Flow/Node_Types/TextNode";
 import ChoiceNode from "../Flow/Node_Types/ChoiceNode";
 import StaticEdge from "../Flow/Edge_Types/StaticEdge";
+import { rowProps } from "../Flow/types";
 
 type RFState = {
   nodes: Node[];
@@ -31,19 +32,33 @@ type RFState = {
 const initialNodes: Node[] = [
   {
     id: '5',
-    data: { label: 'Node 5', text: 'This is text   das\n cool ass hat maaaan\n cool ass hat maaaan\n cool ass hat maaaan\n cool ass hat maaaan' },
+    data: { text: 'This is text   das\n cool ass hat maaaan\n cool ass hat maaaan\n cool ass hat maaaan\n cool ass hat maaaan' },
     position: { x: 200, y: 200 },
     type: 'text',
   },
   {
     id: '6',
-    data: { label: 'Node 6', text: 'This is ыфы' },
+    data: {text: 'This is ыфы' },
     position: { x: 0, y: 200 },
     type: 'text',
   },
   {
     id: '9',
-    data: { label: 'Node 6', text: 'This is ыфы' },
+    data: { rows: [{
+      idOfRow: 0,
+      data: {
+        firstVar: undefined,
+        secondVar: { value: '=', label: '=' },
+        thirdVar: undefined
+      }
+    }, {
+      idOfRow: 1,
+      data: {
+        firstVar: undefined,
+        secondVar: { value: '=', label: '=' },
+        thirdVar: undefined
+      }
+    }], increment: 2 },
     position: { x: 0, y: -100 },
     type: 'choice',
   },
@@ -95,12 +110,33 @@ class FlowStore {
     this.setNodes(this.nodes.concat(newNode))
   }
 
-  updateTextInNode(nodeId: string, text : string) {
-    this.nodes.forEach(node => {
-      if (node.id === nodeId) {
-        node.data = { ...node.data, text }
+  addRow () {
+    // increment + 1
+    const newElement : rowProps = {
+      idOfRow: increment,
+      data: {
+        firstVar: undefined,
+        secondVar: { value: '=', label: '=' },
+        thirdVar: undefined
       }
-    });
+    };
+
+    setRows([...rows, newElement])
+
+    updateNodeInternals(id);
+
+  }, [id, increment, rows, updateNodeInternals]);
+
+  const deleteRow = (Id : number) => {
+    const result = reactFlow.getEdges().filter(item => item.source !== id || item.sourceHandle !== `handle-${Id}`);
+    reactFlow.setEdges(result);
+    setRows(rows.filter(a => a.idOfRow !== Id))
+    updateNodeInternals(id);
+
+  };
+
+  updateTextInNode(nodeId: string, text : string) {
+    this.nodes.filter(node => node.id === nodeId)[0].data.text = text
   }
 
   constructor(){

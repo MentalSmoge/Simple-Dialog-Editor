@@ -10,6 +10,7 @@ import { CharacterLabel } from "../types";
 import DefaultInput from "../Components/DefaultInput";
 import CharacterCard from "../CharacterCard";
 import LimitedHandle from "./LimitedHandle";
+import { observer } from "mobx-react-lite";
 
 
 // eslint-disable-next-line react/function-component-definition
@@ -46,4 +47,4 @@ const TextNode: FC<NodeProps> = ({ id, data }) => {
   );
 };
 
-export default memo(TextNode);
+export default observer(TextNode);
