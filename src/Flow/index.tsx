@@ -65,16 +65,16 @@ function Flow() {
     })
     setSaveListener(false)
   }
-  const getPosition = useCallback((pos) => {
-    const position = reactflow.screenToFlowPosition({
-      x: pos.x,
-      y: pos.y,
-    });
-    return position
-  }, [reactflow])
-  const addNode = useCallback((pos, nodeType) => {
-    FlowStore.addNode(getPosition(pos), nodeType)
-  }, [getPosition]);
+  // const getPosition = useCallback((pos) => {
+  //   const position = reactflow.screenToFlowPosition({
+  //     x: pos.x,
+  //     y: pos.y,
+  //   });
+  //   return position
+  // }, [reactflow])
+  // const addNode = useCallback((pos, nodeType) => {
+  //   FlowStore.addNode(getPosition(pos), nodeType)
+  // }, [getPosition]);
 
   const proOptions = { hideAttribution: true };
   return (
@@ -92,15 +92,16 @@ function Flow() {
           nodeOrigin={[0.5,0.5]}
           snapGrid={[25, 25]}
           edgeTypes={FlowStore.edgeTypes}
-          onContextMenu={ (e) => {
-            if (e.target.classList.contains('react-flow__pane')) {
-              e.preventDefault();
-              setAnchorPoint({ x: e.clientX, y: e.clientY });
-              setOpen(true);
-            }
-          }}
+          // onContextMenu={ (e) => {
+          //   console.log(e.target.classList)
+          //   if (e.target.classList.contains('react-flow__pane')) {
+          //     e.preventDefault();
+          //     setAnchorPoint({ x: e.clientX, y: e.clientY });
+          //     setOpen(true);
+          //   }
+          // }}
         >
-          <AddNodeContextMenu anchorPoint={anchorPoint} isOpen={isOpen} setOpen={setOpen} addNode={addNode} />
+          {/* <AddNodeContextMenu anchorPoint={anchorPoint} isOpen={isOpen} setOpen={setOpen} addNode={addNode} /> */}
           <Background color="#bbc872" variant={BackgroundVariant.Cross} gap={25} size={4} />
         </ReactFlow>
       </div>

@@ -65,6 +65,10 @@ const initialNodes: Node[] = [
   },
 ];
 
+const initialEdges: Edge[] = [
+  // { id: 'e1-2', source: '5', target: '6' },
+  // { id: 'e2-3', source: '6', target: '9' },
+];
 class FlowStore {
 
   nodeTypes = {
@@ -78,7 +82,7 @@ class FlowStore {
 
   nodes = initialNodes
 
-  edges = [] as Edge[]
+  edges = initialEdges
 
   onNodesChange(changes: NodeChange[]) {
     this.nodes = applyNodeChanges(changes, this.nodes)
@@ -88,10 +92,15 @@ class FlowStore {
     this.edges = applyEdgeChanges(changes, this.edges)
   }
 
-  onConnect(params: Connection | Edge) {
-    const edge = { ...params, type: 'static-edge' };
-    this.setEdges(this.edges.concat(edge))
+  onConnect(connection: Connection) {
+    const edge = { ...connection, type: 'static-edge' };
+    this.edges = addEdge(edge, this.edges)
   }
+
+  // onConnect(params: Connection | Edge) {
+  //   const edge = { ...params, type: 'static-edge' };
+  //   this.setEdges(this.edges.concat(edge))
+  // }
 
   setNodes(nodes: Node[]) {
     this.nodes = nodes
@@ -108,6 +117,26 @@ class FlowStore {
       data: {},
       type: nodeType,
     };
+    if (nodeType === "text") {
+      newNode.data.text = ""
+    }
+    if (nodeType === "choice") {
+      newNode.data = { rows: [{
+        idOfRow: 0,
+        data: {
+          firstVar: undefined,
+          secondVar: { value: '=', label: '=' },
+          thirdVar: undefined
+        }
+      }, {
+        idOfRow: 1,
+        data: {
+          firstVar: undefined,
+          secondVar: { value: '=', label: '=' },
+          thirdVar: undefined
+        }
+      }], increment: 1 }
+    }
 
     this.setNodes(this.nodes.concat(newNode))
   }
