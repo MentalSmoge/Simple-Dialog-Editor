@@ -31,40 +31,40 @@ type RFState = {
   setEdges: (edges: Edge[]) => void;
 };
 
-const initialNodes: Node[] = [
-  {
-    id: '5',
-    data: { text: 'This is text   das\n cool ass hat maaaan\n cool ass hat maaaan\n cool ass hat maaaan\n cool ass hat maaaan' },
-    position: { x: 200, y: 200 },
-    type: 'text',
-  },
-  {
-    id: '6',
-    data: {text: 'This is ыфы' },
-    position: { x: 0, y: 200 },
-    type: 'text',
-  },
-  {
-    id: '9',
-    data: { rows: [{
-      idOfRow: 0,
-      data: {
-        firstVar: undefined,
-        secondVar: { value: '=', label: '=' },
-        thirdVar: undefined
-      }
-    }, {
-      idOfRow: 1,
-      data: {
-        firstVar: undefined,
-        secondVar: { value: '=', label: '=' },
-        thirdVar: undefined
-      }
-    }], increment: 1 },
-    position: { x: 0, y: -100 },
-    type: 'choice',
-  },
-];
+// const initialNodes: Node[] = [
+//   {
+//     id: '5',
+//     data: { text: 'This is text   das\n cool ass hat maaaan\n cool ass hat maaaan\n cool ass hat maaaan\n cool ass hat maaaan' },
+//     position: { x: 200, y: 200 },
+//     type: 'text',
+//   },
+//   {
+//     id: '6',
+//     data: {text: 'This is ыфы' },
+//     position: { x: 0, y: 200 },
+//     type: 'text',
+//   },
+//   {
+//     id: '9',
+//     data: { rows: [{
+//       idOfRow: 0,
+//       data: {
+//         firstVar: undefined,
+//         secondVar: { value: '=', label: '=' },
+//         thirdVar: undefined
+//       }
+//     }, {
+//       idOfRow: 1,
+//       data: {
+//         firstVar: undefined,
+//         secondVar: { value: '=', label: '=' },
+//         thirdVar: undefined
+//       }
+//     }], increment: 1 },
+//     position: { x: 0, y: -100 },
+//     type: 'choice',
+//   },
+// ];
 
 const initialEdges: Edge[] = [
   // { id: 'e1-2', source: '5', target: '6' },
@@ -81,7 +81,8 @@ class FlowStore {
     'static-edge': StaticEdge
   }
 
-  nodes = initialNodes
+  // nodes = initialNodes
+  nodes = []
 
   edges = initialEdges
 

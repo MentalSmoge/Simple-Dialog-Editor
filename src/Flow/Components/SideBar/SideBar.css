@@ -58,7 +58,7 @@
   background-color: var(--handle-color);
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
+  overflow-y: auto;
   border-radius: var(--rounding);
 }
 

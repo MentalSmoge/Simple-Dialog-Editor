@@ -14,7 +14,7 @@ const initialDialogs = [
          {
             "id":"5",
             "data":{
-               "text":"This is text   das\n cool ass hat maaaan\n cool ass hat maaaan\n cool ass hat maaaan\n cool ass hat maaaan"
+               "text":"Это достаточно длинный последовательный осмысленный текст. Эта реплика такая длинная, что тот, кто писал её, засыпал несколько раз в процессе. Говорят, что если прочитать эту реплику семь раз стоя на одной ноге, то можно достичь тайн мироздания. А еще говорят, что лучше бы я так много писал в курсовую работу, нежели сюда."
             },
             "position":{
                "x":275,
@@ -33,7 +33,7 @@ const initialDialogs = [
          {
             "id":"6",
             "data":{
-               "text":"This is ыфы"
+               "text":"Это короткая реплика"
             },
             "position":{
                "x":0,
@@ -123,6 +123,12 @@ class DialogsStore {
 
   constructor(){
     makeAutoObservable(this)
+    const flow = this.getDialog(this.currentDialogId).reactflowInstance;
+
+      if (flow) {
+        FlowStore.setNodes(flow.nodes || []);
+        FlowStore.setEdges(flow.edges || []);
+      }
   }
 
   saveCurrent() {
@@ -140,7 +146,7 @@ class DialogsStore {
       this.currentDialogId = toId
   }
 
-  addDialog(dialog : Dialog) {
+  addDialog(name : string) {
     this.dialogs.push(dialog)
   }
 

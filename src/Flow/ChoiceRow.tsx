@@ -1,5 +1,6 @@
 import Select from "react-select";
 import { observer } from 'mobx-react-lite';
+import Creatable, { useCreatable } from 'react-select/creatable';
 import { Handle, Position } from "reactflow";
 import { rowDisplayProps } from "./types";
 import Store from '../store/VariablesStore';
@@ -44,7 +45,7 @@ function ChoiceRow({id, idOfRow, data, renderDelete, position} : rowDisplayProps
         }),
       }}/>
       {/* Вторая переменная */}
-      <Select isClearable onChange={(val) => FlowStore.changeVar(id, idOfRow, 'third', val)} value={data.thirdVar}  options={Store.variables} className='nodrag child coolselect' styles={{
+      <Creatable isClearable onChange={(val) => FlowStore.changeVar(id, idOfRow, 'third', val)} value={data.thirdVar}  options={Store.variables} className='nodrag child coolselect' styles={{
     control: (baseStyles, state) => ({
           ...baseStyles,
           borderRadius:"0 8px 8px 0",
