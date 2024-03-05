@@ -13,6 +13,7 @@ import {
   applyEdgeChanges,
   type XYPosition,
   useUpdateNodeInternals,
+  Viewport,
 } from 'reactflow';
 import { nanoid } from 'nanoid';
 import TextNode from "../Flow/Node_Types/TextNode";
@@ -84,6 +85,8 @@ class FlowStore {
 
   edges = initialEdges
 
+  viewport = {x : 0, y : 0, zoom : 5} as Viewport
+
   onNodesChange(changes: NodeChange[]) {
     this.nodes = applyNodeChanges(changes, this.nodes)
   }
@@ -108,6 +111,10 @@ class FlowStore {
 
   setEdges(edges: Edge[]) {
     this.edges = edges
+  }
+
+  setViewport(viewport: Viewport) {
+    this.viewport = viewport;
   }
 
   addNode(position : XYPosition, nodeType : string) {
@@ -189,6 +196,10 @@ class FlowStore {
 
   constructor(){
     makeAutoObservable(this, {}, { autoBind: true })
+  }
+
+  getFlow() {
+    return {nodes: this.nodes, edges: this.edges}
   }
 }
 

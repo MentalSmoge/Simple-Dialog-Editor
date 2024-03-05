@@ -10,7 +10,7 @@ const SideBar = () => {
   return (<div className="SideBar">
       <div className="SideBar-wrapper">
         {DialogsStore.dialogs.map((dialog, index) => (
-          <SideBarButton dialog={dialog} />
+          <SideBarButton key={dialog.id} dialog={dialog} />
         ))}
       </div>
     </div>);

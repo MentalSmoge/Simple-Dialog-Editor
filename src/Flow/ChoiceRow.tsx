@@ -37,14 +37,14 @@ function ChoiceRow({id, idOfRow, data, renderDelete, position} : rowDisplayProps
         }),
       }}/>
       {/* Сравнение */}
-      <Select onChange={(val) => FlowStore.changeVar(id, idOfRow, 'second', val)} components={{DropdownIndicator:() => null, IndicatorSeparator:() => null}} options={optionsCompare} isSearchable={false} defaultValue={optionsCompare[1]} className='nodrag child coolselect' styles={{
+      <Select onChange={(val) => FlowStore.changeVar(id, idOfRow, 'second', val)} value={data.secondVar}  components={{DropdownIndicator:() => null, IndicatorSeparator:() => null}} options={optionsCompare} isSearchable={false} defaultValue={optionsCompare[1]} className='nodrag child coolselect' styles={{
     control: (baseStyles, state) => ({
           ...baseStyles,
           borderRadius:"0",
         }),
       }}/>
       {/* Вторая переменная */}
-      <Select isClearable onChange={(val) => FlowStore.changeVar(id, idOfRow, 'third', val)} options={Store.variables} className='nodrag child coolselect' styles={{
+      <Select isClearable onChange={(val) => FlowStore.changeVar(id, idOfRow, 'third', val)} value={data.thirdVar}  options={Store.variables} className='nodrag child coolselect' styles={{
     control: (baseStyles, state) => ({
           ...baseStyles,
           borderRadius:"0 8px 8px 0",

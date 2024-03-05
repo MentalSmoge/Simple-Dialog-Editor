@@ -5,6 +5,7 @@ import { useReactFlow } from 'reactflow';
 import { ContextMenuProps } from '../../types';
 import FlowStore from '../../../store/FlowStore';
 import DeleteModalStore from '../../../store/DeleteModalStore';
+import RenameModalStore from '../../../store/RenameModalStore';
 
 export default function ({destiny, anchorPoint, isOpen, setOpen} : ContextMenuProps) {
   const reactflow = useReactFlow()
@@ -27,7 +28,7 @@ export default function ({destiny, anchorPoint, isOpen, setOpen} : ContextMenuPr
         <MenuItem onClick={() => FlowStore.addNode(getPosition(anchorPoint), 'choice')}>Add Choice Node</MenuItem>
         </>}
         { destiny==="SideBarDialog" && <>
-        {/* <MenuItem onClick={() => DeleteModalStore.openEditor(getPosition(anchorPoint), 'text')}>Rename Dialog</MenuItem> */}
+        <MenuItem onClick={() => RenameModalStore.openEditor()}>Rename Dialog</MenuItem>
         <MenuItem onClick={() => DeleteModalStore.openEditor()}>Delete Dialog</MenuItem>
         </>}
 

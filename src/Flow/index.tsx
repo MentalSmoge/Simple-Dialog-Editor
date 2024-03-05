@@ -57,12 +57,12 @@ function Flow() {
 
   const reactflow = useReactFlow()
   if (saveListener) {
-    window.electron.onSaveFile(() => {
-      // const responce = reactflow.toObject()
-      // console.log(responce)
-      const responce = JSON.stringify(reactflow.toObject())
-      window.electron.saveFile(responce)
-    })
+    // window.electron.onSaveFile(() => {
+    //   // const responce = reactflow.toObject()
+    //   // console.log(responce)
+    //   const responce = JSON.stringify(reactflow.toObject())
+    //   window.electron.saveFile(responce)
+    // })
     setSaveListener(false)
   }
   // const getPosition = useCallback((pos) => {
