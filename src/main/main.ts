@@ -51,9 +51,9 @@ ipcMain.on('save-file-value', (_event, value) => {
       { name: 'JSON', extensions: ['json'] }
     ],
   }).then(result => {
-    console.log(result.canceled)
+    // console.log(result.canceled)
     if (!result.canceled) {
-      writeFile(result.filePath, JSON.stringify(value), function(error){
+      writeFile(result.filePath, (value), function(error){
         if(error){  // если ошибка
             return console.log(error);
         }

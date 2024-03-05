@@ -1,3 +1,25 @@
+:root {
+  /* Colors */
+  --flow-background-color: #fff9ec;
+  --node-color: #FCB1A6;
+  --node-text-color: #FFDCCC;
+  --handle-color: #5D2A42;
+  --delete-button-color: #FB6376;
+  --good-button-color: #FFDCCC;
+  --neutral-button-color: #FFDCCC;
+
+  --rounding: 10px;
+}
+
+
+button:hover {
+  filter: brightness(85%);
+}
+
+button:active {
+  filter: brightness(70%);
+}
+
 .App {
   height: 100%;
   display: flex;

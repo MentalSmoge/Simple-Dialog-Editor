@@ -4,7 +4,23 @@ import Flow from '../Flow';
 import TextEditorView from '../Flow/TextEditorView';
 
 import './App.css';
-
+import SideBar from '../Flow/Components/SideBar';
+import ContextMenu from '../Flow/Components/ContextMenu';
+import { useState } from 'react';
+import DeleteModal from '../Flow/Components/DeleteModal';
+import DeleteModalStore from '../store/DeleteModalStore';
+import RenameModal from '../Flow/Components/RenameModal';
+import DialogsStore from '../store/DialogsStore';
+window.electron.onSaveFile(() => {
+  const response = {dialogs : []}
+  // const responce = reactflow.toObject()
+  DialogsStore.dialogs.forEach(dialog => {
+    response.dialogs.push(dialog)
+  });
+  console.log(response)
+  // const responce = JSON.stringify(reactflow.toObject())
+  window.electron.saveFile(JSON.stringify(response))
+})
 function App() {
   // const reactflow = useReactFlow()
   // document.body.onmousedown(event => {
@@ -16,13 +32,40 @@ function App() {
   //    //if(textBoxClicked.length) ipcRenderer.send('right-click/' + $(textBoxClicked).attr('id') )
   //   }
   //   })
+
+  const [contextMenuIsOpen, setContextMenuIsOpen] = useState(false);
+  const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
+  const [destiny, setDestiny] = useState("");
+  const openContextMenu = (e, newDestiny) => {
+    e.preventDefault();
+    setDestiny(newDestiny)
+    setAnchorPoint({ x: e.clientX, y: e.clientY });
+    setContextMenuIsOpen(true);
+  }
+
   return (
     <ReactFlowProvider>
-    <div className="App">
+    <div className="App"
+      onContextMenu={ (e) => {
+            const classlist = e.target.classList;
+            if (classlist.contains('react-flow__pane')) {
+              openContextMenu(e, "addNode")
+            }
+            if (classlist.contains('SideBar-button')) {
+              openContextMenu(e, "SideBarDialog")
+            }
+          }}>
+      <DeleteModal />
+      <RenameModal />
+      <ContextMenu destiny={destiny} anchorPoint={anchorPoint} isOpen={contextMenuIsOpen} setOpen={setContextMenuIsOpen} />
       <header className="App-header">React Flow - CRA Example</header>
       {/* <FpsView/> */}
+      <div style={{display:"flex", flexDirection:"row", height:"100%"}}>
+        <SideBar />
+        <Flow />
+
+      </div>
       <TextEditorView />
-      <Flow />
       <footer className="App-footer">React Flow - CRA Example</footer>
     </div>
     </ReactFlowProvider>

@@ -10,19 +10,15 @@ import { CharacterLabel } from "../types";
 import DefaultInput from "../Components/DefaultInput";
 import CharacterCard from "../CharacterCard";
 import LimitedHandle from "./LimitedHandle";
+import { observer } from "mobx-react-lite";
 
 
 // eslint-disable-next-line react/function-component-definition
-const TextNode: FC<NodeProps> = ({ data }) => {
+const TextNode: FC<NodeProps> = ({ id, data }) => {
   const resetSelectedElements = useStore(a => a.resetSelectedElements)
-  const [textContent, setTextContent] = useState(data.text);
-  function applyTextChange(newText : string) {
-    setTextContent(newText);
-    data.text = newText
-  }
   function handleEditClick() {
     resetSelectedElements();
-    t.openEditor(textContent, applyTextChange);
+    t.openEditor(data.text, id);
   }
   const [character, setCharacter] = useState<CharacterLabel|undefined|null>()
   function changeCharacter(newSelection : { value: string | undefined, label: string | undefined }) {
@@ -45,10 +41,10 @@ const TextNode: FC<NodeProps> = ({ data }) => {
       {character!==undefined && <> <CharacterCard/> </>}
 
       <div className='TextNode-wrapper'>
-        <DefaultInput textContent={textContent} readOnly/>
+        <DefaultInput textContent={data.text} readOnly/>
       </div>
     </div>
   );
 };
 
-export default memo(TextNode);
+export default observer(TextNode);

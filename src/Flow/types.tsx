@@ -9,11 +9,10 @@ export interface rowProps {
   }
 }
 export interface rowDisplayProps {
+  id : string,
   idOfRow : number,
   position : number,
-  deleteFunc : Function,
   renderDelete : boolean,
-  changeVar : Function,
   data : {
     firstVar? : { value: string, label: string },
     secondVar? : { value: string, label: string },
@@ -55,4 +54,15 @@ export interface AddNodeContextMenuProps {
   isOpen : boolean,
   setOpen : Dispatch<SetStateAction<boolean>>,
   addNode : Function
+}
+
+export interface ContextMenuProps {
+  destiny : string,
+  anchorPoint : {x:number, y:number},
+  isOpen : boolean,
+  setOpen : Dispatch<SetStateAction<boolean>>
+}
+
+export interface Dialog {
+  id : number, name: string, reactflowInstance : object
 }

@@ -1,25 +1,26 @@
 import { makeAutoObservable } from "mobx"
+import FlowStore from "./FlowStore"
 
 class TextEditorStore {
   isOpen=false
 
   currentText=""
 
-  currentFunction = {} as Function
+  currentId = ""
 
   constructor(){
     makeAutoObservable(this)
   }
 
-  openEditor(text : string, func : Function) {
+  openEditor(text : string, nodeId : string) {
     this.isOpen = true
     this.changeText(text)
-    this.currentFunction = func
+    this.currentId = nodeId
   }
 
   closeEditor() {
     this.isOpen = false
-    this.currentFunction(this.currentText)
+    FlowStore.updateTextInNode(this.currentId, this.currentText)
   }
 
   changeText(newText : string) {

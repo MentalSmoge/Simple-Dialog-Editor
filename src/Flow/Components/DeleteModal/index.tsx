@@ -1,0 +1,28 @@
+import { observer } from 'mobx-react-lite';
+import Modal from 'react-modal';
+import DeleteModalStore from '../../../store/DeleteModalStore';
+import './Modal.css';
+import DialogsStore from '../../../store/DialogsStore';
+
+const DeleteModal = observer(() => {
+  const closeModal = () => {
+    DeleteModalStore.closeEditor();
+  }
+  return (
+    <Modal
+          isOpen={DeleteModalStore.isOpen}
+          onRequestClose={closeModal}
+          contentLabel="Example Modal"
+          ariaHideApp={false}
+          className="modal-delete"
+        >
+          <h2 className='header'>Delete {DialogsStore.getDialogName(DeleteModalStore.currentId)}?</h2>
+          <div className='button-row'>
+            <button onClick={() => DeleteModalStore.delete()} type="button" className='delete'>Yes</button>
+            <button onClick={() => DeleteModalStore.closeEditor()} type="button" className='close'>No</button>
+          </div>
+        </Modal>
+    )
+  }
+)
+export default DeleteModal;
