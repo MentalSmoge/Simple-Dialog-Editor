@@ -11,13 +11,14 @@ import DeleteModal from '../Flow/Components/DeleteModal';
 import DeleteModalStore from '../store/DeleteModalStore';
 import RenameModal from '../Flow/Components/RenameModal';
 import DialogsStore from '../store/DialogsStore';
+import AddDialogModal from '../Flow/Components/AddDialogModal';
 window.electron.onSaveFile(() => {
   const response = {dialogs : []}
   // const responce = reactflow.toObject()
   DialogsStore.dialogs.forEach(dialog => {
     response.dialogs.push(dialog)
   });
-  console.log(response)
+  console.log(JSON.stringify(response))
   // const responce = JSON.stringify(reactflow.toObject())
   window.electron.saveFile(JSON.stringify(response))
 })
@@ -57,6 +58,7 @@ function App() {
           }}>
       <DeleteModal />
       <RenameModal />
+      <AddDialogModal />
       <ContextMenu destiny={destiny} anchorPoint={anchorPoint} isOpen={contextMenuIsOpen} setOpen={setContextMenuIsOpen} />
       <header className="App-header">React Flow - CRA Example</header>
       {/* <FpsView/> */}

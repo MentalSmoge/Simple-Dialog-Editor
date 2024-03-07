@@ -1,8 +1,9 @@
 import React from "react";
+import { observer } from "mobx-react-lite";
 import "./SideBar.css"
 import DialogsStore from "../../../store/DialogsStore";
 import SideBarButton from "./SideBar-button";
-import { observer } from "mobx-react-lite";
+import AddDialogButton from "../AddDialogModal/AddDialogButton";
 
 
 // eslint-disable-next-line react/function-component-definition
@@ -13,6 +14,7 @@ const SideBar = () => {
           <SideBarButton key={dialog.id} dialog={dialog} />
         ))}
       </div>
+      <AddDialogButton />
     </div>);
 }
 

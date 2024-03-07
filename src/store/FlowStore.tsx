@@ -20,6 +20,7 @@ import TextNode from "../Flow/Node_Types/TextNode";
 import ChoiceNode from "../Flow/Node_Types/ChoiceNode";
 import StaticEdge from "../Flow/Edge_Types/StaticEdge";
 import { rowProps } from "../Flow/types";
+import CharacterStore from "./CharacterStore";
 
 type RFState = {
   nodes: Node[];
@@ -82,7 +83,7 @@ class FlowStore {
   }
 
   // nodes = initialNodes
-  nodes = []
+  nodes = [] as Node[]
 
   edges = initialEdges
 
@@ -193,6 +194,11 @@ class FlowStore {
 
   updateTextInNode(nodeId: string, text : string) {
     this.nodes.filter(node => node.id === nodeId)[0].data.text = text
+  }
+
+  updateCharacterInNode(nodeId: string, characterId : string) {
+    this.nodes.filter(node => node.id === nodeId)[0].data.character = CharacterStore.getCharacter(characterId)
+    console.log(this.nodes.filter(node => node.id === nodeId)[0].data)
   }
 
   constructor(){

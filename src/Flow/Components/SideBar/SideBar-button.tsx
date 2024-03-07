@@ -12,7 +12,7 @@ export default observer(function ({dialog}) {
         RenameModalStore.setCurrentId(dialog.id)
       }
 
-    } onClick={() => DialogsStore.changeDialog(dialog.id)} className="SideBar-button button_neutral" type="button" key={dialog.id}>{dialog.name}</button>
+    } onClick={() => DialogsStore.changeDialog(dialog.id)} className={DialogsStore.currentDialogId===dialog.id ? "SideBar-button button_neutral highlight" : "SideBar-button button_neutral"} type="button" key={dialog.id}>{dialog.name}</button>
   );
 }
 )

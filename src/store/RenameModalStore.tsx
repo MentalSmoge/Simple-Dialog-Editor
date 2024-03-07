@@ -17,6 +17,7 @@ class RenameModalStore {
   }
 
   openEditor() {
+    this.currentNewName = DialogsStore.getDialogName(this.currentId)
     this.isOpen = true
   }
 

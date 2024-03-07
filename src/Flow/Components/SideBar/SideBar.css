@@ -37,6 +37,10 @@
   min-width: var(--scrollbar-minlength-sas);
 }
 
+.highlight {
+  background-color: var(--active-button-color);
+  border-color: var(--node-color);
+}
 
 .SideBar {
   height: 100%;
@@ -52,13 +56,13 @@
 
 .SideBar-wrapper {
   margin-top: 1rem;
-  height: 70%;
+  height: 70vh;
   width: 90%;
   align-self: center;
   background-color: var(--handle-color);
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow-y: scroll;
   border-radius: var(--rounding);
 }
 
@@ -67,5 +71,4 @@
   align-self: center;
   margin-top: 0.5rem;
   height: 1.5rem;
-  overflow: hidden;
 }

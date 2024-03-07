@@ -3,7 +3,6 @@ import { memo, type FC, type CSSProperties } from 'react';
 import { Handle, Position, type NodeProps, useStore, NodeResizer, NodeToolbar } from 'reactflow';
 import { useState } from 'react';
 
-import Store from "../../store/CharacterStore"
 import t from "../../store/TextEditorStore"
 import './TextNode.css';
 import { CharacterLabel } from "../types";
@@ -11,6 +10,8 @@ import DefaultInput from "../Components/DefaultInput";
 import CharacterCard from "../CharacterCard";
 import LimitedHandle from "./LimitedHandle";
 import { observer } from "mobx-react-lite";
+import FlowStore from "../../store/FlowStore";
+import CharacterStore from "../../store/CharacterStore";
 
 
 // eslint-disable-next-line react/function-component-definition
@@ -37,7 +38,9 @@ const TextNode: FC<NodeProps> = ({ id, data }) => {
       </NodeToolbar>
       <Handle type="target" position={Position.Left} />
       <LimitedHandle type="source" position={Position.Right} isConnectable={1} />
-      <Select isClearable onChange={(val) => changeCharacter({label:val?.label, value:val?.value})} value={character} options={Store.character_options} className='nodrag' />
+
+      <Select isClearable onChange={(val) => {FlowStore.updateCharacterInNode(id, val?.value)}} defaultValue={CharacterStore.getCharacterLabel(data?.character?.id)} value={character} options={CharacterStore.character_options} className='nodrag' />
+
       {character!==undefined && <> <CharacterCard/> </>}
 
       <div className='TextNode-wrapper'>

@@ -115,7 +115,7 @@ const initialDialogs = [
 ] as Dialog[]
 
 class DialogsStore {
-
+  newIdCounter = 2
 
   dialogs = initialDialogs
 
@@ -147,6 +147,24 @@ class DialogsStore {
   }
 
   addDialog(name : string) {
+    this.newIdCounter += 1
+    const dialog = {
+      id : this.newIdCounter,
+      name,
+      reactflowInstance: {
+        "nodes":[
+
+        ],
+        "edges":[
+
+        ],
+        "viewport":{
+           "x":0,
+           "y":0,
+           "zoom":1,
+        }
+     }
+    }
     this.dialogs.push(dialog)
   }
 
