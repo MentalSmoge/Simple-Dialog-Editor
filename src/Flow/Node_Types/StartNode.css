@@ -1,0 +1,11 @@
+.StartNode-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font: inherit;
+}
+
+.StartNode-text {
+  text-align: center;
+  font-size: large;
+}

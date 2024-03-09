@@ -31,7 +31,8 @@ export interface DefaultInputProps {
 }
 
 export interface ProportionalImageProps {
-  src : string
+  src : string,
+  alt : string
 }
 
 export interface CharacterCardProps {

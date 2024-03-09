@@ -18,6 +18,7 @@ import {
 import { nanoid } from 'nanoid';
 import TextNode from "../Flow/Node_Types/TextNode";
 import ChoiceNode from "../Flow/Node_Types/ChoiceNode";
+import StartNode from "../Flow/Node_Types/StartNode";
 import StaticEdge from "../Flow/Edge_Types/StaticEdge";
 import { rowProps } from "../Flow/types";
 import CharacterStore from "./CharacterStore";
@@ -32,57 +33,19 @@ type RFState = {
   setEdges: (edges: Edge[]) => void;
 };
 
-// const initialNodes: Node[] = [
-//   {
-//     id: '5',
-//     data: { text: 'This is text   das\n cool ass hat maaaan\n cool ass hat maaaan\n cool ass hat maaaan\n cool ass hat maaaan' },
-//     position: { x: 200, y: 200 },
-//     type: 'text',
-//   },
-//   {
-//     id: '6',
-//     data: {text: 'This is ыфы' },
-//     position: { x: 0, y: 200 },
-//     type: 'text',
-//   },
-//   {
-//     id: '9',
-//     data: { rows: [{
-//       idOfRow: 0,
-//       data: {
-//         firstVar: undefined,
-//         secondVar: { value: '=', label: '=' },
-//         thirdVar: undefined
-//       }
-//     }, {
-//       idOfRow: 1,
-//       data: {
-//         firstVar: undefined,
-//         secondVar: { value: '=', label: '=' },
-//         thirdVar: undefined
-//       }
-//     }], increment: 1 },
-//     position: { x: 0, y: -100 },
-//     type: 'choice',
-//   },
-// ];
-
-const initialEdges: Edge[] = [
-  // { id: 'e1-2', source: '5', target: '6' },
-  // { id: 'e2-3', source: '6', target: '9' },
-];
+const initialEdges: Edge[] = [];
 class FlowStore {
 
   nodeTypes = {
     text: TextNode,
-    choice : ChoiceNode
+    choice : ChoiceNode,
+    start : StartNode
   };
 
   edgeTypes = {
     'static-edge': StaticEdge
   }
 
-  // nodes = initialNodes
   nodes = [] as Node[]
 
   edges = initialEdges
@@ -101,11 +64,6 @@ class FlowStore {
     const edge = { ...connection, type: 'static-edge' };
     this.edges = addEdge(edge, this.edges)
   }
-
-  // onConnect(params: Connection | Edge) {
-  //   const edge = { ...params, type: 'static-edge' };
-  //   this.setEdges(this.edges.concat(edge))
-  // }
 
   setNodes(nodes: Node[]) {
     this.nodes = nodes
@@ -196,9 +154,22 @@ class FlowStore {
     this.nodes.filter(node => node.id === nodeId)[0].data.text = text
   }
 
-  updateCharacterInNode(nodeId: string, characterId : string) {
-    this.nodes.filter(node => node.id === nodeId)[0].data.character = CharacterStore.getCharacter(characterId)
+  updateCharacterInNode(nodeId: string, characterId : string | undefined) {
+    if (characterId === undefined) {
+      this.nodes.filter(node => node.id === nodeId)[0].data.character = undefined
+      return
+    }
+    const char = CharacterStore.getCharacter(characterId)
+    const newChar = {
+      name: char.name,
+      id: char.id
+  };
+    this.nodes.filter(node => node.id === nodeId)[0].data.character = newChar
     console.log(this.nodes.filter(node => node.id === nodeId)[0].data)
+  }
+
+  updatePortraitInNode(nodeId: string, portrait : string) {
+    this.nodes.filter(node => node.id === nodeId)[0].data.portrait = portrait
   }
 
   constructor(){

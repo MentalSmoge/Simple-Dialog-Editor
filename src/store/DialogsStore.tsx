@@ -5,16 +5,28 @@ type Dialog = {
   id : number, name: string, reactflowInstance : object
 }
 
+const startNode = {
+  "id": "start_node",
+  "position": {
+    "x": 0,
+    "y": 0
+  },
+  "type": "start",
+  "deletable": false
+}
+
 const initialDialogs = [
   {
     id : 1,
     name: "Dialog 1",
     reactflowInstance: {
       "nodes":[
+        startNode,
          {
             "id":"5",
             "data":{
-               "text":"Это достаточно длинный последовательный осмысленный текст. Эта реплика такая длинная, что тот, кто писал её, засыпал несколько раз в процессе. Говорят, что если прочитать эту реплику семь раз стоя на одной ноге, то можно достичь тайн мироздания. А еще говорят, что лучше бы я так много писал в курсовую работу, нежели сюда."
+               "text":"Это достаточно длинный последовательный осмысленный текст. Эта реплика такая длинная, что тот, кто писал её, засыпал несколько раз в процессе. Говорят, что если прочитать эту реплику семь раз стоя на одной ноге, то можно достичь тайн мироздания. А еще говорят, что лучше бы я так много писал в курсовую работу, нежели сюда.",
+               "portrait": ""
             },
             "position":{
                "x":275,
@@ -33,7 +45,8 @@ const initialDialogs = [
          {
             "id":"6",
             "data":{
-               "text":"Это короткая реплика"
+               "text":"Это короткая реплика",
+               "portrait": ""
             },
             "position":{
                "x":0,
@@ -146,6 +159,16 @@ class DialogsStore {
       this.currentDialogId = toId
   }
 
+  changeDialogWithoutSave(toId : number) {
+    const flow = this.getDialog(toId).reactflowInstance;
+
+      if (flow) {
+        FlowStore.setNodes(flow.nodes || []);
+        FlowStore.setEdges(flow.edges || []);
+      }
+      this.currentDialogId = toId
+  }
+
   addDialog(name : string) {
     this.newIdCounter += 1
     const dialog = {
@@ -153,7 +176,7 @@ class DialogsStore {
       name,
       reactflowInstance: {
         "nodes":[
-
+          startNode
         ],
         "edges":[
 
@@ -171,6 +194,12 @@ class DialogsStore {
   deleteDialog(dialogId : number) {
     const result = this.dialogs.filter(dialog => dialog.id !== dialogId);
     this.dialogs = result
+    if (this.dialogs.length <= 0) {
+      this.addDialog("New Dialog")
+    }
+    if (this.currentDialogId === dialogId) {
+      this.changeDialogWithoutSave(this.dialogs[0].id)
+    }
   }
 
   renameDialog(dialogId : number, newName : string) {
@@ -183,6 +212,17 @@ class DialogsStore {
 
   getDialogName(dialogId : number) {
     return this.dialogs.filter(dialog => dialog.id === dialogId)[0]?.name
+  }
+
+  setDialogs(dialogs: Dialog[]) {
+    this.dialogs = dialogs
+    const flow = this.getDialog(dialogs[0].id).reactflowInstance;
+
+      if (flow) {
+        FlowStore.setNodes(flow.nodes || []);
+        FlowStore.setEdges(flow.edges || []);
+      }
+      this.currentDialogId = dialogs[0].id
   }
 }
 

@@ -31,7 +31,7 @@ function ChoiceRow({id, idOfRow, data, renderDelete, position} : rowDisplayProps
       isConnectable={1}
       handleid={`handle-${idOfRow}`} />
       {/* Первая переменная */}
-      <Select isClearable onChange={(val) => FlowStore.changeVar(id, idOfRow, 'first', val)} value={data.firstVar} options={Store.variables} className='nodrag child coolselect' styles={{
+      <Select placeholder={<div>Variable...</div>} isClearable onChange={(val) => FlowStore.changeVar(id, idOfRow, 'first', val)} value={data.firstVar} options={Store.variables} className='nodrag child coolselect' styles={{
     control: (baseStyles, state) => ({
           ...baseStyles,
           borderRadius:"8px 0 0 8px",
@@ -45,7 +45,7 @@ function ChoiceRow({id, idOfRow, data, renderDelete, position} : rowDisplayProps
         }),
       }}/>
       {/* Вторая переменная */}
-      <Creatable isClearable onChange={(val) => FlowStore.changeVar(id, idOfRow, 'third', val)} value={data.thirdVar}  options={Store.variables} className='nodrag child coolselect' styles={{
+      <Creatable placeholder={<div>Comparable...</div>} isClearable onChange={(val) => FlowStore.changeVar(id, idOfRow, 'third', val)} value={data.thirdVar}  options={Store.variables} className='nodrag child coolselect' styles={{
     control: (baseStyles, state) => ({
           ...baseStyles,
           borderRadius:"0 8px 8px 0",

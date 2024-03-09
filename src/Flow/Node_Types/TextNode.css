@@ -31,3 +31,8 @@
   margin: 0;
   border-radius: 10px;
 }
+
+.TextNode-select {
+  border-radius: var(--rounding);
+  color: black;
+}

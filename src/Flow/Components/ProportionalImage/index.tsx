@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ProportionalImage.css"
 import { ProportionalImageProps } from "../../types";
+import { observer } from "mobx-react-lite";
 
 // eslint-disable-next-line react/function-component-definition
-const ProportionalImage = ({src} : ProportionalImageProps) => {
+const ProportionalImage = ({image, defaultImage=""} : ProportionalImageProps) => {
+  const [source, setSource] = useState(image)
+  useEffect(() => {
+    console.log("Image changed")
+    setSource(image)
+  },[image])
+  const lol = () => {
+    setSource(defaultImage)
+    console.log("Fallback")
+  }
   return (
-    <img className="ProportionalImage-image" src={src} alt=""/>
+    <img onError={lol} className="ProportionalImage-image" src={source ? source : defaultImage} alt=""/>
     );
 }
 
-export default ProportionalImage
+export default observer(ProportionalImage)

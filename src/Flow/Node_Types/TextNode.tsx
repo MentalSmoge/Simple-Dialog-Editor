@@ -21,14 +21,14 @@ const TextNode: FC<NodeProps> = ({ id, data }) => {
     resetSelectedElements();
     t.openEditor(data.text, id);
   }
-  const [character, setCharacter] = useState<CharacterLabel|undefined|null>()
-  function changeCharacter(newSelection : { value: string | undefined, label: string | undefined }) {
-    if (newSelection.value === undefined && newSelection.label === undefined) {
-      setCharacter(undefined);
-      return;
+  const changeCharacter = (val) => {
+    FlowStore.updateCharacterInNode(id, val?.value)
+    FlowStore.updatePortraitInNode(id, "")
+    if (val === null) {
+      FlowStore.updatePortraitInNode(id, "")
     }
-    setCharacter({value: newSelection.value, label: newSelection.label});
   }
+  const character = CharacterStore.getCharacterLabel(data?.character?.id)
 
   return (
     <div className='TextNode-container'>
@@ -39,9 +39,14 @@ const TextNode: FC<NodeProps> = ({ id, data }) => {
       <Handle type="target" position={Position.Left} />
       <LimitedHandle type="source" position={Position.Right} isConnectable={1} />
 
-      <Select isClearable onChange={(val) => {FlowStore.updateCharacterInNode(id, val?.value)}} defaultValue={CharacterStore.getCharacterLabel(data?.character?.id)} value={character} options={CharacterStore.character_options} className='nodrag' />
+      <Select placeholder={<div>Character...</div>} isClearable onChange={(val) => changeCharacter(val)} value={character} options={CharacterStore.character_options} className='TextNode-select nodrag ' styles={{
+        control: (baseStyles, state) => ({
+          ...baseStyles,
+          borderRadius:"8px 8px 0 0",
+        }),
+      }}/>
 
-      {character!==undefined && <> <CharacterCard/> </>}
+      {character!==undefined && <> <CharacterCard id={id}/> </>}
 
       <div className='TextNode-wrapper'>
         <DefaultInput textContent={data.text} readOnly/>

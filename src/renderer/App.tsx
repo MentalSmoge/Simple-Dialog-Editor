@@ -22,18 +22,18 @@ window.electron.onSaveFile(() => {
   // const responce = JSON.stringify(reactflow.toObject())
   window.electron.saveFile(JSON.stringify(response))
 })
-function App() {
-  // const reactflow = useReactFlow()
-  // document.body.onmousedown(event => {
-  //   console.log("sas");
-  //   if( event.which === 3) {
-  //    //this is a right click, so electron-context-menu will be appearing momentarily...
-  //    let elementClicked = event.target;
-  //    console.log(elementClicked);
-  //    //if(textBoxClicked.length) ipcRenderer.send('right-click/' + $(textBoxClicked).attr('id') )
-  //   }
-  //   })
+window.electron.onProjectOpen((args) => {
+  console.log('got FILE_OPEN', args)
+  let result
+  try {
+    result = JSON.parse(args).dialogs
 
+  } catch (error) {
+    console.log(error)
+  }
+  DialogsStore.setDialogs(result)
+})
+function App() {
   const [contextMenuIsOpen, setContextMenuIsOpen] = useState(false);
   const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
   const [destiny, setDestiny] = useState("");

@@ -7,6 +7,7 @@ import {
   dialog,
   ipcMain,
 } from 'electron';
+import { readFile } from 'fs';
 const contextMenu = require('electron-context-menu');
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
@@ -201,6 +202,35 @@ export default class MenuBuilder {
           {
             label: '&Open',
             accelerator: 'Ctrl+O',
+            click: () => {
+              // construct the select file dialog
+              dialog.showOpenDialog({
+                properties: ['openFile'],
+                filters: [
+                  { name: 'Project file', extensions: ['json'] }
+                ],
+              })
+              .then((fileObj) => {
+                 // the fileObj has two props
+                 if (!fileObj.canceled) {
+                  readFile(fileObj.filePaths[0],'utf8',(err,contents)=>{
+                    if(err){
+                       console.log(err);
+                       return;
+                    }
+                    this.mainWindow.webContents.send('PROJECT_OPEN', contents)
+                    console.log(contents);
+                  })
+
+
+                  //  this.mainWindow.webContents.send('PROJECT_OPEN', fileObj.filePaths)
+                 }
+              })
+  // should always handle the error yourself, later Electron release might crash if you don't
+              .catch(function(err) {
+                 console.error(err)
+              })
+           }
           },
           {
             label: '&Close',

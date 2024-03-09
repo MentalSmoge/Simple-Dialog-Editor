@@ -4,13 +4,14 @@ import { CharacterLabel } from "../Flow/types";
 type Character = {
   id : string,
   name : string,
-  bio : string
+  bio : string,
+  defaultPortrait : string
 }
 
 class CharacterStore {
   characters : Character[] = [
-    {id: '1', name:"First One", bio:"The Chosen One"},
-    {id: '2', name:"Second One", bio:"Not so special tbh"}
+    {id: '1', name:"First One", bio:"The Chosen One", defaultPortrait: "D:\\Фото С IPHONE 6S\\IMG_0053.jpg"},
+    {id: '2', name:"Second One", bio:"Not so special tbh", defaultPortrait: "D:\\Фото С IPHONE 6S\\IMG_0157.jpg"}
   ];
 
   get character_options() {
