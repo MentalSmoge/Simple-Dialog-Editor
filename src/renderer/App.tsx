@@ -12,12 +12,15 @@ import DeleteModalStore from '../store/DeleteModalStore';
 import RenameModal from '../Flow/Components/RenameModal';
 import DialogsStore from '../store/DialogsStore';
 import AddDialogModal from '../Flow/Components/AddDialogModal';
+import RightSideBar from '../Flow/Components/RightSideBar';
 window.electron.onSaveFile(() => {
   const response = {dialogs : []}
+  const dialogs = DialogsStore.getDialogsForExport()
+  response.dialogs = dialogs
   // const responce = reactflow.toObject()
-  DialogsStore.dialogs.forEach(dialog => {
-    response.dialogs.push(dialog)
-  });
+  // DialogsStore.dialogs.forEach(dialog => {
+  //   response.dialogs.push(dialog)
+  // });
   console.log(JSON.stringify(response))
   // const responce = JSON.stringify(reactflow.toObject())
   window.electron.saveFile(JSON.stringify(response))
@@ -31,7 +34,12 @@ window.electron.onProjectOpen((args) => {
   } catch (error) {
     console.log(error)
   }
-  DialogsStore.setDialogs(result)
+  try {
+    DialogsStore.setDialogs(result)
+  } catch (error) {
+    console.log(error)
+
+  }
 })
 function App() {
   const [contextMenuIsOpen, setContextMenuIsOpen] = useState(false);
@@ -62,10 +70,10 @@ function App() {
       <ContextMenu destiny={destiny} anchorPoint={anchorPoint} isOpen={contextMenuIsOpen} setOpen={setContextMenuIsOpen} />
       <header className="App-header">React Flow - CRA Example</header>
       {/* <FpsView/> */}
-      <div style={{display:"flex", flexDirection:"row", height:"100%"}}>
+      <div style={{display:"flex", flexDirection:"row", height:"100%", overflow:"hidden"}}>
         <SideBar />
         <Flow />
-
+        <RightSideBar />
       </div>
       <TextEditorView />
       <footer className="App-footer">React Flow - CRA Example</footer>

@@ -1,0 +1,19 @@
+@startuml
+autonumber
+box Поле сценариста #lightgreen
+actor "Сценарист" as user
+participant "Программа" as doc
+end box
+box Поле программиста #lightblue
+actor "Программист" as prog
+participant "Файл с диалогом для движка" as doc2
+actor "Движок игры" as engine
+end box
+
+user -> doc : Пишет диалог
+doc -> prog : Файл с диалогом\nпопадает к программисту
+prog -> doc2 : Экспортирует диалог в вид\nпонятный игровому движку
+doc2 -> engine : Передается движку
+engine -> engine : Использует диалог\nвнутри игры
+
+@enduml

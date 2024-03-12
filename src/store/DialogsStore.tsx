@@ -215,6 +215,10 @@ class DialogsStore {
   }
 
   setDialogs(dialogs: Dialog[]) {
+    if (dialogs === undefined) {
+      console.log("Error")
+      return
+    }
     this.dialogs = dialogs
     const flow = this.getDialog(dialogs[0].id).reactflowInstance;
 
@@ -223,6 +227,11 @@ class DialogsStore {
         FlowStore.setEdges(flow.edges || []);
       }
       this.currentDialogId = dialogs[0].id
+  }
+
+  getDialogsForExport() {
+    this.saveCurrent()
+    return this.dialogs
   }
 }
 

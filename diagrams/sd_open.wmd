@@ -2,7 +2,7 @@
 autonumber
 actor "Пользователь" as user
 participant "Программа" as program
-participant "Операционная система" as os
+actor "Операционная система" as os
 
 group 2. Открытие файла
 user -> program : Нажимает кнопку\nОткрыть проект
