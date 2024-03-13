@@ -1,29 +1,44 @@
 import { makeAutoObservable } from "mobx"
 
 type Variable = {
-  value: string, label: string
+  id: number, value: string, label: string
 }
 
 class VariableStore {
   variables = [
-    { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-  { value: 'Очень длинная переменная', label: 'Очень длинная переменная' }];
+    { id: 1, value: 'chocolate', label: 'Chocolate' },
+  { id: 2, value: 'strawberry', label: 'Strawberry' },
+  { id: 3, value: 'vanilla', label: 'Vanilla' },
+  { id: 4, value: 'Очень длинная переменная', label: 'Очень длинная переменная' }];
+
+  newIdCounter = 5
 
   constructor(){
     makeAutoObservable(this)
   }
 
-  addVar(variable : Variable) {
-    this.variables.push(variable)
+  addVar(label : string) {
+    this.newIdCounter += 1
+    const newVar = {
+      id : this.newIdCounter,
+      value: label,
+      label
+    }
+    this.variables.push(newVar)
   }
 
-  deleteVar(variable : Variable) {
-    const index = this.variables.indexOf(variable, 0);
-    if (index > -1) {
-      this.variables.splice(index, 1);
-    }
+  deleteVar(variableId : number) {
+    const result = this.variables.filter(variable => variable.id !== variableId);
+    this.variables = result
+  }
+
+  getVar(variableId : number) {
+    return this.variables.filter(variable => variable.id === variableId)[0]
+  }
+
+  getVarName(variableId : number) {
+    console.log(variableId)
+    return this.variables.filter(variable => variable.id === variableId)[0]?.label
   }
 }
 

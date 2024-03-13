@@ -7,6 +7,9 @@ import AddDialogButton from "../AddDialogModal/AddDialogButton";
 import { CSSTransition } from "react-transition-group";
 import CharacterStore from "../../../store/CharacterStore";
 import VariablesStore from "../../../store/VariablesStore";
+import DeleteModalStore from "../../../store/DeleteModalStore";
+import EditModalCharacterStore from "../../../store/EditModalCharacterStore";
+import EditModalVariableStore from "../../../store/EditModalVariableStore";
 
 
 // eslint-disable-next-line react/function-component-definition
@@ -31,10 +34,18 @@ const RightSideBar = () => {
           </div>
             <div className="RightSideBar-wrapper">
               {category === 1 && CharacterStore.characters.map((character, index) => (
-                <button type="button">{character.name}</button>
+                <button className="RightSideBar-button-character button_neutral" type="button" onContextMenu={
+                  (e) => {
+                    DeleteModalStore.setCurrentId(character.id)
+                    EditModalCharacterStore.setCurrentId(character.id)
+                  }}>{character.name}</button>
               ))}
               {category === 2 && VariablesStore.variables.map((variable, index) => (
-                <button type="button">{variable.label}</button>
+                <button className="RightSideBar-button-variable button_neutral" type="button" onContextMenu={
+                  (e) => {
+                    DeleteModalStore.setCurrentId(variable.id)
+                    EditModalVariableStore.setCurrentId(variable.id)
+                  }}>{variable.label}</button>
               ))}
 
             </div>

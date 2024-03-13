@@ -21,7 +21,7 @@ export interface rowDisplayProps {
 }
 
 export interface CharacterLabel {
-  value : string,
+  value : number,
   label : string
 }
 

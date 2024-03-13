@@ -6,6 +6,8 @@ import { ContextMenuProps } from '../../types';
 import FlowStore from '../../../store/FlowStore';
 import DeleteModalStore from '../../../store/DeleteModalStore';
 import RenameModalStore from '../../../store/RenameModalStore';
+import EditModalCharacterStore from '../../../store/EditModalCharacterStore';
+import EditModalVariableStore from '../../../store/EditModalVariableStore';
 
 export default function ({destiny, anchorPoint, isOpen, setOpen} : ContextMenuProps) {
   const reactflow = useReactFlow()
@@ -29,7 +31,15 @@ export default function ({destiny, anchorPoint, isOpen, setOpen} : ContextMenuPr
         </>}
         { destiny==="SideBarDialog" && <>
         <MenuItem onClick={() => RenameModalStore.openEditor()}>Rename Dialog</MenuItem>
-        <MenuItem onClick={() => DeleteModalStore.openEditor()}>Delete Dialog</MenuItem>
+        <MenuItem onClick={() => DeleteModalStore.openEditor("Dialog")}>Delete Dialog</MenuItem>
+        </>}
+        { destiny==="SideBarCharacter" && <>
+        <MenuItem onClick={() => EditModalCharacterStore.openEditor()}>Edit Character</MenuItem>
+        <MenuItem onClick={() => DeleteModalStore.openEditor("Character")}>Delete Character</MenuItem>
+        </>}
+        { destiny==="SideBarVariable" && <>
+        <MenuItem onClick={() => EditModalVariableStore.openEditor()}>Edit Variable</MenuItem>
+        <MenuItem onClick={() => DeleteModalStore.openEditor("Variable")}>Delete Variable</MenuItem>
         </>}
 
       </ControlledMenu>

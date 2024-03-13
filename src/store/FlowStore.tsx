@@ -154,7 +154,7 @@ class FlowStore {
     this.nodes.filter(node => node.id === nodeId)[0].data.text = text
   }
 
-  updateCharacterInNode(nodeId: string, characterId : string | undefined) {
+  updateCharacterInNode(nodeId: string, characterId : number | undefined) {
     if (characterId === undefined) {
       this.nodes.filter(node => node.id === nodeId)[0].data.character = undefined
       return

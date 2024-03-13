@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx"
 import { CharacterLabel } from "../Flow/types";
 
 type Character = {
-  id : string,
+  id : number,
   name : string,
   bio : string,
   defaultPortrait : string
@@ -10,9 +10,11 @@ type Character = {
 
 class CharacterStore {
   characters : Character[] = [
-    {id: '1', name:"First One", bio:"The Chosen One", defaultPortrait: "D:\\Фото С IPHONE 6S\\IMG_0053.jpg"},
-    {id: '2', name:"Second One", bio:"Not so special tbh", defaultPortrait: "D:\\Фото С IPHONE 6S\\IMG_0157.jpg"}
+    {id: 1, name:"First One", bio:"The Chosen One", defaultPortrait: "D:\\Фото С IPHONE 6S\\IMG_0053.jpg"},
+    {id: 2, name:"Second One", bio:"Not so special tbh", defaultPortrait: "D:\\Фото С IPHONE 6S\\IMG_0157.jpg"}
   ];
+
+  newIdCounter = 3
 
   get character_options() {
     const returnCharacters = [] as CharacterLabel[]
@@ -31,19 +33,28 @@ class CharacterStore {
     makeAutoObservable(this)
   }
 
-  addCharacter(variable : Variable) {
-    this.variables.push(variable)
-  }
-
-  deleteCharacter(variable : Variable) {
-    const index = this.variables.indexOf(variable, 0);
-    if (index > -1) {
-      this.variables.splice(index, 1);
+  addCharacter(name : string) {
+    this.newIdCounter += 1
+    const character = {
+      id : this.newIdCounter,
+      name,
+      bio: "",
+      defaultPortrait: "",
     }
+    this.characters.push(character)
   }
 
-  getCharacter(characterId : string) {
+  deleteCharacter(characterId : number) {
+    const result = this.characters.filter(character => character.id !== characterId);
+    this.characters = result
+  }
+
+  getCharacter(characterId : number) {
     return this.characters.filter(character => character.id === characterId)[0]
+  }
+
+  getCharacterName(characterId : number) {
+    return this.characters.filter(character => character.id === characterId)[0]?.name
   }
 
   getCharacterLabel(characterId : string) {

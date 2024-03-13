@@ -63,6 +63,12 @@ function App() {
             if (classlist.contains('SideBar-button')) {
               openContextMenu(e, "SideBarDialog")
             }
+            if (classlist.contains('RightSideBar-button-character')) {
+              openContextMenu(e, "SideBarCharacter")
+            }
+            if (classlist.contains('RightSideBar-button-variable')) {
+              openContextMenu(e, "SideBarVariable")
+            }
           }}>
       <DeleteModal />
       <RenameModal />

@@ -57,13 +57,13 @@
 }
 
 .circle-enter-active {
-  animation: show-sidebar 0.51s forwards
+  animation: show-sidebar 0.55s forwards
 }
 
 .circle-enter-done {}
 
 .circle-exit-active {
-  animation: show-sidebar 0.51s reverse
+  animation: show-sidebar 0.55s reverse
 }
 
 .RightSideBar.exited {}
@@ -79,8 +79,8 @@
   overflow-y: scroll;
   border-radius: var(--rounding);
 }
-
-.RightSideBar-button {
+.RightSideBar-button-variable,
+.RightSideBar-button-character {
   width: 90%;
   align-self: center;
   margin-top: 0.5rem;
