@@ -10,6 +10,8 @@ import VariablesStore from "../../../store/VariablesStore";
 import DeleteModalStore from "../../../store/DeleteModalStore";
 import EditModalCharacterStore from "../../../store/EditModalCharacterStore";
 import EditModalVariableStore from "../../../store/EditModalVariableStore";
+import AddCharacterButton from "../AddCharacterModal/AddCharacterButton";
+import AddVarButton from "../AddVarModal/AddVarButton";
 
 
 // eslint-disable-next-line react/function-component-definition
@@ -49,7 +51,10 @@ const RightSideBar = () => {
               ))}
 
             </div>
-            <AddDialogButton />
+            {category === 1 &&
+            <AddCharacterButton />}
+            {category === 2 &&
+            <AddVarButton />}
         </div>
       </CSSTransition>
 

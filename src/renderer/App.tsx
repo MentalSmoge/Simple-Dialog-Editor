@@ -13,29 +13,45 @@ import RenameModal from '../Flow/Components/RenameModal';
 import DialogsStore from '../store/DialogsStore';
 import AddDialogModal from '../Flow/Components/AddDialogModal';
 import RightSideBar from '../Flow/Components/RightSideBar';
+import EditModalCharacter from '../Flow/Components/EditModalCharacter';
+import EditModalVariable from '../Flow/Components/EditModalVariable';
+import AddCharacterModal from '../Flow/Components/AddCharacterModal';
+import AddVarModal from '../Flow/Components/AddVarModal';
+import CharacterStore from '../store/CharacterStore';
+import VariablesStore from '../store/VariablesStore';
 window.electron.onSaveFile(() => {
-  const response = {dialogs : []}
+  const response = {dialogs : [], characters : [], variables : []}
   const dialogs = DialogsStore.getDialogsForExport()
   response.dialogs = dialogs
+  response.characters = CharacterStore.getCharactersForExport()
+  response.variables = VariablesStore.getVariablesForExport()
   // const responce = reactflow.toObject()
   // DialogsStore.dialogs.forEach(dialog => {
   //   response.dialogs.push(dialog)
   // });
-  console.log(JSON.stringify(response))
+  console.log(JSON.stringify(response, null, 2))
   // const responce = JSON.stringify(reactflow.toObject())
   window.electron.saveFile(JSON.stringify(response))
 })
 window.electron.onProjectOpen((args) => {
   console.log('got FILE_OPEN', args)
   let result
+  let result_dialog
+  let result_char
+  let result_var
   try {
-    result = JSON.parse(args).dialogs
+    result = JSON.parse(args)
+    result_dialog = result.dialogs
+    result_char = result.characters
+    result_var = result.variables
 
   } catch (error) {
     console.log(error)
   }
   try {
-    DialogsStore.setDialogs(result)
+    DialogsStore.setDialogs(result_dialog)
+    CharacterStore.setCharacters(result_char)
+    VariablesStore.setVariables(result_var)
   } catch (error) {
     console.log(error)
 
@@ -73,6 +89,10 @@ function App() {
       <DeleteModal />
       <RenameModal />
       <AddDialogModal />
+      <AddCharacterModal />
+      <AddVarModal />
+      <EditModalCharacter />
+      <EditModalVariable />
       <ContextMenu destiny={destiny} anchorPoint={anchorPoint} isOpen={contextMenuIsOpen} setOpen={setContextMenuIsOpen} />
       <header className="App-header">React Flow - CRA Example</header>
       {/* <FpsView/> */}

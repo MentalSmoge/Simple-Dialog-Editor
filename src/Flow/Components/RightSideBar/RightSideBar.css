@@ -79,12 +79,13 @@
   overflow-y: scroll;
   border-radius: var(--rounding);
 }
+
 .RightSideBar-button-variable,
 .RightSideBar-button-character {
   width: 90%;
   align-self: center;
   margin-top: 0.5rem;
-  height: 1.5rem;
+  height: fit-content;
 }
 
 @keyframes show-sidebar {

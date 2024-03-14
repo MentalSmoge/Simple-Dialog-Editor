@@ -47,6 +47,7 @@ class CharacterStore {
   deleteCharacter(characterId : number) {
     const result = this.characters.filter(character => character.id !== characterId);
     this.characters = result
+    // DialogsStore.deleteCharacterFromDialogs(characterId)
   }
 
   getCharacter(characterId : number) {
@@ -57,8 +58,38 @@ class CharacterStore {
     return this.characters.filter(character => character.id === characterId)[0]?.name
   }
 
-  getCharacterLabel(characterId : string) {
+  getCharacterBio(characterId : number) {
+    return this.characters.filter(character => character.id === characterId)[0]?.bio
+  }
+
+  getCharacterDir(characterId : number) {
+    return this.characters.filter(character => character.id === characterId)[0]?.defaultPortrait
+  }
+
+  getCharacterLabel(characterId : number) {
+
+    if(this.character_options.filter(character => character.value === characterId)[0] === undefined) {
+      return null
+    }
     return this.character_options.filter(character => character.value === characterId)[0]
+  }
+
+  editCharacter(characterId : number, name : string, bio : string, defaultPortrait : string) {
+    this.characters.filter(character => character.id === characterId)[0].name = name
+    this.characters.filter(character => character.id === characterId)[0].bio = bio
+    this.characters.filter(character => character.id === characterId)[0].defaultPortrait = defaultPortrait
+  }
+
+  getCharactersForExport() {
+    return this.characters
+  }
+
+  setCharacters(characters: Character[]) {
+    if (characters === undefined) {
+      console.log("Error")
+      return
+    }
+    this.characters = characters
   }
 }
 

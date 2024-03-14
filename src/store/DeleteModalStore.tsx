@@ -30,9 +30,11 @@ class DeleteModalStore {
         break;
       case "Character":
         CharacterStore.deleteCharacter(this.currentId)
+        DialogsStore.deleteCharacterFromDialogs(this.currentId)
         break;
       case "Variable":
         VariablesStore.deleteVar(this.currentId)
+        DialogsStore.deleteVarFromDialogs(this.currentId)
         break;
 
       default:

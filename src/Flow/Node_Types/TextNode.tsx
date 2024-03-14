@@ -1,5 +1,5 @@
 import Select, { SingleValue } from "react-select";
-import { memo, type FC, type CSSProperties } from 'react';
+import { memo, type FC, type CSSProperties, useEffect } from 'react';
 import { Handle, Position, type NodeProps, useStore, NodeResizer, NodeToolbar } from 'reactflow';
 import { useState } from 'react';
 
@@ -30,6 +30,12 @@ const TextNode: FC<NodeProps> = ({ id, data }) => {
   }
   const character = CharacterStore.getCharacterLabel(data?.character?.id)
 
+  // useEffect(function verifyValueExistsInNewOptions() {
+  //   if(character && CharacterStore.character_options.length && !CharacterStore.character_options.find(x => x.value === character.value) {
+  //     setValue(null);
+  //   }
+  // }, [character, CharacterStore.character_options]);
+
   return (
     <div className='TextNode-container'>
 
@@ -39,14 +45,14 @@ const TextNode: FC<NodeProps> = ({ id, data }) => {
       <Handle type="target" position={Position.Left} />
       <LimitedHandle type="source" position={Position.Right} isConnectable={1} />
 
-      <Select placeholder={<div>Character...</div>} isClearable onChange={(val) => changeCharacter(val)} value={character} options={CharacterStore.character_options} className='TextNode-select nodrag ' styles={{
+      <Select placeholder={<div>Character...</div>} isClearable onChange={(val) => changeCharacter(val)} value={CharacterStore.getCharacterLabel(data?.character?.id)} options={CharacterStore.character_options} className='TextNode-select nodrag ' styles={{
         control: (baseStyles, state) => ({
           ...baseStyles,
           borderRadius:"8px 8px 0 0",
         }),
       }}/>
 
-      {character!==undefined && <> <CharacterCard id={id}/> </>}
+      {character!==undefined && character!==null && <> <CharacterCard id={id}/> </>}
 
       <div className='TextNode-wrapper'>
         <DefaultInput textContent={data.text} readOnly/>

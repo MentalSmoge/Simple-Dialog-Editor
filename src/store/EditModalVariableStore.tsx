@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx"
 import DialogsStore from "./DialogsStore"
+import VariablesStore from "./VariablesStore"
 
 class EditModalVariableStore {
   isOpen=false
@@ -17,12 +18,12 @@ class EditModalVariableStore {
   }
 
   openEditor() {
-    this.currentNewName = DialogsStore.getDialogName(this.currentId)
+    this.currentNewName = VariablesStore.getVarName(this.currentId)
     this.isOpen = true
   }
 
   rename() {
-    DialogsStore.renameDialog(this.currentId, this.currentNewName)
+    VariablesStore.renameVar(this.currentId, this.currentNewName)
     this.closeEditor()
   }
 

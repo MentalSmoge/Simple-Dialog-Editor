@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx"
 import DialogsStore from "./DialogsStore"
+import CharacterStore from "./CharacterStore"
 
 class EditModalCharacterStore {
   isOpen=false
@@ -7,6 +8,10 @@ class EditModalCharacterStore {
   currentId = -1
 
   currentNewName = ""
+
+  currentNewBio = ""
+
+  currentNewDir = ""
 
   constructor(){
     makeAutoObservable(this)
@@ -17,12 +22,15 @@ class EditModalCharacterStore {
   }
 
   openEditor() {
-    this.currentNewName = DialogsStore.getDialogName(this.currentId)
     this.isOpen = true
+    this.currentNewName = CharacterStore.getCharacterName(this.currentId)
+    this.currentNewBio = CharacterStore.getCharacterBio(this.currentId)
+    this.currentNewDir = CharacterStore.getCharacterDir(this.currentId)
   }
 
   rename() {
-    DialogsStore.renameDialog(this.currentId, this.currentNewName)
+    CharacterStore.editCharacter(this.currentId, this.currentNewName, this.currentNewBio, this.currentNewDir)
+    // DialogsStore.updateCharacterFromDialogs(this.currentId, this.currentNewName, this.currentNewBio, this.currentNewDir)
     this.closeEditor()
   }
 
@@ -33,6 +41,14 @@ class EditModalCharacterStore {
 
   changeName(newName : string) {
     this.currentNewName = newName
+  }
+
+  changeBio(newBio : string) {
+    this.currentNewBio = newBio
+  }
+
+  changeDir(newDir : string) {
+    this.currentNewDir = newDir
   }
 }
 

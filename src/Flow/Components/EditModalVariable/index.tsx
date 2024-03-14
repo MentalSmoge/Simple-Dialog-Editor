@@ -2,26 +2,26 @@ import { observer } from 'mobx-react-lite';
 import Modal from 'react-modal';
 import './Modal.css';
 import DialogsStore from '../../../store/DialogsStore';
-import RenameModalStore from '../../../store/RenameModalStore';
+import EditModalVariableStore from '../../../store/EditModalVariableStore';
 
 const EditModalVariable = observer(() => {
   const closeModal = () => {
-    RenameModalStore.closeEditor();
+    EditModalVariableStore.closeEditor();
   }
   return (
     <Modal
-          isOpen={RenameModalStore.isOpen}
+          isOpen={EditModalVariableStore.isOpen}
           onRequestClose={closeModal}
           contentLabel="Example Modal"
           ariaHideApp={false}
           className="modal-rename"
         >
-          <h2 className='header'>Rename {DialogsStore.getDialogName(RenameModalStore.currentId)}</h2>
+          <h2 className='header'>Rename {DialogsStore.getDialogName(EditModalVariableStore.currentId)}</h2>
           <p className='modal-p'>Max length 20 symbols</p>
-          <input autoFocus maxLength={20} className="modal-input" value={RenameModalStore.currentNewName} onChange={e => RenameModalStore.changeName(e.target.value)} />
+          <input autoFocus maxLength={20} className="modal-input" value={EditModalVariableStore.currentNewName} onChange={e => EditModalVariableStore.changeName(e.target.value)} />
           <div className='button-row'>
-            <button onClick={() => RenameModalStore.rename()} type="button" className='delete'>Rename</button>
-            <button onClick={() => RenameModalStore.closeEditor()} type="button" className='close'>Cancel</button>
+            <button onClick={() => EditModalVariableStore.rename()} type="button" className='delete'>Rename</button>
+            <button onClick={() => EditModalVariableStore.closeEditor()} type="button" className='close'>Cancel</button>
           </div>
         </Modal>
     )

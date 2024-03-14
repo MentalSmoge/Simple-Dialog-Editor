@@ -1,4 +1,4 @@
-import { makeAutoObservable, set } from "mobx"
+import { makeAutoObservable } from "mobx"
 import {
   Connection,
   Edge,
@@ -6,13 +6,9 @@ import {
   Node,
   NodeChange,
   addEdge,
-  OnNodesChange,
-  OnEdgesChange,
-  OnConnect,
   applyNodeChanges,
   applyEdgeChanges,
   type XYPosition,
-  useUpdateNodeInternals,
   Viewport,
 } from 'reactflow';
 import { nanoid } from 'nanoid';
@@ -21,17 +17,6 @@ import ChoiceNode from "../Flow/Node_Types/ChoiceNode";
 import StartNode from "../Flow/Node_Types/StartNode";
 import StaticEdge from "../Flow/Edge_Types/StaticEdge";
 import { rowProps } from "../Flow/types";
-import CharacterStore from "./CharacterStore";
-
-type RFState = {
-  nodes: Node[];
-  edges: Edge[];
-  onNodesChange: OnNodesChange;
-  onEdgesChange: OnEdgesChange;
-  onConnect: OnConnect;
-  setNodes: (nodes: Node[]) => void;
-  setEdges: (edges: Edge[]) => void;
-};
 
 const initialEdges: Edge[] = [];
 class FlowStore {
@@ -159,12 +144,7 @@ class FlowStore {
       this.nodes.filter(node => node.id === nodeId)[0].data.character = undefined
       return
     }
-    const char = CharacterStore.getCharacter(characterId)
-    const newChar = {
-      name: char.name,
-      id: char.id
-  };
-    this.nodes.filter(node => node.id === nodeId)[0].data.character = newChar
+    this.nodes.filter(node => node.id === nodeId)[0].data.character = {id : characterId}
     console.log(this.nodes.filter(node => node.id === nodeId)[0].data)
   }
 

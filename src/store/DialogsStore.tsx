@@ -233,6 +233,70 @@ class DialogsStore {
     this.saveCurrent()
     return this.dialogs
   }
+
+  deleteCharacterFromDialogs(characterId : number) {
+    this.dialogs.forEach(dialog => {
+      dialog.reactflowInstance.nodes.forEach(node => {
+        if (node?.data?.character?.id === characterId) {
+          delete node.data.character
+        }
+      });
+    });
+
+    FlowStore.getFlow().nodes.forEach(node => {
+      if (node?.data?.character?.id === characterId) {
+        delete node.data.character
+      }
+    });
+  }
+
+  deleteVarFromDialogs(varId : number) {
+    this.dialogs.forEach(dialog => {
+      dialog.reactflowInstance.nodes.forEach(node => {
+        node?.data?.rows?.forEach(row => {
+          if (row?.data?.firstVar?.id === varId) {
+            delete row.data.firstVar
+          }
+          if (row?.data?.secondVar?.id === varId) {
+            delete row.data.secondVar
+          }
+
+        })
+      });
+    });
+
+    FlowStore.getFlow().nodes.forEach(node => {
+      node?.data?.rows?.forEach(row => {
+        if (row?.data?.firstVar?.id === varId) {
+          delete row.data.firstVar
+        }
+        if (row?.data?.secondVar?.id === varId) {
+          delete row.data.secondVar
+        }
+
+      })
+    });
+  }
+
+  // updateCharacterFromDialogs(characterId : number, name : string, bio : string, defaultPortrait : string) {
+  //   this.dialogs.forEach(dialog => {
+  //     dialog.reactflowInstance.nodes.forEach(node => {
+  //       if (node?.data?.character?.id === characterId) {
+  //         node.data.character.name = name;
+  //         node.data.character.bio = bio;
+  //         node.data.character.defaultPortrait = defaultPortrait;
+  //       }
+  //     });
+  //   });
+
+  //   FlowStore.getFlow().nodes.forEach(node => {
+  //     if (node?.data?.character?.id === characterId) {
+  //       node.data.character.name = name;
+  //       node.data.character.bio = bio;
+  //       node.data.character.defaultPortrait = defaultPortrait;
+  //     }
+  //   });
+  // }
 }
 
 export default new DialogsStore()

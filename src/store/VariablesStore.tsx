@@ -37,8 +37,23 @@ class VariableStore {
   }
 
   getVarName(variableId : number) {
-    console.log(variableId)
     return this.variables.filter(variable => variable.id === variableId)[0]?.label
+  }
+
+  renameVar(variableId : number, newName : string) {
+    this.variables.filter(variable => variable.id === variableId)[0].label = newName
+  }
+
+  getVariablesForExport() {
+    return this.variables
+  }
+
+  setVariables(variables: Variable[]) {
+    if (variables === undefined) {
+      console.log("Error")
+      return
+    }
+    this.variables = variables
   }
 }
 

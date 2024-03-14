@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import Modal from 'react-modal';
 import './Modal.css';
-import DialogsStore from '../../../store/DialogsStore';
 import AddDialogModalStore from '../../../store/AddDialogModalStore';
 
 const AddDialogModal = observer(() => {
