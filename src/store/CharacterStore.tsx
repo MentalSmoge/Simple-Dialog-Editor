@@ -80,8 +80,16 @@ class CharacterStore {
     this.characters.filter(character => character.id === characterId)[0].defaultPortrait = defaultPortrait
   }
 
-  getCharactersForExport() {
+  getCharactersForSave() {
     return this.characters
+  }
+
+  getCharactersForExport() {
+    const returnCharacters = this.characters
+    returnCharacters.forEach(character => {
+      delete character.defaultPortrait
+    });
+    return returnCharacters
   }
 
   setCharacters(characters: Character[]) {

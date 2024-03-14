@@ -21,6 +21,20 @@ import CharacterStore from '../store/CharacterStore';
 import VariablesStore from '../store/VariablesStore';
 window.electron.onSaveFile(() => {
   const response = {dialogs : [], characters : [], variables : []}
+  const dialogs = DialogsStore.getDialogsForSave()
+  response.dialogs = dialogs
+  response.characters = CharacterStore.getCharactersForSave()
+  response.variables = VariablesStore.getVariablesForSave()
+  // const responce = reactflow.toObject()
+  // DialogsStore.dialogs.forEach(dialog => {
+  //   response.dialogs.push(dialog)
+  // });
+  console.log(JSON.stringify(response, null, 2))
+  // const responce = JSON.stringify(reactflow.toObject())
+  window.electron.saveFile(JSON.stringify(response))
+})
+window.electron.onExportFile(() => {
+  const response = {dialogs : [], characters : [], variables : []}
   const dialogs = DialogsStore.getDialogsForExport()
   response.dialogs = dialogs
   response.characters = CharacterStore.getCharactersForExport()
@@ -31,7 +45,7 @@ window.electron.onSaveFile(() => {
   // });
   console.log(JSON.stringify(response, null, 2))
   // const responce = JSON.stringify(reactflow.toObject())
-  window.electron.saveFile(JSON.stringify(response))
+  // window.electron.saveFile(JSON.stringify(response))
 })
 window.electron.onProjectOpen((args) => {
   console.log('got FILE_OPEN', args)

@@ -30,6 +30,7 @@ contextBridge.exposeInMainWorld('electron', {
   showOpenDialog: async (args) => ipcRenderer.invoke('dialog:openFile',  args),
   sendMessage: () => ipcRenderer.send('countdown-start'),
   onSaveFile: (callback) => {ipcRenderer.on('save-file-command', (_event) => callback())},
+  onExportFile: (callback) => {ipcRenderer.on('export-file-command', (_event) => callback())},
   onProjectOpen: (callback) => {ipcRenderer.on('PROJECT_OPEN', (_event, args) => callback(args))},
   saveFile: (value) => ipcRenderer.send('save-file-value', value),
 })

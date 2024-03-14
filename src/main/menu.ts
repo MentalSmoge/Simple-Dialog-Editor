@@ -212,6 +212,7 @@ export default class MenuBuilder {
               })
               .then((fileObj) => {
                  // the fileObj has two props
+                 // eslint-disable-next-line promise/always-return
                  if (!fileObj.canceled) {
                   readFile(fileObj.filePaths[0],'utf8',(err,contents)=>{
                     if(err){
@@ -231,6 +232,12 @@ export default class MenuBuilder {
                  console.error(err)
               })
            }
+          },
+          {
+            label: '&Export',
+            accelerator: 'Ctrl+E',
+            click: () => {
+              this.mainWindow.webContents.send('export-file-command')},
           },
           {
             label: '&Close',

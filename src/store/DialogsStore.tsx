@@ -130,7 +130,7 @@ const initialDialogs = [
 class DialogsStore {
   newIdCounter = 2
 
-  dialogs = initialDialogs
+  dialogs = initialDialogs as Dialog[]
 
   currentDialogId = 1
 
@@ -229,10 +229,88 @@ class DialogsStore {
       this.currentDialogId = dialogs[0].id
   }
 
-  getDialogsForExport() {
+  getDialogsForSave() {
     this.saveCurrent()
     return this.dialogs
   }
+
+  getDialogsForExport() {
+    this.saveCurrent()
+    const returnDialogs = []
+    const copyDialogs = this.dialogs as Dialog[]
+    // eslint-disable-next-line array-callback-return
+    copyDialogs.map(dialog => {
+      const copyDialog = {
+        "id": dialog.id,
+        "name": dialog.name,
+        "nodes" : [],
+        "edges" : []
+      }
+      dialog.reactflowInstance.nodes.map(node => {
+        const copyNode = {
+          "id": node.id,
+          "data": node.data,
+          "type": node.type
+        }
+        copyDialog.nodes.push(copyNode)
+      })
+      dialog.reactflowInstance.edges.map(edge => {
+        const copyEdge = {
+          "source": edge.source,
+          "sourceHandle": edge.sourceHandle,
+          "target": edge.target,
+          "targetHandle": edge.targetHandle,
+        }
+        copyDialog.edges.push(copyEdge)
+      })
+      returnDialogs.push(copyDialog)
+    })
+
+    returnDialogs.map(dialog => (
+      dialog.nodes.map(node => {
+        const edges = dialog.edges.filter(e => e.source === node.id);
+        if (edges.length > 0) {
+          console.log(edges)
+          if (node.type !== "choice")
+          {
+            node.next = edges[0].target
+          }
+          else {
+            const options = []
+            node.data.rows.forEach(row => {
+              const edge = edges.filter(ed => ed.sourceHandle === (`handle-${row.idOfRow}`));
+              if (edge.length > 0) {
+                console.log(row)
+                options.push(
+                  {
+                    first: row.data.firstVar?.label,
+                    second: row.data.secondVar?.label,
+                    third: row.data.thirdVar?.label,
+                    next: edge[0].target
+                  }
+                )
+              }
+            });
+            // TODO Why does delete node.data.rows is an error???
+            node.data.options = options
+          }
+        }
+      })
+    ))
+    returnDialogs.forEach(dialog => {
+      delete dialog.edges
+      dialog.nodes.forEach(node => {
+        if (node.type === "choice") {
+          const options = node.data.options
+          delete node.data
+          node.data = {}
+          node.data.options = options
+        }
+      });
+    })
+    return returnDialogs
+  }
+
 
   deleteCharacterFromDialogs(characterId : number) {
     this.dialogs.forEach(dialog => {

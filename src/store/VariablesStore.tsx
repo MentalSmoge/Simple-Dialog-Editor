@@ -44,7 +44,18 @@ class VariableStore {
     this.variables.filter(variable => variable.id === variableId)[0].label = newName
   }
 
+  getVariablesForSave() {
+    return this.variables
+  }
+
   getVariablesForExport() {
+    const returnVariables = this.variables
+    returnVariables.forEach(variable => {
+      delete variable.value
+      const name = variable.label
+      delete variable.label
+      variable.name = name
+    });
     return this.variables
   }
 
