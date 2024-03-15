@@ -33,6 +33,7 @@ contextBridge.exposeInMainWorld('electron', {
   onExportFile: (callback) => {ipcRenderer.on('export-file-command', (_event) => callback())},
   onProjectOpen: (callback) => {ipcRenderer.on('PROJECT_OPEN', (_event, args) => callback(args))},
   saveFile: (value) => ipcRenderer.send('save-file-value', value),
+  exportFile: (value) => ipcRenderer.send('export-file-value', value),
 })
 
 export type ElectronHandler = typeof electronHandler;

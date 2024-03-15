@@ -113,6 +113,7 @@ const initialDialogs = [
     name: "Dialog 2",
     reactflowInstance: {
       "nodes":[
+        startNode,
 
       ],
       "edges":[
@@ -236,7 +237,7 @@ class DialogsStore {
 
   getDialogsForExport() {
     this.saveCurrent()
-    const returnDialogs = []
+    let returnDialogs = []
     const copyDialogs = this.dialogs as Dialog[]
     // eslint-disable-next-line array-callback-return
     copyDialogs.map(dialog => {
@@ -292,23 +293,29 @@ class DialogsStore {
               }
             });
             // TODO Why does delete node.data.rows is an error???
-            node.data.options = options
+            node.data = {
+              options
+            }
+          }
+        }
+        else
+        {
+          if (node.type === 'choice') {
+            const options = []
+            node.data = {
+              options
+            }
+
           }
         }
       })
     ))
-    returnDialogs.forEach(dialog => {
-      delete dialog.edges
-      dialog.nodes.forEach(node => {
-        if (node.type === "choice") {
-          const options = node.data.options
-          delete node.data
-          node.data = {}
-          node.data.options = options
-        }
-      });
-    })
-    return returnDialogs
+    const updatedArray = returnDialogs.map(obj => {
+      const { edges, ...newObj } = obj;
+      return newObj;
+    });
+
+    return updatedArray
   }
 
 

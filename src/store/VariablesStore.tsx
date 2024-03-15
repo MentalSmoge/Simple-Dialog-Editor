@@ -49,14 +49,14 @@ class VariableStore {
   }
 
   getVariablesForExport() {
-    const returnVariables = this.variables
-    returnVariables.forEach(variable => {
-      delete variable.value
-      const name = variable.label
-      delete variable.label
-      variable.name = name
+    const returnVariables = []
+    this.variables.forEach(variable => {
+      returnVariables.push({
+        id : variable.id,
+        name : variable.label
+      })
     });
-    return this.variables
+    return returnVariables
   }
 
   setVariables(variables: Variable[]) {

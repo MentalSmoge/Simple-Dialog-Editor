@@ -85,9 +85,13 @@ class CharacterStore {
   }
 
   getCharactersForExport() {
-    const returnCharacters = this.characters
-    returnCharacters.forEach(character => {
-      delete character.defaultPortrait
+    const returnCharacters = []
+    this.characters.forEach(character => {
+      returnCharacters.push({
+        id:character.id,
+        name:character.name,
+        bio:character.bio
+      })
     });
     return returnCharacters
   }

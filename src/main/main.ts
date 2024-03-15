@@ -65,6 +65,25 @@ ipcMain.on('save-file-value', (_event, value) => {
   })
 })
 
+ipcMain.on('export-file-value', (_event, value) => {
+  dialog.showSaveDialog({
+    filters: [
+      { name: 'JSON', extensions: ['json'] }
+    ],
+  }).then(result => {
+    if (!result.canceled) {
+      writeFile(result.filePath, (value), function(error){
+        if(error){  // если ошибка
+            return console.log(error);
+        }
+        console.log("Файл успешно записан");
+    });
+    }
+  }).catch(err => {
+    console.log(err)
+  })
+})
+
 async function handleFileOpen () {
   const { canceled, filePaths } = await dialog.showOpenDialog({})
   if (!canceled) {

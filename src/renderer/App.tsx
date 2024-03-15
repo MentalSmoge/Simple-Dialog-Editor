@@ -31,7 +31,7 @@ window.electron.onSaveFile(() => {
   // });
   console.log(JSON.stringify(response, null, 2))
   // const responce = JSON.stringify(reactflow.toObject())
-  window.electron.saveFile(JSON.stringify(response))
+  window.electron.saveFile(JSON.stringify(response, null, 2))
 })
 window.electron.onExportFile(() => {
   const response = {dialogs : [], characters : [], variables : []}
@@ -45,7 +45,7 @@ window.electron.onExportFile(() => {
   // });
   console.log(JSON.stringify(response, null, 2))
   // const responce = JSON.stringify(reactflow.toObject())
-  // window.electron.saveFile(JSON.stringify(response))
+  window.electron.exportFile(JSON.stringify(response, null, 2))
 })
 window.electron.onProjectOpen((args) => {
   console.log('got FILE_OPEN', args)
