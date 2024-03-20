@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import Modal from 'react-modal';
 import './Modal.css';
 import DialogsStore from '../../../store/DialogsStore';
-import RenameModalStore from '../../../store/RenameModalStore';
+import RenameModalStore from '../../../store/RenameDialogModalStore';
 
 const RenameModal = observer(() => {
   const closeModal = () => {

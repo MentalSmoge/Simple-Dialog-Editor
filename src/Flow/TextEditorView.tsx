@@ -17,11 +17,11 @@ const TextEditorView = observer(() => {
           ariaHideApp={false}
           className="modal"
         >
-          <h2 className='header'>Text Edit</h2>
+          <h2 className='header'>Edit Text</h2>
           <textarea className="textArea" value={Store.currentText} onChange={e => Store.changeText(e.target.value)} />
           <div className='button-row'>
-            <button onClick={() => Store.closeEditor()} type="button" className='close'>close</button>
-            <button onClick={() => Store.closeEditor()} type="button" className='close'>close</button>
+            <button onClick={() => Store.closeEditor()} type="button" className='save'>Save Changes</button>
+            <button onClick={() => Store.closeEditor()} type="button" className='close'>Cancel</button>
           </div>
         </Modal>
     )

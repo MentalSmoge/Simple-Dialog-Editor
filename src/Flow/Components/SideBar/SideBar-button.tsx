@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import DeleteModalStore from "../../../store/DeleteModalStore";
-import RenameModalStore from "../../../store/RenameModalStore";
+import RenameModalStore from "../../../store/RenameDialogModalStore";
 import "./SideBar.css"
 import DialogsStore from "../../../store/DialogsStore";
 

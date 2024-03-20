@@ -10,6 +10,7 @@ import {
   applyEdgeChanges,
   type XYPosition,
   Viewport,
+  MarkerType,
 } from 'reactflow';
 import { nanoid } from 'nanoid';
 import TextNode from "../Flow/Node_Types/TextNode";

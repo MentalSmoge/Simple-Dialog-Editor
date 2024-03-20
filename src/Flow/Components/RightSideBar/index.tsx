@@ -8,8 +8,8 @@ import { CSSTransition } from "react-transition-group";
 import CharacterStore from "../../../store/CharacterStore";
 import VariablesStore from "../../../store/VariablesStore";
 import DeleteModalStore from "../../../store/DeleteModalStore";
-import EditModalCharacterStore from "../../../store/EditModalCharacterStore";
-import EditModalVariableStore from "../../../store/EditModalVariableStore";
+import EditModalCharacterStore from "../../../store/EditCharacterModalStore";
+import EditModalVariableStore from "../../../store/EditVariableModalStore";
 import AddCharacterButton from "../AddCharacterModal/AddCharacterButton";
 import AddVarButton from "../AddVarModal/AddVarButton";
 

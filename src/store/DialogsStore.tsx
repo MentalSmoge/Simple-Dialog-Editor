@@ -129,6 +129,7 @@ const initialDialogs = [
 ] as Dialog[]
 
 class DialogsStore {
+
   newIdCounter = 2
 
   dialogs = initialDialogs as Dialog[]
@@ -138,7 +139,6 @@ class DialogsStore {
   constructor(){
     makeAutoObservable(this)
     const flow = this.getDialog(this.currentDialogId).reactflowInstance;
-
       if (flow) {
         FlowStore.setNodes(flow.nodes || []);
         FlowStore.setEdges(flow.edges || []);
@@ -271,7 +271,6 @@ class DialogsStore {
       dialog.nodes.map(node => {
         const edges = dialog.edges.filter(e => e.source === node.id);
         if (edges.length > 0) {
-          console.log(edges)
           if (node.type !== "choice")
           {
             node.next = edges[0].target
@@ -292,22 +291,19 @@ class DialogsStore {
                 )
               }
             });
-            // TODO Why does delete node.data.rows is an error???
             node.data = {
               options
             }
           }
         }
         else
-        {
-          if (node.type === 'choice') {
+        if (node.type === 'choice') {
             const options = []
             node.data = {
               options
             }
 
           }
-        }
       })
     ))
     const updatedArray = returnDialogs.map(obj => {
@@ -317,7 +313,6 @@ class DialogsStore {
 
     return updatedArray
   }
-
 
   deleteCharacterFromDialogs(characterId : number) {
     this.dialogs.forEach(dialog => {
@@ -340,10 +335,10 @@ class DialogsStore {
       dialog.reactflowInstance.nodes.forEach(node => {
         node?.data?.rows?.forEach(row => {
           if (row?.data?.firstVar?.id === varId) {
-            delete row.data.firstVar
+            row.data.firstVar = null
           }
-          if (row?.data?.secondVar?.id === varId) {
-            delete row.data.secondVar
+          if (row?.data?.thirdVar?.id === varId) {
+            row.data.thirdVar = null
           }
 
         })
@@ -362,26 +357,6 @@ class DialogsStore {
       })
     });
   }
-
-  // updateCharacterFromDialogs(characterId : number, name : string, bio : string, defaultPortrait : string) {
-  //   this.dialogs.forEach(dialog => {
-  //     dialog.reactflowInstance.nodes.forEach(node => {
-  //       if (node?.data?.character?.id === characterId) {
-  //         node.data.character.name = name;
-  //         node.data.character.bio = bio;
-  //         node.data.character.defaultPortrait = defaultPortrait;
-  //       }
-  //     });
-  //   });
-
-  //   FlowStore.getFlow().nodes.forEach(node => {
-  //     if (node?.data?.character?.id === characterId) {
-  //       node.data.character.name = name;
-  //       node.data.character.bio = bio;
-  //       node.data.character.defaultPortrait = defaultPortrait;
-  //     }
-  //   });
-  // }
 }
 
 export default new DialogsStore()

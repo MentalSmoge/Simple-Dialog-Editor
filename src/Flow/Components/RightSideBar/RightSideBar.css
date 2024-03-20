@@ -47,7 +47,7 @@
   width: 250px;
   background-color: var(--node-color);
   border-width: 0px;
-  border-right: 3px;
+  border-left: 3px;
   border-style: solid;
   border-color: var(--handle-color);
   display: flex;

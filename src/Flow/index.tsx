@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import ReactFlow, {
   Background,
   BackgroundVariant,
+  MarkerType,
   MiniMap,
 } from 'reactflow';
 import FlowStore from '../store/FlowStore';
@@ -20,6 +21,12 @@ function Flow() {
         return '#FCB1A6';
     }
   }
+  const defaultEdgeOptions = {
+    animated: true,
+    markerEnd: {
+      type: MarkerType.ArrowClosed
+    }
+  };
   const proOptions = { hideAttribution: true };
   return (
     <div className="Flow" >
@@ -36,7 +43,7 @@ function Flow() {
           nodeOrigin={[0.5,0.5]}
           snapGrid={[25, 25]}
           edgeTypes={FlowStore.edgeTypes}
-
+          defaultEdgeOptions={defaultEdgeOptions}
         >
           <MiniMap pannable nodeStrokeColor="black" ariaLabel="Dialog Editor Map" maskStrokeColor="black" nodeColor={nodeColor} />
           <Background color="#bbc872" variant={BackgroundVariant.Cross} gap={25} size={4} />

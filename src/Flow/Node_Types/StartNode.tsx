@@ -2,6 +2,7 @@ import { type FC } from 'react';
 import { Handle, Position, type NodeProps } from 'reactflow';
 import { observer } from 'mobx-react-lite';
 import "./StartNode.css"
+import LimitedHandle from './LimitedHandle';
 
 
 
@@ -10,7 +11,7 @@ const StartNode: FC<NodeProps> = ({ id, data }) => {
   return (
     <div className='StartNode-container'>
       <p className='StartNode-text'>Start</p>
-      <Handle type="source" position={Position.Right} />
+      <LimitedHandle type="source" position={Position.Right} isConnectable={1} />
     </div>
   );
 };

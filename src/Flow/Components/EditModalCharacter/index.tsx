@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import Modal from 'react-modal';
 import './Modal.css';
 import DialogsStore from '../../../store/DialogsStore';
-import EditModalCharacterStore from '../../../store/EditModalCharacterStore';
+import EditModalCharacterStore from '../../../store/EditCharacterModalStore';
 import CharacterStore from '../../../store/CharacterStore';
 
 

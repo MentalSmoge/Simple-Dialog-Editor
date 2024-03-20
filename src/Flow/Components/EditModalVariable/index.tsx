@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import Modal from 'react-modal';
 import './Modal.css';
 import DialogsStore from '../../../store/DialogsStore';
-import EditModalVariableStore from '../../../store/EditModalVariableStore';
+import EditModalVariableStore from '../../../store/EditVariableModalStore';
 
 const EditModalVariable = observer(() => {
   const closeModal = () => {

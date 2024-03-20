@@ -25,8 +25,8 @@ const ChoiceNode: FC<NodeProps> = ({ id, data }) => {
           <ChoiceRow id={id} key={row.idOfRow} idOfRow={row.idOfRow} data={row.data} position={index} renderDelete={data.rows.length > 2}/>
         ))}
       </div>
-        <button type="button" className='buttonInChoice button_neutral' onClick={() => FlowStore.addRow(id)}>Добавить условие</button>
-        <button type="button" className='buttonInChoice button_neutral' onClick={testButton}>Тестовая</button>
+        <button type="button" className='buttonInChoice button_neutral nodrag' onClick={() => FlowStore.addRow(id)}>Добавить условие</button>
+        {/* <button type="button" className='buttonInChoice button_neutral' onClick={testButton}>Тестовая</button> */}
 
     </div>
   );

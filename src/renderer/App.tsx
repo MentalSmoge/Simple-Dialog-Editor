@@ -19,20 +19,20 @@ import AddCharacterModal from '../Flow/Components/AddCharacterModal';
 import AddVarModal from '../Flow/Components/AddVarModal';
 import CharacterStore from '../store/CharacterStore';
 import VariablesStore from '../store/VariablesStore';
+import { observer } from 'mobx-react-lite';
+
+
 window.electron.onSaveFile(() => {
   const response = {dialogs : [], characters : [], variables : []}
   const dialogs = DialogsStore.getDialogsForSave()
   response.dialogs = dialogs
   response.characters = CharacterStore.getCharactersForSave()
   response.variables = VariablesStore.getVariablesForSave()
-  // const responce = reactflow.toObject()
-  // DialogsStore.dialogs.forEach(dialog => {
-  //   response.dialogs.push(dialog)
-  // });
   console.log(JSON.stringify(response, null, 2))
-  // const responce = JSON.stringify(reactflow.toObject())
   window.electron.saveFile(JSON.stringify(response, null, 2))
 })
+
+
 window.electron.onExportFile(() => {
   const response = {dialogs : [], characters : [], variables : []}
   const dialogs = DialogsStore.getDialogsForExport()
@@ -108,7 +108,7 @@ function App() {
       <EditModalCharacter />
       <EditModalVariable />
       <ContextMenu destiny={destiny} anchorPoint={anchorPoint} isOpen={contextMenuIsOpen} setOpen={setContextMenuIsOpen} />
-      <header className="App-header">React Flow - CRA Example</header>
+      <header className="App-header">Отображаемый диалог:<b>{DialogsStore.getDialogName(DialogsStore.currentDialogId)}</b></header>
       {/* <FpsView/> */}
       <div style={{display:"flex", flexDirection:"row", height:"100%", overflow:"hidden"}}>
         <SideBar />
@@ -116,10 +116,10 @@ function App() {
         <RightSideBar />
       </div>
       <TextEditorView />
-      <footer className="App-footer">React Flow - CRA Example</footer>
+      <footer className="App-footer"></footer>
     </div>
     </ReactFlowProvider>
   );
 }
 
-export default App;
+export default observer(App);

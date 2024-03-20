@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx"
 import DialogsStore from "./DialogsStore"
 
-class RenameModalStore {
+class RenameDialogModalStore {
   isOpen=false
 
   currentId = -1
@@ -36,4 +36,4 @@ class RenameModalStore {
   }
 }
 
-export default new RenameModalStore()
+export default new RenameDialogModalStore()

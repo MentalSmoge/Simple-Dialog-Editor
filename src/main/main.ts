@@ -44,17 +44,14 @@ ipcMain.handle('dialog:openFile', async (_, args) => {
   return result
 })
 ipcMain.on('save-file-value', (_event, value) => {
-  // console.log(_event)
-  // console.log(value) // will print value to Node console
   dialog.showSaveDialog({
     filters: [
       { name: 'JSON', extensions: ['json'] }
     ],
   }).then(result => {
-    // console.log(result.canceled)
     if (!result.canceled) {
       writeFile(result.filePath, (value), function(error){
-        if(error){  // если ошибка
+        if(error){
             return console.log(error);
         }
         console.log("Файл успешно записан");

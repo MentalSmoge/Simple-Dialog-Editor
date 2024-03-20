@@ -24,7 +24,6 @@ const electronHandler = {
   },
 };
 
-// contextBridge.exposeInMainWorld('electron', electronHandler);
 contextBridge.exposeInMainWorld('electron', {
   electronHandler,
   showOpenDialog: async (args) => ipcRenderer.invoke('dialog:openFile',  args),

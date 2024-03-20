@@ -28,17 +28,19 @@ button:active {
 }
 
 .App-header {
+  background-color: var(--node-text-color);
   height: 40px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--handle-color);
   padding: 0 1rem;
 }
 
 .App-footer {
-  height: 40px;
+  background-color: var(--node-text-color);
+  height: 20px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #eee;
+  border-top: 1px solid var(--handle-color);
   padding: 0 1rem;
 }

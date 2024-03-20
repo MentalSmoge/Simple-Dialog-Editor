@@ -20,7 +20,11 @@ class TextEditorStore {
 
   closeEditor() {
     this.isOpen = false
+  }
+
+  saveAndClose() {
     FlowStore.updateTextInNode(this.currentId, this.currentText)
+    this.closeEditor()
   }
 
   changeText(newText : string) {
