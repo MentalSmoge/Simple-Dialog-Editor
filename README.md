@@ -12,7 +12,7 @@
 ## Технологический стек
 Программа была разработана с помощью Electron.js и React.js.
 
-## Credit
+## Credits
 В разработке были использованы следующие проекты:
 - https://github.com/xyflow/xyflow
 - https://github.com/jedwatson/react-select
