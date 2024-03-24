@@ -1,0 +1,15 @@
+@startuml
+autonumber
+actor "Сценарист" as user
+participant "Программа" as program
+
+user -> program : Нажимает на кнопку Создать диалог
+program -> program : Генерирует стандартное\nназвание диалога
+program -> user : Показывает окно создания диалога
+alt Сценарист сохраняет созданный диалог
+user -> program : Вносит изменение в название диалога и\nнажимает Сохранить
+program -> program : Сохраняет новый диалог
+end
+
+
+@enduml

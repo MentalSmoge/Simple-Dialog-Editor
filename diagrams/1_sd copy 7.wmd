@@ -1,0 +1,15 @@
+@startuml
+autonumber
+actor "Сценарист" as user
+participant "Программа" as program
+
+user -> program : Нажимает на кнопку Создать переменную
+program -> program : Генерирует стандартное\nназвание переменной
+program -> user : Показывает окно создания переменной
+alt Сценарист сохраняет созданный диалог
+user -> program : Вносит изменение в название переменной и\nнажимает Сохранить
+program -> program : Сохраняет новую переменную
+end
+
+
+@enduml

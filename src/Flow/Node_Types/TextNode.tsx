@@ -3,7 +3,7 @@ import { memo, type FC, type CSSProperties, useEffect } from 'react';
 import { Handle, Position, type NodeProps, useStore, NodeResizer, NodeToolbar } from 'reactflow';
 import { useState } from 'react';
 
-import t from "../../store/TextEditorStore"
+import t from "../../store/TextEditorModalStore"
 import './TextNode.css';
 import { CharacterLabel } from "../types";
 import DefaultInput from "../Components/DefaultInput";
@@ -38,13 +38,11 @@ const TextNode: FC<NodeProps> = ({ id, data }) => {
 
   return (
     <div className='TextNode-container'>
-
       <NodeToolbar position={Position.Top} >
         <button className='TextNode-button nodrag' type='button' onClick={() => handleEditClick()}>Изменить текст</button>
       </NodeToolbar>
       <Handle type="target" position={Position.Left} />
       <LimitedHandle type="source" position={Position.Right} isConnectable={1} />
-
       <Select placeholder={<div>Character...</div>} isClearable onChange={(val) => changeCharacter(val)} value={CharacterStore.getCharacterLabel(data?.character?.id)} options={CharacterStore.character_options} className='TextNode-select nodrag ' styles={{
         control: (baseStyles, state) => ({
           ...baseStyles,

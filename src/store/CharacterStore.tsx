@@ -10,8 +10,18 @@ type Character = {
 
 class CharacterStore {
   characters : Character[] = [
-    {id: 1, name:"First One", bio:"The Chosen One", defaultPortrait: "D:\\Фото С IPHONE 6S\\IMG_0053.jpg"},
-    {id: 2, name:"Second One", bio:"Not so special tbh", defaultPortrait: "D:\\Фото С IPHONE 6S\\IMG_0157.jpg"}
+    {
+      "id": 4,
+      "name": "Адам",
+      "bio": "",
+      "defaultPortrait": ""
+    },
+    {
+      "id": 5,
+      "name": "Ева",
+      "bio": "",
+      "defaultPortrait": ""
+    }
   ];
 
   newIdCounter = 3

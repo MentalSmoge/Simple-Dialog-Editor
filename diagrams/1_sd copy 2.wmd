@@ -1,0 +1,14 @@
+@startuml
+autonumber
+actor "Сценарист" as user
+participant "Программа" as program
+
+user -> user : Выбирает диалог
+user -> program : Нажимает на диалог
+program -> user : Показывает текущий диалог
+user -> user : Выбирает узел для редактирования
+user -> program : Вносит изменения в узел
+program -> program : Сохраняет изменения в узле
+
+
+@enduml

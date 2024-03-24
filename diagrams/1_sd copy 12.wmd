@@ -1,0 +1,15 @@
+@startuml
+autonumber
+actor "Сценарист" as user
+participant "Программа" as program
+
+user -> program : Нажимает на кнопку Создать персонажа
+program -> program : Генерирует стандартное\nимя персонажа
+program -> user : Показывает окно создания персонажа
+alt Сценарист сохраняет созданного персонажа
+user -> program : Вносит изменение в имя и описание персонажа и\nнажимает Сохранить
+program -> program : Сохраняет нового персонажа
+end
+
+
+@enduml

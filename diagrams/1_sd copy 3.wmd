@@ -1,0 +1,21 @@
+@startuml
+autonumber
+actor "Сценарист" as user
+participant "Программа" as program
+
+user -> user : Выбирает начальный узел
+alt У начального узла есть возможность провести соединение
+loop
+user -> program : Тянет соединение от узла
+program -> user : Обновляет положение соединения
+end
+user -> program : Отпускает соединение на конечном узле
+program -> program : Создает новое соединение
+else
+user -> program : Пытается провести соединение
+program -> user : Не дает провести соединение
+end
+
+
+
+@enduml

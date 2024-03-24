@@ -6,10 +6,11 @@ type Variable = {
 
 class VariableStore {
   variables = [
-    { id: 1, value: 'chocolate', label: 'Chocolate' },
-  { id: 2, value: 'strawberry', label: 'Strawberry' },
-  { id: 3, value: 'vanilla', label: 'Vanilla' },
-  { id: 4, value: 'Очень длинная переменная', label: 'Очень длинная переменная' }];
+    {
+      "id": 4,
+      "value": "Настроение",
+      "label": "Настроение"
+    }];
 
   newIdCounter = 5
 

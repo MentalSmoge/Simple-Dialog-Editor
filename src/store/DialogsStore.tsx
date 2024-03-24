@@ -17,114 +17,201 @@ const startNode = {
 
 const initialDialogs = [
   {
-    id : 1,
-    name: "Dialog 1",
-    reactflowInstance: {
-      "nodes":[
-        startNode,
-         {
-            "id":"5",
-            "data":{
-               "text":"Это достаточно длинный последовательный осмысленный текст. Эта реплика такая длинная, что тот, кто писал её, засыпал несколько раз в процессе. Говорят, что если прочитать эту реплику семь раз стоя на одной ноге, то можно достичь тайн мироздания. А еще говорят, что лучше бы я так много писал в курсовую работу, нежели сюда.",
-               "portrait": ""
-            },
-            "position":{
-               "x":275,
-               "y":75
-            },
-            "type":"text",
-            "width":234,
-            "height":132,
-            "selected":false,
-            "positionAbsolute":{
-               "x":275,
-               "y":75
-            },
-            "dragging":false
-         },
-         {
-            "id":"6",
-            "data":{
-               "text":"Это короткая реплика",
-               "portrait": ""
-            },
-            "position":{
-               "x":0,
-               "y":200
-            },
-            "type":"text",
-            "width":234,
-            "height":106,
-            "positionAbsolute":{
-               "x":0,
-               "y":200
+    "id": 1,
+    "name": "Example Dialog",
+    "reactflowInstance": {
+      "nodes": [
+        {
+          "id": "start_node",
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "type": "start",
+          "deletable": false,
+          "width": 100,
+          "height": 58
+        },
+        {
+          "id": "5",
+          "data": {
+            "text": "Привет, Ева! Меня зовут Адам, приятно познакомиться.",
+            "portrait": "",
+            "character": {
+              "id": 4
             }
-         },
-         {
-            "id":"9",
-            "data":{
-               "rows":[
-                  {
-                     "idOfRow":0,
-                     "data":{
-                        "secondVar":{
-                           "value":"=",
-                           "label":"="
-                        }
-                     }
+          },
+          "position": {
+            "x": 250,
+            "y": -50
+          },
+          "type": "text",
+          "width": 222,
+          "height": 259,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 250,
+            "y": -50
+          },
+          "dragging": false
+        },
+        {
+          "id": "6",
+          "data": {
+            "text": "И тебе не хворать, Адам.",
+            "portrait": "",
+            "character": {
+              "id": 5
+            }
+          },
+          "position": {
+            "x": 925,
+            "y": -175
+          },
+          "type": "text",
+          "width": 222,
+          "height": 259,
+          "positionAbsolute": {
+            "x": 925,
+            "y": -175
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "9",
+          "data": {
+            "rows": [
+              {
+                "idOfRow": 0,
+                "data": {
+                  "secondVar": {
+                    "value": ">",
+                    "label": ">"
                   },
-                  {
-                     "idOfRow":1,
-                     "data":{
-                        "secondVar":{
-                           "value":"=",
-                           "label":"="
-                        }
-                     }
+                  "firstVar": {
+                    "id": 4,
+                    "value": "Очень длинная переменная",
+                    "label": "Настроение"
+                  },
+                  "thirdVar": {
+                    "label": "20",
+                    "value": "20",
+                    "__isNew__": true
                   }
-               ],
-               "increment":1
+                }
+              },
+              {
+                "idOfRow": 1,
+                "data": {
+                  "secondVar": {
+                    "value": "<",
+                    "label": "<"
+                  },
+                  "firstVar": {
+                    "id": 4,
+                    "value": "Очень длинная переменная",
+                    "label": "Настроение"
+                  },
+                  "thirdVar": {
+                    "label": "21",
+                    "value": "21",
+                    "__isNew__": true
+                  }
+                }
+              }
+            ],
+            "increment": 1
+          },
+          "position": {
+            "x": 600,
+            "y": 25
+          },
+          "type": "choice",
+          "width": 319,
+          "height": 153,
+          "positionAbsolute": {
+            "x": 600,
+            "y": 25
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "BRvkf675Jazm4ZDQVM-Qc",
+          "position": {
+            "x": 975,
+            "y": 125
+          },
+          "data": {
+            "text": "Не мешайся под ногами, Адам!",
+            "character": {
+              "id": 5
             },
-            "position":{
-               "x":0,
-               "y":-100
-            },
-            "type":"choice",
-            "width":254,
-            "height":202,
-            "positionAbsolute":{
-               "x":0,
-               "y":-100
-            }
-         }
+            "portrait": ""
+          },
+          "type": "text",
+          "width": 222,
+          "height": 259,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 975,
+            "y": 125
+          },
+          "dragging": false
+        }
       ],
-      "edges":[
-
-      ],
-      "viewport":{
-         "x":288.56754915320226,
-         "y":309.20731944714817,
-         "zoom":1.378236324703134
-      }
-   }
-  },
-  {
-    id : 2,
-    name: "Dialog 2",
-    reactflowInstance: {
-      "nodes":[
-        startNode,
-
-      ],
-      "edges":[
-
-      ],
-      "viewport":{
-         "x":0,
-         "y":0,
-         "zoom":1,
-      }
-   }
+      "edges": [
+        {
+          "animated": true,
+          "markerEnd": {
+            "type": "arrowclosed"
+          },
+          "source": "start_node",
+          "sourceHandle": null,
+          "target": "5",
+          "targetHandle": null,
+          "type": "static-edge",
+          "id": "reactflow__edge-start_node-5"
+        },
+        {
+          "animated": true,
+          "markerEnd": {
+            "type": "arrowclosed"
+          },
+          "source": "5",
+          "sourceHandle": null,
+          "target": "9",
+          "targetHandle": null,
+          "type": "static-edge",
+          "id": "reactflow__edge-5-9"
+        },
+        {
+          "animated": true,
+          "markerEnd": {
+            "type": "arrowclosed"
+          },
+          "source": "9",
+          "sourceHandle": "handle-0",
+          "target": "6",
+          "targetHandle": null,
+          "type": "static-edge",
+          "id": "reactflow__edge-9handle-0-6"
+        },
+        {
+          "animated": true,
+          "markerEnd": {
+            "type": "arrowclosed"
+          },
+          "source": "9",
+          "sourceHandle": "handle-1",
+          "target": "BRvkf675Jazm4ZDQVM-Qc",
+          "targetHandle": null,
+          "type": "static-edge",
+          "id": "reactflow__edge-9handle-1-BRvkf675Jazm4ZDQVM-Qc"
+        }
+      ]
+    }
   }
 ] as Dialog[]
 

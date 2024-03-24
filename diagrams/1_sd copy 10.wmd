@@ -1,0 +1,17 @@
+@startuml
+autonumber
+actor "Сценарист" as user
+participant "Программа" as program
+
+user -> user : Выбирает персонажа
+user -> program : Нажимает на персонажа
+program -> user : Показывает экран редактирования персонажа
+alt Была нажата клавиша Сохранить
+user -> program : Вносит изменения в описание персонажа и нажимает Сохранить
+program -> program : Сохраняет изменения в персонажа
+else
+user -> program : Вносит изменения в описание персонажа и нажимает Отменить
+end
+
+
+@enduml

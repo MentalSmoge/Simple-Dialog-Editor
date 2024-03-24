@@ -1,0 +1,16 @@
+@startuml
+autonumber
+actor "Сценарист" as user
+participant "Программа" as program
+
+user -> user : Выбирает диалог
+user -> program : Нажимает на диалог
+program -> user : Показывает экран редактирования диалога
+user -> program : Вносит изменения в имя диалога
+
+alt Были внесены изменения в название
+program -> program : Сохраняет изменения в диалоге
+end
+
+
+@enduml
