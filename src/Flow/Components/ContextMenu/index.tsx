@@ -26,8 +26,9 @@ export default function ({destiny, anchorPoint, isOpen, setOpen} : ContextMenuPr
         onClose={() => setOpen(false)}
       >
         { destiny==="addNode" && <>
-        <MenuItem onClick={() => FlowStore.addNode(getPosition(anchorPoint), 'text')}>Add Text Node</MenuItem>
-        <MenuItem onClick={() => FlowStore.addNode(getPosition(anchorPoint), 'choice')}>Add Choice Node</MenuItem>
+        <MenuItem onClick={() => FlowStore.addNode(getPosition(anchorPoint), 'text')}>Добавить текстовый узел</MenuItem>
+        <MenuItem onClick={() => FlowStore.addNode(getPosition(anchorPoint), 'choice')}>Добавить узел ветвления</MenuItem>
+        <MenuItem onClick={() => FlowStore.addNode(getPosition(anchorPoint), 'playerChoice')}>Добавить узел выбора игрока</MenuItem>
         </>}
         { destiny==="SideBarDialog" && <>
         <MenuItem onClick={() => RenameDialogModalStore.openEditor()}>Rename Dialog</MenuItem>

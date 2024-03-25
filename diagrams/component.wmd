@@ -1,0 +1,12 @@
+@startuml
+[Операционная\nсистема] as os
+package "Electron" {
+  component Node.js as node
+  [React\nприложение] as react
+  component [Chromium\n(Браузер)] as chrom
+}
+
+chrom -left- react : Рендер
+node -- os
+react --> node : Посылает сигнал
+@enduml

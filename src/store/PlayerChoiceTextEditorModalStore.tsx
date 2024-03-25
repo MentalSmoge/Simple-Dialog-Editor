@@ -8,14 +8,17 @@ class TextEditorStore {
 
   currentId = ""
 
+  currentRowId = -1
+
   constructor(){
     makeAutoObservable(this)
   }
 
-  openEditor(text : string, nodeId : string) {
+  openEditor(text : string, nodeId : string, rowId: number) {
     this.isOpen = true
     this.changeText(text)
     this.currentId = nodeId
+    this.currentRowId = rowId
   }
 
   closeEditor() {
@@ -23,7 +26,7 @@ class TextEditorStore {
   }
 
   saveAndClose() {
-    FlowStore.updateTextInNode(this.currentId, this.currentText)
+    FlowStore.updateTextInPlayerChoiceNode(this.currentId, this.currentRowId, this.currentText)
     this.closeEditor()
   }
 

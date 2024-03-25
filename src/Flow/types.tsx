@@ -8,6 +8,14 @@ export interface rowProps {
     thirdVar? : { value: string, label: string }
   }
 }
+
+export interface playerChoiceRowProps {
+  idOfRow : number,
+  data : {
+    text: string
+  }
+}
+
 export interface rowDisplayProps {
   id : string,
   idOfRow : number,

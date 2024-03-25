@@ -27,7 +27,8 @@
 
 .react-flow__node-choice,
 .react-flow__node-text,
-.react-flow__node-start {
+.react-flow__node-start,
+.react-flow__node-playerChoice {
   min-width: fit-content;
   min-height: fit-content;
   border-radius: 10px;

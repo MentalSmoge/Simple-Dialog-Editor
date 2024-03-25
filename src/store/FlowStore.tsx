@@ -15,17 +15,18 @@ import {
 import { nanoid } from 'nanoid';
 import TextNode from "../Flow/Node_Types/TextNode";
 import ChoiceNode from "../Flow/Node_Types/ChoiceNode";
+import PlayerChoiceNode from "../Flow/Node_Types/PlayerChoiceNode";
 import StartNode from "../Flow/Node_Types/StartNode";
 import StaticEdge from "../Flow/Edge_Types/StaticEdge";
-import { rowProps } from "../Flow/types";
+import { playerChoiceRowProps, rowProps } from "../Flow/types";
 
 const initialEdges: Edge[] = [];
 class FlowStore {
-
   nodeTypes = {
     text: TextNode,
     choice : ChoiceNode,
-    start : StartNode
+    start : StartNode,
+    playerChoice : PlayerChoiceNode,
   };
 
   edgeTypes = {
@@ -90,6 +91,14 @@ class FlowStore {
         }
       }], increment: 1 }
     }
+    if (nodeType === "playerChoice") {
+      newNode.data = { rows: [{
+        idOfRow: 0,
+        data: {
+          text: ""
+        }
+      }], increment: 1 }
+    }
 
     this.setNodes(this.nodes.concat(newNode))
   }
@@ -103,6 +112,18 @@ class FlowStore {
         firstVar: undefined,
         secondVar: { value: '=', label: '=' },
         thirdVar: undefined
+      }
+    };
+    this.getNode(nodeId).data.rows.push(newElement)
+  }
+
+  addPlayerChoiceRow (nodeId : string) {
+    this.getNode(nodeId).data.increment += 1
+    const {increment} = this.getNode(nodeId).data
+    const newElement : playerChoiceRowProps = {
+      idOfRow: increment,
+      data: {
+        text: ""
       }
     };
     this.getNode(nodeId).data.rows.push(newElement)
@@ -138,6 +159,10 @@ class FlowStore {
 
   updateTextInNode(nodeId: string, text : string) {
     this.nodes.filter(node => node.id === nodeId)[0].data.text = text
+  }
+
+  updateTextInPlayerChoiceNode(nodeId: string, rowId: number, text : string) {
+    this.nodes.filter(node => node.id === nodeId)[0].data.rows.filter(item => item.idOfRow === rowId)[0].data.text = text
   }
 
   updateCharacterInNode(nodeId: string, characterId : number | undefined) {

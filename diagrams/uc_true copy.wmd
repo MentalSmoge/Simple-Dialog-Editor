@@ -1,6 +1,7 @@
 @startuml
+skinparam defaultFontSize 15
 left to right direction
-actor Пользователь as user
+actor Сценарист as user
 usecase "Отредактировать\nдиалог" as dialog
 usecase "Отредактировать\nперсонажей" as char
 usecase "Отредактировать\nпеременные" as var

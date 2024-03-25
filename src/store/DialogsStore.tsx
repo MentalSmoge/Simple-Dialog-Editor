@@ -79,6 +79,33 @@ const initialDialogs = [
           "dragging": false
         },
         {
+          "id": "12",
+          "data": {
+            "rows": [
+              {
+                "idOfRow": 0,
+                "data": {
+                  "text": ""
+                }
+              },
+            ],
+            "increment": 1
+          },
+          "position": {
+            "x": 600,
+            "y": 255
+          },
+          "type": "playerChoice",
+          "width": 319,
+          "height": 153,
+          "positionAbsolute": {
+            "x": 600,
+            "y": 25
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
           "id": "9",
           "data": {
             "rows": [
@@ -358,7 +385,7 @@ class DialogsStore {
       dialog.nodes.map(node => {
         const edges = dialog.edges.filter(e => e.source === node.id);
         if (edges.length > 0) {
-          if (node.type !== "choice")
+          if (node.type !== "choice" && node.type !== "playerChoice" )
           {
             node.next = edges[0].target
           }
@@ -368,14 +395,24 @@ class DialogsStore {
               const edge = edges.filter(ed => ed.sourceHandle === (`handle-${row.idOfRow}`));
               if (edge.length > 0) {
                 console.log(row)
-                options.push(
-                  {
-                    first: row.data.firstVar?.label,
-                    second: row.data.secondVar?.label,
-                    third: row.data.thirdVar?.label,
-                    next: edge[0].target
-                  }
-                )
+                if (node.type === "choice") {
+                  options.push(
+                    {
+                      first: row.data.firstVar?.label,
+                      second: row.data.secondVar?.label,
+                      third: row.data.thirdVar?.label,
+                      next: edge[0].target
+                    }
+                  )
+                }
+                if (node.type === "playerChoice") {
+                  options.push(
+                    {
+                      text: row.data.text,
+                      next: edge[0].target
+                    }
+                  )
+                }
               }
             });
             node.data = {
@@ -384,7 +421,7 @@ class DialogsStore {
           }
         }
         else
-        if (node.type === 'choice') {
+        if (node.type === 'choice' || node.type === 'playerChoice') {
             const options = []
             node.data = {
               options

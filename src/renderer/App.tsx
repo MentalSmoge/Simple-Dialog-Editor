@@ -20,6 +20,7 @@ import AddVarModal from '../Flow/Components/AddVarModal';
 import CharacterStore from '../store/CharacterStore';
 import VariablesStore from '../store/VariablesStore';
 import { observer } from 'mobx-react-lite';
+import PlayerChoiceTextEditorView from '../Flow/PlayerChoiceTextEditorView';
 
 
 window.electron.onSaveFile(() => {
@@ -107,6 +108,7 @@ function App() {
       <AddVarModal />
       <EditModalCharacter />
       <EditModalVariable />
+      <PlayerChoiceTextEditorView />
       <ContextMenu destiny={destiny} anchorPoint={anchorPoint} isOpen={contextMenuIsOpen} setOpen={setContextMenuIsOpen} />
       <header className="App-header">Отображаемый диалог:<b>{DialogsStore.getDialogName(DialogsStore.currentDialogId)}</b></header>
       {/* <FpsView/> */}
