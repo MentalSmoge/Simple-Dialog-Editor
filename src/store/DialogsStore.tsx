@@ -79,33 +79,6 @@ const initialDialogs = [
           "dragging": false
         },
         {
-          "id": "12",
-          "data": {
-            "rows": [
-              {
-                "idOfRow": 0,
-                "data": {
-                  "text": ""
-                }
-              },
-            ],
-            "increment": 1
-          },
-          "position": {
-            "x": 600,
-            "y": 255
-          },
-          "type": "playerChoice",
-          "width": 319,
-          "height": 153,
-          "positionAbsolute": {
-            "x": 600,
-            "y": 25
-          },
-          "selected": false,
-          "dragging": false
-        },
-        {
           "id": "9",
           "data": {
             "rows": [

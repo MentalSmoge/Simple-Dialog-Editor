@@ -11,13 +11,13 @@ type Character = {
 class CharacterStore {
   characters : Character[] = [
     {
-      "id": 4,
+      "id": 1,
       "name": "Адам",
       "bio": "",
       "defaultPortrait": ""
     },
     {
-      "id": 5,
+      "id": 2,
       "name": "Ева",
       "bio": "",
       "defaultPortrait": ""

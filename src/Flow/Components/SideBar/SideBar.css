@@ -70,5 +70,6 @@
   width: 90%;
   align-self: center;
   margin-top: 0.5rem;
-  height: 1.5rem;
+  height: fit-content;
+  word-wrap: break-word;
 }

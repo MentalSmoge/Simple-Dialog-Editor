@@ -15,7 +15,7 @@ function CharacterCard({id}) {
 
   async function OpenPortrait() {
     console.log("Clicked Open Portrait")
-    const files: DialogFileData = await window.electron.showOpenDialog("D:\\Downloads Edge")
+    const files: DialogFileData = await window.electron.showOpenDialog("C:\\")
     if (files.canceled === false) {
       FlowStore.updatePortraitInNode(id, files.filePaths[0])
       console.log("not cancelled")

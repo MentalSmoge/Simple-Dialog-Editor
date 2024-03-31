@@ -43,10 +43,16 @@ const TextNode: FC<NodeProps> = ({ id, data }) => {
       </NodeToolbar>
       <Handle type="target" position={Position.Left} />
       <LimitedHandle type="source" position={Position.Right} isConnectable={1} />
-      <Select placeholder={<div>Character...</div>} isClearable onChange={(val) => changeCharacter(val)} value={CharacterStore.getCharacterLabel(data?.character?.id)} options={CharacterStore.character_options} className='TextNode-select nodrag ' styles={{
-        control: (baseStyles, state) => ({
-          ...baseStyles,
-          borderRadius:"8px 8px 0 0",
+      <Select placeholder={<div>Character...</div>}
+        isClearable
+        onChange={(val) => changeCharacter(val)}
+        value={CharacterStore.getCharacterLabel(data?.character?.id)}
+        options={CharacterStore.character_options}
+        className='TextNode-select nodrag '
+        styles={{
+          control: (baseStyles) => ({
+            ...baseStyles,
+            borderRadius:"8px 8px 0 0",
         }),
       }}/>
 
