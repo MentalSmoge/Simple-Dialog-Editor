@@ -16,7 +16,7 @@ const DeleteModal = observer(() => {
           ariaHideApp={false}
           className="modal-delete"
         >
-          <h2 className='header'>Delete {DeleteModalStore.getName()}?</h2>
+          <h2  className='header'>Delete {DeleteModalStore.getName()}?</h2>
           <div className='button-row'>
             <button onClick={() => DeleteModalStore.delete()} type="button" className='delete'>Yes</button>
             <button onClick={() => DeleteModalStore.closeEditor()} type="button" className='close'>No</button>

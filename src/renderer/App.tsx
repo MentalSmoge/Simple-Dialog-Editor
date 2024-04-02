@@ -1,14 +1,13 @@
-import { FpsView } from 'react-fps';
 import { ReactFlowProvider } from 'reactflow';
+import { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import Flow from '../Flow';
 import TextEditorView from '../Flow/TextEditorView';
 
 import './App.css';
 import SideBar from '../Flow/Components/SideBar';
 import ContextMenu from '../Flow/Components/ContextMenu';
-import { useState } from 'react';
 import DeleteModal from '../Flow/Components/DeleteModal';
-import DeleteModalStore from '../store/DeleteModalStore';
 import RenameModal from '../Flow/Components/RenameModal';
 import DialogsStore from '../store/DialogsStore';
 import AddDialogModal from '../Flow/Components/AddDialogModal';
@@ -19,7 +18,6 @@ import AddCharacterModal from '../Flow/Components/AddCharacterModal';
 import AddVarModal from '../Flow/Components/AddVarModal';
 import CharacterStore from '../store/CharacterStore';
 import VariablesStore from '../store/VariablesStore';
-import { observer } from 'mobx-react-lite';
 import PlayerChoiceTextEditorView from '../Flow/PlayerChoiceTextEditorView';
 
 
@@ -118,7 +116,7 @@ function App() {
         <RightSideBar />
       </div>
       <TextEditorView />
-      <footer className="App-footer"></footer>
+      <footer className="App-footer" />
     </div>
     </ReactFlowProvider>
   );
