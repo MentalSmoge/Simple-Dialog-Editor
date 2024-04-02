@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx"
-import FlowStore from "./FlowStore"
+import FlowStore from "../pages/MainEditor/components/EditorField/FlowStore"
 
 type Dialog = {
   id : number, name: string, reactflowInstance : object

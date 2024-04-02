@@ -1,24 +1,24 @@
 import { ReactFlowProvider } from 'reactflow';
 import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import Flow from '../Flow';
-import TextEditorView from '../Flow/TextEditorView';
+import Flow from '../pages/MainEditor/components/EditorField';
+import TextEditorView from '../pages/MainEditor/Modals/Modal_TextEditor/TextEditorView';
 
 import './App.css';
-import SideBar from '../Flow/Components/SideBar';
+import SideBar from '../pages/MainEditor/components/SideBar';
 import ContextMenu from '../Flow/Components/ContextMenu';
-import DeleteModal from '../Flow/Components/DeleteModal';
-import RenameModal from '../Flow/Components/RenameModal';
+import DeleteModal from '../pages/MainEditor/Modals/Modal_Delete';
+import RenameModal from '../pages/MainEditor/Modals/Modal_EditDialog';
 import DialogsStore from '../store/DialogsStore';
-import AddDialogModal from '../Flow/Components/AddDialogModal';
-import RightSideBar from '../Flow/Components/RightSideBar';
-import EditModalCharacter from '../Flow/Components/EditModalCharacter';
-import EditModalVariable from '../Flow/Components/EditModalVariable';
-import AddCharacterModal from '../Flow/Components/AddCharacterModal';
-import AddVarModal from '../Flow/Components/AddVarModal';
+import AddDialogModal from '../pages/MainEditor/Modals/Modal_AddDialog';
+import RightSideBar from '../pages/MainEditor/components/RightSideBar';
+import EditModalCharacter from '../pages/MainEditor/Modals/Modal_EditCharacter';
+import EditModalVariable from '../pages/MainEditor/Modals/Modal_EditVariable';
+import AddCharacterModal from '../pages/MainEditor/Modals/Modal_AddCharacter';
+import AddVarModal from '../pages/MainEditor/Modals/Modal_AddVariable';
 import CharacterStore from '../store/CharacterStore';
 import VariablesStore from '../store/VariablesStore';
-import PlayerChoiceTextEditorView from '../Flow/PlayerChoiceTextEditorView';
+import PlayerChoiceTextEditorView from '../pages/MainEditor/Modals/Modal_TextEditor/PlayerChoiceTextEditorView';
 
 
 window.electron.onSaveFile(() => {
