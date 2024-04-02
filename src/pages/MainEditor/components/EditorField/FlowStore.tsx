@@ -10,23 +10,20 @@ import {
   applyEdgeChanges,
   type XYPosition,
   Viewport,
-  MarkerType,
 } from 'reactflow';
 import { nanoid } from 'nanoid';
-import TextNode from "../../Nodes/Node_Text/TextNode";
-import ChoiceNode from "../../Nodes/Node_Branch/ChoiceNode";
-import PlayerChoiceNode from "../../Nodes/Node_PlayerChoice/PlayerChoiceNode";
-import StartNode from "../../Nodes/Node_Start/StartNode";
+
+import {NodeBranch, NodePlayerChoice, NodeStart, NodeText} from "../../Nodes/index"
 import StaticEdge from "../../EdgeTypes/Edge_Static/StaticEdge";
 import { playerChoiceRowProps, rowProps } from "../../../../Flow/types";
 
 const initialEdges: Edge[] = [];
 class FlowStore {
   nodeTypes = {
-    text: TextNode,
-    choice : ChoiceNode,
-    start : StartNode,
-    playerChoice : PlayerChoiceNode,
+    text: NodeText,
+    choice : NodeBranch,
+    start : NodeStart,
+    playerChoice : NodePlayerChoice,
   };
 
   edgeTypes = {
@@ -171,7 +168,6 @@ class FlowStore {
       return
     }
     this.nodes.filter(node => node.id === nodeId)[0].data.character = {id : characterId}
-    console.log(this.nodes.filter(node => node.id === nodeId)[0].data)
   }
 
   updatePortraitInNode(nodeId: string, portrait : string) {

@@ -1,5 +1,5 @@
 import AddCharacterModalStore from "../../../../pages/MainEditor/Modals/Modal_AddCharacter/AddCharacterModalStore";
-import "./Modal.css"
+// import "../Modal.css"
 
 export default function () {
   return (

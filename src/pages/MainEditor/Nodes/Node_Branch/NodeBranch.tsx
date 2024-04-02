@@ -10,7 +10,7 @@ import FlowStore from '../../components/EditorField/FlowStore';
 
 
 // eslint-disable-next-line react/function-component-definition
-const ChoiceNode: FC<NodeProps> = ({ id, data }) => {
+const NodeBranch: FC<NodeProps> = ({ id, data }) => {
   const testButton = () => {
     console.log(FlowStore.edges)
     // console.log(reactFlow.toObject())
@@ -32,4 +32,4 @@ const ChoiceNode: FC<NodeProps> = ({ id, data }) => {
   );
 };
 
-export default observer(ChoiceNode);
+export default observer(NodeBranch);
