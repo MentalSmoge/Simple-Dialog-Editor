@@ -5,21 +5,14 @@ import {
   BrowserWindow,
   MenuItemConstructorOptions,
   dialog,
-  ipcMain,
 } from 'electron';
 import { readFile } from 'fs';
-const contextMenu = require('electron-context-menu');
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string;
   submenu?: DarwinMenuItemConstructorOptions[] | Menu;
 }
 
-contextMenu({
-	prepend: (defaultActions, parameters, browserWindow : BrowserWindow) => [
-	],
-  showSelectAll: false
-});
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
 
@@ -28,13 +21,6 @@ export default class MenuBuilder {
   }
 
   buildMenu(): Menu {
-    if (
-      process.env.NODE_ENV === 'development' ||
-      process.env.DEBUG_PROD === 'true'
-    ) {
-
-    }
-
     const template =
       process.platform === 'darwin'
         ? this.buildDarwinTemplate()
@@ -196,11 +182,10 @@ export default class MenuBuilder {
                  if (!fileObj.canceled) {
                   readFile(fileObj.filePaths[0],'utf8',(err,contents)=>{
                     if(err){
-                       console.log(err);
-                       return;
+                      return console.log(err);
                     }
                     this.mainWindow.webContents.send('PROJECT_OPEN', contents)
-                    console.log(contents);
+                    return console.log(contents);
                   })
 
 
@@ -208,8 +193,8 @@ export default class MenuBuilder {
                  }
               })
   // should always handle the error yourself, later Electron release might crash if you don't
-              .catch(function(err) {
-                 console.error(err)
+              .catch((err) => {
+                return console.error(err)
               })
            }
           },

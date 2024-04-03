@@ -2,23 +2,15 @@ import { ReactFlowProvider } from 'reactflow';
 import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import Flow from '../pages/MainEditor/components/EditorField';
-import TextEditorView from '../pages/MainEditor/Modals/Modal_TextEditor/TextEditorView';
 
 import './App.css';
 import SideBar from '../pages/MainEditor/components/SideBar';
-import ContextMenu from '../Flow/Components/ContextMenu';
-import DeleteModal from '../pages/MainEditor/Modals/Modal_Delete';
-import RenameModal from '../pages/MainEditor/Modals/Modal_EditDialog';
+import ContextMenu from '../pages/MainEditor/components/ContextMenu';
 import DialogsStore from '../store/DialogsStore';
-import AddDialogModal from '../pages/MainEditor/Modals/Modal_AddDialog';
 import RightSideBar from '../pages/MainEditor/components/RightSideBar';
-import EditModalCharacter from '../pages/MainEditor/Modals/Modal_EditCharacter';
-import EditModalVariable from '../pages/MainEditor/Modals/Modal_EditVariable';
-import AddCharacterModal from '../pages/MainEditor/Modals/Modal_AddCharacter';
-import AddVarModal from '../pages/MainEditor/Modals/Modal_AddVariable';
 import CharacterStore from '../store/CharacterStore';
 import VariablesStore from '../store/VariablesStore';
-import PlayerChoiceTextEditorView from '../pages/MainEditor/Modals/Modal_TextEditor/PlayerChoiceTextEditorView';
+import Modals from '../pages/MainEditor/Modals/Modals';
 
 
 window.electron.onSaveFile(() => {
@@ -46,25 +38,26 @@ window.electron.onExportFile(() => {
   // const responce = JSON.stringify(reactflow.toObject())
   window.electron.exportFile(JSON.stringify(response, null, 2))
 })
+
 window.electron.onProjectOpen((args) => {
   console.log('got FILE_OPEN', args)
   let result
-  let result_dialog
-  let result_char
-  let result_var
+  let resuldDialogs
+  let resultCharacters
+  let resultVariables
   try {
     result = JSON.parse(args)
-    result_dialog = result.dialogs
-    result_char = result.characters
-    result_var = result.variables
+    resuldDialogs = result.dialogs
+    resultCharacters = result.characters
+    resultVariables = result.variables
 
   } catch (error) {
     console.log(error)
   }
   try {
-    DialogsStore.setDialogs(result_dialog)
-    CharacterStore.setCharacters(result_char)
-    VariablesStore.setVariables(result_var)
+    DialogsStore.setDialogs(resuldDialogs)
+    CharacterStore.setCharacters(resultCharacters)
+    VariablesStore.setVariables(resultVariables)
   } catch (error) {
     console.log(error)
 
@@ -84,6 +77,7 @@ function App() {
   return (
     <ReactFlowProvider>
     <div className="App"
+    // TODO: Сделать адекватное контекстное меню
       onContextMenu={ (e) => {
             const classlist = e.target.classList;
             if (classlist.contains('react-flow__pane')) {
@@ -99,14 +93,7 @@ function App() {
               openContextMenu(e, "SideBarVariable")
             }
           }}>
-      <DeleteModal />
-      <RenameModal />
-      <AddDialogModal />
-      <AddCharacterModal />
-      <AddVarModal />
-      <EditModalCharacter />
-      <EditModalVariable />
-      <PlayerChoiceTextEditorView />
+      <Modals />
       <ContextMenu destiny={destiny} anchorPoint={anchorPoint} isOpen={contextMenuIsOpen} setOpen={setContextMenuIsOpen} />
       <header className="App-header">Отображаемый диалог:<b>{DialogsStore.getDialogName(DialogsStore.currentDialogId)}</b></header>
       {/* <FpsView/> */}
@@ -115,7 +102,6 @@ function App() {
         <Flow />
         <RightSideBar />
       </div>
-      <TextEditorView />
       <footer className="App-footer" />
     </div>
     </ReactFlowProvider>

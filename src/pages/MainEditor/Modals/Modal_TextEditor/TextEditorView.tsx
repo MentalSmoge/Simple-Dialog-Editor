@@ -15,12 +15,12 @@ const TextEditorView = observer(() => {
           onRequestClose={closeModal}
           contentLabel="Example Modal"
           ariaHideApp={false}
-          className="modal"
+          className="modal modal-big"
         >
           <h2 className='header'>Edit Text</h2>
           <textarea className="textArea" value={Store.currentText} onChange={e => Store.changeText(e.target.value)} />
           <div className='button-row'>
-            <button onClick={() => Store.saveAndClose()} type="button" className='save'>Save Changes</button>
+            <button onClick={() => Store.saveAndClose()} type="button" className='add'>Save Changes</button>
             <button onClick={() => Store.closeEditor()} type="button" className='close'>Cancel</button>
           </div>
         </Modal>

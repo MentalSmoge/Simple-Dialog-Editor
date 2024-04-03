@@ -2,26 +2,18 @@ import { type FC } from 'react';
 import { Handle, Position, type NodeProps } from 'reactflow';
 import { observer } from 'mobx-react-lite';
 
-import './ChoiceNode.css';
+import './NodeBranch.css';
 import ChoiceRow from './components/ChoiceRow';
-import { rowProps } from '../../../../Flow/types';
-import Store from '../../../../store/VariablesStore';
 import FlowStore from '../../components/EditorField/FlowStore';
 
 
 // eslint-disable-next-line react/function-component-definition
 const NodeBranch: FC<NodeProps> = ({ id, data }) => {
-  const testButton = () => {
-    console.log(FlowStore.edges)
-    // console.log(reactFlow.toObject())
-    // Store.addVar({label:"sas", value: "Sas"})
-  }
-
   return (
     <div className='container'>
       <Handle type="target" position={Position.Left} />
       <div className='wrapper'>
-      {data.rows.map((row, index) => (
+      {data.rows.map((row, index:number) => (
           <ChoiceRow id={id} key={row.idOfRow} idOfRow={row.idOfRow} data={row.data} position={index} renderDelete={data.rows.length > 2}/>
         ))}
       </div>

@@ -1,12 +1,12 @@
 import Select from "react-select";
 import { Handle, Position } from "reactflow";
 import "./CharacterCard.css"
-import ProportionalImage from "./ProportionalImage";
+import ProportionalImage from "../ProportionalImage";
 import { useState } from "react";
-import { DialogFileData } from "../../../../../Flow/types";
+import { DialogFileData } from "../../../../../../Flow/types";
 import { observer } from "mobx-react-lite";
-import CharacterStore from "../../../../../store/CharacterStore";
-import FlowStore from "../../../components/EditorField/FlowStore";
+import CharacterStore from "../../../../../../store/CharacterStore";
+import FlowStore from "../../../../components/EditorField/FlowStore";
 
 
 

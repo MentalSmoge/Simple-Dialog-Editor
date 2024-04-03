@@ -1,6 +1,6 @@
 import { ControlledMenu, MenuItem } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
-import { AddNodeContextMenuProps } from '../../types';
+import { AddNodeContextMenuProps } from '../../../../Flow/types';
 
 export default function ({anchorPoint, isOpen, setOpen, addNode} : AddNodeContextMenuProps) {
   return (

@@ -13,12 +13,12 @@ const AddDialogModal = observer(() => {
           onRequestClose={closeModal}
           contentLabel="Example Modal"
           ariaHideApp={false}
-          className="modal-delete"
+          className="modal"
         >
           <h2 className='header'>Please enter new dialog name</h2>
-          <input autoFocus className="modal-input" value={AddDialogModalStore.currentNewName} onChange={e => AddDialogModalStore.changeName(e.target.value)} />
+          <input autoFocus className="input" value={AddDialogModalStore.currentNewName} onChange={e => AddDialogModalStore.changeName(e.target.value)} />
           <div className='button-row'>
-            <button onClick={() => AddDialogModalStore.addDialog(AddDialogModalStore.currentNewName)} type="button" className='delete'>Create</button>
+            <button onClick={() => AddDialogModalStore.addDialog(AddDialogModalStore.currentNewName)} type="button" className='add'>Create</button>
             <button onClick={() => AddDialogModalStore.closeEditor()} type="button" className='close'>Cancel</button>
           </div>
         </Modal>

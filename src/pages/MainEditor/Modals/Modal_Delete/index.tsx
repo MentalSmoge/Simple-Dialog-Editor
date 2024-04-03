@@ -13,7 +13,7 @@ const DeleteModal = observer(() => {
           onRequestClose={closeModal}
           contentLabel="Example Modal"
           ariaHideApp={false}
-          className="modal-delete"
+          className="modal"
         >
           <h2  className='header'>Delete {DeleteModalStore.getName()}?</h2>
           <div className='button-row'>

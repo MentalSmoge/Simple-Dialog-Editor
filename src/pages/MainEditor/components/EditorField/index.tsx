@@ -4,6 +4,7 @@ import ReactFlow, {
   BackgroundVariant,
   MarkerType,
   MiniMap,
+  Node,
 } from 'reactflow';
 import FlowStore from './FlowStore';
 
@@ -13,7 +14,7 @@ import 'reactflow/dist/style.css';
 import './Flow.css';
 
 function Flow() {
-  const nodeColor = (node) => {
+  const nodeColor = (node: Node) => {
     switch (node.type) {
       case 'start':
         return '#6ede87';

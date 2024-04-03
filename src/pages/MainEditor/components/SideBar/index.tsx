@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import "./SideBar.css"
 import DialogsStore from "../../../../store/DialogsStore";
 import SideBarButton from "./SideBar-button";
-import AddDialogButton from "../../../../Flow/Components/trashcan/AddDialogModal/AddDialogButton";
+import AddDialogButton from "./components/AddDialogButton";
 
 
 // eslint-disable-next-line react/function-component-definition

@@ -14,11 +14,11 @@ const EditModalVariable = observer(() => {
           onRequestClose={closeModal}
           contentLabel="Example Modal"
           ariaHideApp={false}
-          className="modal-rename"
+          className="modal"
         >
           <h2 className='header'>Rename {DialogsStore.getDialogName(EditModalVariableStore.currentId)}</h2>
-          <p className='modal-p'>New Name</p>
-          <input autoFocus className="modal-input" value={EditModalVariableStore.currentNewName} onChange={e => EditModalVariableStore.changeName(e.target.value)} />
+          <p className='p'>New Name</p>
+          <input autoFocus className="input" value={EditModalVariableStore.currentNewName} onChange={e => EditModalVariableStore.changeName(e.target.value)} />
           <div className='button-row'>
             <button onClick={() => EditModalVariableStore.rename()} type="button" className='delete'>Rename</button>
             <button onClick={() => EditModalVariableStore.closeEditor()} type="button" className='close'>Cancel</button>

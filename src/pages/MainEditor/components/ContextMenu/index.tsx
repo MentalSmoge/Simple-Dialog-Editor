@@ -2,12 +2,12 @@ import { ControlledMenu, MenuItem } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import { useCallback } from 'react';
 import { useReactFlow } from 'reactflow';
-import { ContextMenuProps } from '../../types';
-import FlowStore from '../../../pages/MainEditor/components/EditorField/FlowStore';
-import DeleteModalStore from '../../../pages/MainEditor/Modals/Modal_Delete/DeleteModalStore';
-import RenameDialogModalStore from '../../../pages/MainEditor/Modals/Modal_EditDialog/RenameDialogModalStore';
-import EditModalCharacterStore from '../../../pages/MainEditor/Modals/Modal_EditCharacter/EditCharacterModalStore';
-import EditModalVariableStore from '../../../pages/MainEditor/Modals/Modal_EditVariable/EditVariableModalStore';
+import { ContextMenuProps } from '../../../../Flow/types';
+import FlowStore from '../EditorField/FlowStore';
+import DeleteModalStore from '../../Modals/Modal_Delete/DeleteModalStore';
+import RenameDialogModalStore from '../../Modals/Modal_EditDialog/RenameDialogModalStore';
+import EditModalCharacterStore from '../../Modals/Modal_EditCharacter/EditCharacterModalStore';
+import EditModalVariableStore from '../../Modals/Modal_EditVariable/EditVariableModalStore';
 
 export default function ({destiny, anchorPoint, isOpen, setOpen} : ContextMenuProps) {
   const reactflow = useReactFlow()

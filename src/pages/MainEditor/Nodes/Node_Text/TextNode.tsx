@@ -1,15 +1,13 @@
-import Select, { SingleValue } from "react-select";
-import { memo, type FC, type CSSProperties, useEffect } from 'react';
-import { Handle, Position, type NodeProps, useStore, NodeResizer, NodeToolbar } from 'reactflow';
-import { useState } from 'react';
+import Select from "react-select";
+import { type FC } from 'react';
+import { observer } from "mobx-react-lite";
+import { Handle, Position, type NodeProps, useStore, NodeToolbar } from 'reactflow';
 
 import t from "../../Modals/Modal_TextEditor/TextEditorModalStore"
 import './TextNode.css';
-import { CharacterLabel } from "../../../../Flow/types";
 import DefaultInput from "./components/DefaultInput";
-import CharacterCard from "./components/CharacterCard";
+import CharacterCard from "./components/CharacterCard/CharacterCard";
 import LimitedHandle from "../../HandleTypes/Handle_Default/LimitedHandle";
-import { observer } from "mobx-react-lite";
 import FlowStore from "../../components/EditorField/FlowStore";
 import CharacterStore from "../../../../store/CharacterStore";
 

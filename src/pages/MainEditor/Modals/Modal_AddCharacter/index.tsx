@@ -13,12 +13,12 @@ const AddCharacterModal = observer(() => {
           onRequestClose={closeModal}
           contentLabel="Example Modal"
           ariaHideApp={false}
-          className="modal-delete"
+          className="modal"
         >
           <h2 className='header'>Please enter new character name</h2>
-          <input autoFocus className="modal-input" value={AddCharacterModalStore.currentNewName} onChange={e => AddCharacterModalStore.changeName(e.target.value)} />
+          <input autoFocus className="input" value={AddCharacterModalStore.currentNewName} onChange={e => AddCharacterModalStore.changeName(e.target.value)} />
           <div className='button-row'>
-            <button onClick={() => AddCharacterModalStore.addCharacter(AddCharacterModalStore.currentNewName)} type="button" className='delete'>Create</button>
+            <button onClick={() => AddCharacterModalStore.addCharacter(AddCharacterModalStore.currentNewName)} type="button" className='add'>Create</button>
             <button onClick={() => AddCharacterModalStore.closeEditor()} type="button" className='close'>Cancel</button>
           </div>
         </Modal>

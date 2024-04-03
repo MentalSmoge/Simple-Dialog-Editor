@@ -69,7 +69,7 @@ class FlowStore {
       type: nodeType,
     };
     if (nodeType === "text") {
-      newNode.data.text = ""
+      newNode.data = {text:""}
     }
     if (nodeType === "choice") {
       newNode.data = { rows: [{
@@ -133,20 +133,20 @@ class FlowStore {
   deleteRow(nodeId : string, Id : number) {
     const result = this.edges.filter(item => item.source !== nodeId || item.sourceHandle !== `handle-${Id}`);
     this.setEdges(result);
-    this.getNode(nodeId).data.rows = (this.getNode(nodeId).data.rows.filter(a => a.idOfRow !== Id))
+    this.getNode(nodeId).data.rows = (this.getNode(nodeId).data.rows.filter(row => row.idOfRow !== Id))
 
   };
 
   changeVar(nodeId : string, Id : number, varType : String, newValue : { value: string, label: string }) {
     switch (varType) {
       case "first":
-        this.getNode(nodeId).data.rows.filter(item => item.idOfRow === Id)[0].data.firstVar = newValue;
+        this.getNode(nodeId).data.rows.filter(row => row.idOfRow === Id)[0].data.firstVar = newValue;
         break;
       case "second":
-        this.getNode(nodeId).data.rows.filter(item => item.idOfRow === Id)[0].data.secondVar = newValue;
+        this.getNode(nodeId).data.rows.filter(row => row.idOfRow === Id)[0].data.secondVar = newValue;
         break;
       case "third":
-        this.getNode(nodeId).data.rows.filter(item => item.idOfRow === Id)[0].data.thirdVar = newValue;
+        this.getNode(nodeId).data.rows.filter(row => row.idOfRow === Id)[0].data.thirdVar = newValue;
         break;
 
       default:
@@ -159,7 +159,7 @@ class FlowStore {
   }
 
   updateTextInPlayerChoiceNode(nodeId: string, rowId: number, text : string) {
-    this.nodes.filter(node => node.id === nodeId)[0].data.rows.filter(item => item.idOfRow === rowId)[0].data.text = text
+    this.nodes.filter(node => node.id === nodeId)[0].data.rows.filter(row => row.idOfRow === rowId)[0].data.text = text
   }
 
   updateCharacterInNode(nodeId: string, characterId : number | undefined) {

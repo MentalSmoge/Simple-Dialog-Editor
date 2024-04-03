@@ -1,0 +1,15 @@
+
+.AddButton {
+  border-radius: var(--rounding);
+  background-color: var(--delete-button-color);
+  font: inherit;
+  height: 2rem;
+  min-height: 2rem;
+  width: 80%;
+  margin-top: 1rem;
+  align-self: center;
+  min-width: 73px;
+  margin-bottom: auto;
+  overflow:hidden;
+  white-space: nowrap;
+}

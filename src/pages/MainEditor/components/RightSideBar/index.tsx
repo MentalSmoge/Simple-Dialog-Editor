@@ -7,8 +7,8 @@ import VariablesStore from "../../../../store/VariablesStore";
 import DeleteModalStore from "../../Modals/Modal_Delete/DeleteModalStore";
 import EditModalCharacterStore from "../../Modals/Modal_EditCharacter/EditCharacterModalStore";
 import EditModalVariableStore from "../../Modals/Modal_EditVariable/EditVariableModalStore";
-import AddCharacterButton from "../../../../Flow/Components/trashcan/AddCharacterModal/AddCharacterButton";
-import AddVarButton from "../../../../Flow/Components/trashcan/AddVarModal/AddVarButton";
+import AddCharacterButton from "./components/AddCharacterButton";
+import AddVarButton from "./components/AddVarButton";
 
 
 // eslint-disable-next-line react/function-component-definition

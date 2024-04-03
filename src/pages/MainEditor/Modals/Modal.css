@@ -1,4 +1,4 @@
-.modal-rename {
+.modal {
   --pos: 30%;
   border: 2px solid black;
   border-radius: var(--rounding);
@@ -15,18 +15,18 @@
   flex-direction: column;
   min-width: 150px;
 }
-.modal-input {
+.modal>.input {
   margin: 1rem;
   font: inherit;
   font-size:large;
 }
 
-.modal-p {
+.modal>.p {
   margin: 0;
   align-self: center;
 }
 
-.modal-rename>.header {
+.modal>.header {
   width: 100%;
   border-radius: 10px;
   border-bottom: 1px solid gray;
@@ -38,7 +38,7 @@
   margin-top: 0;
 }
 
-.modal-rename>.button-row {
+.modal>.button-row {
   display: flex;
   align-self: center;
   justify-self: end;
@@ -47,7 +47,9 @@
   margin-top: auto;
 }
 
-.modal-rename>.button-row>.close {
+.modal>.button-row>.add,
+.modal>.button-row>.delete,
+.modal>.button-row>.close {
   cursor: pointer;
   display: block;
   width: 100%;
@@ -55,34 +57,64 @@
   margin: 0 0rem 1rem 0rem;
   line-height: 20px;
   font-size: 18px;
+  font: inherit;
   background: var(--neutral-button-color);
-  border-radius: 18px;
+  border-radius: var(--rounding);
   border: 1px solid #000000;
 }
 
-.modal-rename>.button-row>.delete {
-  cursor: pointer;
-  display: block;
-  width: 100%;
-  padding: 5px 5px;
-  margin: 0 0rem 1rem 0rem;
-  line-height: 20px;
-  font-size: 18px;
+.modal>.button-row>.add,
+.modal>.button-row>.delete {
   background: var(--delete-button-color);
-  border-radius: 18px;
-  border: 1px solid
+}
+
+.modal>.textArea {
+  font: inherit;
+  font-size: medium;
+  height: 100%;
+  margin: 1rem;
+  resize: none;
+  flex-grow: 1;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  overflow-y: auto;
+
+  flex-direction: column;
 }
 
 
-.AddDialog-button {
-  border-radius: var(--rounding);
-  background-color: var(--delete-button-color);
-  font: inherit;
-  height: 2rem;
-  min-height: 2rem;
-  width: 80%;
-  margin-top: 1rem;
-  align-self: center;
-  min-width: 73px;
-  margin-bottom: auto
+:root {
+  --scrollbar-size-modal: 1rem;
+}
+
+.modal>.textArea::-webkit-scrollbar {
+  height: var(--scrollbar-size-modal);
+  width: var(--scrollbar-size-modal);
+}
+
+.modal>.textArea::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-track-color);
+}
+
+.modal>.textArea::-webkit-scrollbar:hover {
+  background-color: rgba(0, 0, 0, .1);
+  cursor: pointer;
+}
+
+.modal>.textArea::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-color);
+  /* Если нужно - добавьте :hover и:active */
+}
+
+.modal>.textArea::-webkit-scrollbar-thumb:vertical {
+  min-height: var(--scrollbar-minlength);
+}
+
+.modal>.textArea::-webkit-scrollbar-thumb:horizontal {
+  min-width: var(--scrollbar-minlength);
+}
+
+.modal-big {
+  --pos: 20%;
 }

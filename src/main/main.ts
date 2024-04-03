@@ -9,12 +9,12 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
+import { PathOrFileDescriptor, writeFile } from 'fs';
 import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-import { writeFile } from 'fs';
 
 class AppUpdater {
   constructor() {
@@ -50,12 +50,13 @@ ipcMain.on('save-file-value', (_event, value) => {
     ],
   }).then(result => {
     if (!result.canceled) {
-      writeFile(result.filePath, (value), function(error){
-        if(error){
-            return console.log(error);
-        }
-        console.log("Файл успешно записан");
-    });
+      writeFile(result.filePath as PathOrFileDescriptor, (value),
+        (error) => {
+          if(error){
+              return console.log(error);
+          }
+          return console.log("Файл успешно записан");
+      });
     }
   }).catch(err => {
     console.log(err)
@@ -69,11 +70,11 @@ ipcMain.on('export-file-value', (_event, value) => {
     ],
   }).then(result => {
     if (!result.canceled) {
-      writeFile(result.filePath, (value), function(error){
+      writeFile(result.filePath as PathOrFileDescriptor, (value), (error) => {
         if(error){  // если ошибка
             return console.log(error);
         }
-        console.log("Файл успешно записан");
+        return console.log("Файл успешно записан");
     });
     }
   }).catch(err => {
@@ -86,6 +87,7 @@ async function handleFileOpen () {
   if (!canceled) {
     return filePaths[0]
   }
+  return console.log("Закрыл окно открытия")
 }
 
 if (process.env.NODE_ENV === 'production') {
