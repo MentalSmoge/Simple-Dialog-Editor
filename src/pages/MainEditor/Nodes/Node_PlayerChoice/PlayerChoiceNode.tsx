@@ -3,20 +3,12 @@ import { Handle, Position, type NodeProps } from 'reactflow';
 import { observer } from 'mobx-react-lite';
 
 import './PlayerChoiceNode.css';
-import { rowProps } from '../../../../Flow/types';
-import Store from '../../../../store/VariablesStore';
 import FlowStore from '../../components/EditorField/FlowStore';
 import PlayerChoiceRow from './components/PlayerChoiceRow';
 
 
 // eslint-disable-next-line react/function-component-definition
 const PlayerChoiceNode: FC<NodeProps> = ({ id, data }) => {
-  const testButton = () => {
-    console.log(FlowStore.edges)
-    // console.log(reactFlow.toObject())
-    // Store.addVar({label:"sas", value: "Sas"})
-  }
-
   return (
     <div className='PlayerChoice-container'>
       <Handle type="target" position={Position.Left} />
@@ -26,8 +18,6 @@ const PlayerChoiceNode: FC<NodeProps> = ({ id, data }) => {
         ))}
       </div>
         <button type="button" className='PlayerChoice-buttonInChoice button_neutral nodrag' onClick={() => FlowStore.addPlayerChoiceRow(id)}>Добавить выбор</button>
-        {/* <button type="button" className='buttonInChoice button_neutral' onClick={testButton}>Тестовая</button> */}
-
     </div>
   );
 };

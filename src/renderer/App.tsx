@@ -96,7 +96,6 @@ function App() {
       <Modals />
       <ContextMenu destiny={destiny} anchorPoint={anchorPoint} isOpen={contextMenuIsOpen} setOpen={setContextMenuIsOpen} />
       <header className="App-header">Отображаемый диалог:<b>{DialogsStore.getDialogName(DialogsStore.currentDialogId)}</b></header>
-      {/* <FpsView/> */}
       <div style={{display:"flex", flexDirection:"row", height:"100%", overflow:"hidden"}}>
         <SideBar />
         <Flow />

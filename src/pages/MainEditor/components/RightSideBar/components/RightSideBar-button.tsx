@@ -1,8 +1,8 @@
 import { observer } from "mobx-react-lite";
-import DeleteModalStore from "../../Modals/Modal_Delete/DeleteModalStore";
-import RenameModalStore from "../../Modals/Modal_EditDialog/RenameDialogModalStore";
+import DeleteModalStore from "../../../Modals/Modal_Delete/DeleteModalStore";
+import RenameModalStore from "../../../Modals/Modal_EditDialog/RenameDialogModalStore";
 import "./RightSideBar.css"
-import DialogsStore from "../../../../store/DialogsStore";
+import DialogsStore from "../../../../../store/DialogsStore";
 
 export default observer(function ({dialog}) {
   return (

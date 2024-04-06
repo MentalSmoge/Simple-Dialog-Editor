@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
-import "./RightSideBar.css"
+import "./components/RightSideBar.css"
 import { CSSTransition } from "react-transition-group";
 import CharacterStore from "../../../../store/CharacterStore";
 import VariablesStore from "../../../../store/VariablesStore";
