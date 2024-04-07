@@ -2,18 +2,20 @@ import Select from "react-select";
 import { type FC } from 'react';
 import { observer } from "mobx-react-lite";
 import { Handle, Position, type NodeProps, useStore, NodeToolbar } from 'reactflow';
-
-import t from "../../Modals/Modal_TextEditor/TextEditorModalStore"
+// USEFUL ACTUALLY
+import LimitedHandle from "../../HandleTypes/Handle_Default/LimitedHandle";
 import './TextNode.css';
 import DefaultInput from "./components/DefaultInput";
 import CharacterCard from "./components/CharacterCard/CharacterCard";
-import LimitedHandle from "../../HandleTypes/Handle_Default/LimitedHandle";
+// TRAAASH
+import t from "../../Modals/Modal_TextEditor/TextEditorModalStore"
 import FlowStore from "../../components/EditorField/FlowStore";
 import CharacterStore from "../../../../store/CharacterStore";
+import { DialogFileData } from "../../../../Flow/types";
 
 
-// eslint-disable-next-line react/function-component-definition
-const TextNode: FC<NodeProps> = ({ id, data }) => {
+
+function TextNode({ id, data } : NodeProps) {
   const resetSelectedElements = useStore(a => a.resetSelectedElements)
   function handleEditClick() {
     resetSelectedElements();
@@ -26,14 +28,13 @@ const TextNode: FC<NodeProps> = ({ id, data }) => {
       FlowStore.updatePortraitInNode(id, "")
     }
   }
+  async function OpenPortrait() {
+    const files: DialogFileData = await window.electron.showOpenDialog("C:\\")
+    if (files.canceled === false) {
+      FlowStore.updatePortraitInNode(id, files.filePaths[0])
+    }
+  }
   const character = CharacterStore.getCharacterLabel(data?.character?.id)
-
-  // useEffect(function verifyValueExistsInNewOptions() {
-  //   if(character && CharacterStore.character_options.length && !CharacterStore.character_options.find(x => x.value === character.value) {
-  //     setValue(null);
-  //   }
-  // }, [character, CharacterStore.character_options]);
-
   return (
     <div className='TextNode-container'>
       <NodeToolbar position={Position.Top} >
@@ -54,7 +55,7 @@ const TextNode: FC<NodeProps> = ({ id, data }) => {
         }),
       }}/>
 
-      {character!==undefined && character!==null && <> <CharacterCard id={id}/> </>}
+      {character!==undefined && character!==null && <> <CharacterCard id={id} OpenPortrait={() => OpenPortrait}/> </>}
 
       <div className='TextNode-wrapper'>
         <DefaultInput textContent={data.text} readOnly/>
