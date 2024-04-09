@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx"
 
-type Variable = {
+export type Variable = {
   id: number, value: string, label: string
 }
 

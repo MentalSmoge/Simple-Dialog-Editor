@@ -1,5 +1,4 @@
 import Select from "react-select";
-import { type FC } from 'react';
 import { observer } from "mobx-react-lite";
 import { Handle, Position, type NodeProps, useStore, NodeToolbar } from 'reactflow';
 // USEFUL ACTUALLY
@@ -11,7 +10,7 @@ import CharacterCard from "./components/CharacterCard/CharacterCard";
 import t from "../../Modals/Modal_TextEditor/TextEditorModalStore"
 import FlowStore from "../../components/EditorField/FlowStore";
 import CharacterStore from "../../../../store/CharacterStore";
-import { DialogFileData } from "../../../../Flow/types";
+import { CharacterLabel, DialogFileData } from "../../../../Flow/types";
 
 
 
@@ -21,7 +20,7 @@ function TextNode({ id, data } : NodeProps) {
     resetSelectedElements();
     t.openEditor(data.text, id);
   }
-  const changeCharacter = (val) => {
+  const changeCharacter = (val: CharacterLabel) => {
     FlowStore.updateCharacterInNode(id, val?.value)
     FlowStore.updatePortraitInNode(id, "")
     if (val === null) {
@@ -44,7 +43,7 @@ function TextNode({ id, data } : NodeProps) {
       <LimitedHandle type="source" position={Position.Right} isConnectable={1} />
       <Select placeholder={<div>Character...</div>}
         isClearable
-        onChange={(val) => changeCharacter(val)}
+        onChange={(val) => changeCharacter(val as CharacterLabel)}
         value={CharacterStore.getCharacterLabel(data?.character?.id)}
         options={CharacterStore.character_options}
         className='TextNode-select nodrag '

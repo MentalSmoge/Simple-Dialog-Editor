@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { useMemo } from 'react';
 import ReactFlow, {
   Background,
   BackgroundVariant,
@@ -12,6 +13,8 @@ import FlowStore from './FlowStore';
 import 'reactflow/dist/style.css';
 
 import './Flow.css';
+import { NodeBranch, NodePlayerChoice, NodeStart, NodeText } from '../../Nodes';
+import StaticEdge from '../../EdgeTypes/Edge_Static/StaticEdge';
 
 function Flow() {
   const nodeColor = (node: Node) => {
@@ -28,6 +31,22 @@ function Flow() {
       type: MarkerType.ArrowClosed
     }
   };
+  const nodeTypes = useMemo(
+    () => ({
+      text: NodeText,
+      choice : NodeBranch,
+      start : NodeStart,
+      playerChoice : NodePlayerChoice,
+    }),
+    []
+  );
+
+  const edgeTypes = useMemo(
+    () => (
+    {
+      'static-edge': StaticEdge
+    }), []
+  )
   const proOptions = { hideAttribution: true };
   return (
     <div className="Flow" >
@@ -39,11 +58,11 @@ function Flow() {
           onEdgesChange={FlowStore.onEdgesChange}
           onConnect={FlowStore.onConnect}
           fitView
-          nodeTypes={FlowStore.nodeTypes}
+          nodeTypes={nodeTypes}
           snapToGrid
           nodeOrigin={[0.5,0.5]}
           snapGrid={[25, 25]}
-          edgeTypes={FlowStore.edgeTypes}
+          edgeTypes={edgeTypes}
           defaultEdgeOptions={defaultEdgeOptions}
         >
           <MiniMap pannable nodeStrokeColor="black" ariaLabel="Dialog Editor Map" maskStrokeColor="black" nodeColor={nodeColor} />

@@ -22,7 +22,11 @@ const electronHandler = {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
   },
+
 };
+const sas = {
+
+}
 
 contextBridge.exposeInMainWorld('electron', {
   electronHandler,

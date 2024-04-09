@@ -324,7 +324,7 @@ class DialogsStore {
 
   getDialogsForExport() {
     this.saveCurrent()
-    let returnDialogs = []
+    const returnDialogs = []
     const copyDialogs = this.dialogs as Dialog[]
     // eslint-disable-next-line array-callback-return
     copyDialogs.map(dialog => {
