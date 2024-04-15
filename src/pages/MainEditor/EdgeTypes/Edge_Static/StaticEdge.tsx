@@ -1,6 +1,6 @@
-import { BaseEdge, Position, getBezierPath, getSimpleBezierPath, getSmoothStepPath } from 'reactflow';
+import { BaseEdge, EdgeProps, Position, getBezierPath } from 'reactflow';
 
-export default function StaticEdge({ id, sourceX, sourceY, targetX, targetY }) {
+export default function StaticEdge({ id, sourceX, sourceY, targetX, targetY }: EdgeProps) {
   const [edgePath] = getBezierPath({
     sourceX,
     sourceY,

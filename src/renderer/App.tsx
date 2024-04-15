@@ -1,5 +1,5 @@
 import { ReactFlowProvider } from 'reactflow';
-import { useState } from 'react';
+import { MouseEvent, SetStateAction, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import Flow from '../pages/MainEditor/components/EditorField';
 
@@ -8,13 +8,17 @@ import SideBar from '../pages/MainEditor/components/SideBar';
 import ContextMenu from '../pages/MainEditor/components/ContextMenu';
 import DialogsStore from '../store/DialogsStore';
 import RightSideBar from '../pages/MainEditor/components/RightSideBar';
-import CharacterStore from '../store/CharacterStore';
-import VariablesStore from '../store/VariablesStore';
+import CharacterStore, { Character } from '../store/CharacterStore';
+import VariablesStore, { Variable } from '../store/VariablesStore';
 import Modals from '../pages/MainEditor/Modals/Modals';
-
+import { Dialog } from '../Flow/types';
 
 window.electron.onSaveFile(() => {
-  const response = {dialogs : [], characters : [], variables : []}
+  const response = {
+    dialogs: [] as Dialog[],
+    characters : [] as Character[],
+    variables : [] as Variable[]
+  }
   const dialogs = DialogsStore.getDialogsForSave()
   response.dialogs = dialogs
   response.characters = CharacterStore.getCharactersForSave()
@@ -25,7 +29,11 @@ window.electron.onSaveFile(() => {
 
 
 window.electron.onExportFile(() => {
-  const response = {dialogs : [], characters : [], variables : []}
+  const response = {
+    dialogs: [] as Dialog[],
+    characters : [] as Character[],
+    variables : [] as Variable[]
+  }
   const dialogs = DialogsStore.getDialogsForExport()
   response.dialogs = dialogs
   response.characters = CharacterStore.getCharactersForExport()
@@ -39,7 +47,7 @@ window.electron.onExportFile(() => {
   window.electron.exportFile(JSON.stringify(response, null, 2))
 })
 
-window.electron.onProjectOpen((args) => {
+window.electron.onProjectOpen((args : string) => {
   console.log('got FILE_OPEN', args)
   let result
   let resuldDialogs
@@ -67,7 +75,7 @@ function App() {
   const [contextMenuIsOpen, setContextMenuIsOpen] = useState(false);
   const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
   const [destiny, setDestiny] = useState("");
-  const openContextMenu = (e, newDestiny) => {
+  const openContextMenu = (e: MouseEvent<HTMLDivElement>, newDestiny: SetStateAction<string>) => {
     e.preventDefault();
     setDestiny(newDestiny)
     setAnchorPoint({ x: e.clientX, y: e.clientY });
@@ -78,8 +86,8 @@ function App() {
     <ReactFlowProvider>
     <div className="App"
     // TODO: Сделать адекватное контекстное меню
-      onContextMenu={ (e) => {
-            const classlist = e.target.classList;
+      onContextMenu={ (e: MouseEvent<HTMLDivElement>) => {
+            const classlist = (e.target as HTMLElement).classList;
             if (classlist.contains('react-flow__pane')) {
               openContextMenu(e, "addNode")
             }

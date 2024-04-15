@@ -1,11 +1,10 @@
 import { makeAutoObservable } from "mobx"
 import { CharacterLabel } from "../Flow/types";
 
-type Character = {
+export type Character = {
   id : number,
   name : string,
   bio : string,
-  defaultPortrait : string
 }
 
 class CharacterStore {
@@ -14,13 +13,11 @@ class CharacterStore {
       "id": 1,
       "name": "Адам",
       "bio": "",
-      "defaultPortrait": ""
     },
     {
       "id": 2,
       "name": "Ева",
       "bio": "",
-      "defaultPortrait": ""
     }
   ];
 
@@ -49,7 +46,6 @@ class CharacterStore {
       id : this.newIdCounter,
       name,
       bio: "",
-      defaultPortrait: "",
     }
     this.characters.push(character)
   }
@@ -73,7 +69,7 @@ class CharacterStore {
   }
 
   getCharacterDir(characterId : number) {
-    return this.characters.filter(character => character.id === characterId)[0]?.defaultPortrait
+    return this.characters.filter(character => character.id === characterId)[0]
   }
 
   getCharacterLabel(characterId : number) {
@@ -84,10 +80,9 @@ class CharacterStore {
     return this.character_options.filter(character => character.value === characterId)[0]
   }
 
-  editCharacter(characterId : number, name : string, bio : string, defaultPortrait : string) {
+  editCharacter(characterId : number, name : string, bio : string) {
     this.characters.filter(character => character.id === characterId)[0].name = name
     this.characters.filter(character => character.id === characterId)[0].bio = bio
-    this.characters.filter(character => character.id === characterId)[0].defaultPortrait = defaultPortrait
   }
 
   getCharactersForSave() {
@@ -95,7 +90,7 @@ class CharacterStore {
   }
 
   getCharactersForExport() {
-    const returnCharacters = []
+    const returnCharacters = [] as Character[]
     this.characters.forEach(character => {
       returnCharacters.push({
         id:character.id,

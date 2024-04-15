@@ -13,22 +13,11 @@ import {
 } from 'reactflow';
 import { nanoid } from 'nanoid';
 
-import {NodeBranch, NodePlayerChoice, NodeStart, NodeText} from "../../Nodes/index"
-import StaticEdge from "../../EdgeTypes/Edge_Static/StaticEdge";
 import { playerChoiceRowProps, rowProps } from "../../../../Flow/types";
 
 const initialEdges: Edge[] = [];
 class FlowStore {
-  nodeTypes = {
-    text: NodeText,
-    choice : NodeBranch,
-    start : NodeStart,
-    playerChoice : NodePlayerChoice,
-  };
 
-  edgeTypes = {
-    'static-edge': StaticEdge
-  }
 
   nodes = [] as Node[]
 
@@ -133,20 +122,20 @@ class FlowStore {
   deleteRow(nodeId : string, Id : number) {
     const result = this.edges.filter(item => item.source !== nodeId || item.sourceHandle !== `handle-${Id}`);
     this.setEdges(result);
-    this.getNode(nodeId).data.rows = (this.getNode(nodeId).data.rows.filter(row => row.idOfRow !== Id))
+    this.getNode(nodeId).data.rows = (this.getNode(nodeId).data.rows.filter((row: rowProps) => row.idOfRow !== Id))
 
   };
 
   changeVar(nodeId : string, Id : number, varType : String, newValue : { value: string, label: string }) {
     switch (varType) {
       case "first":
-        this.getNode(nodeId).data.rows.filter(row => row.idOfRow === Id)[0].data.firstVar = newValue;
+        this.getNode(nodeId).data.rows.filter((row: rowProps) => row.idOfRow === Id)[0].data.firstVar = newValue;
         break;
       case "second":
-        this.getNode(nodeId).data.rows.filter(row => row.idOfRow === Id)[0].data.secondVar = newValue;
+        this.getNode(nodeId).data.rows.filter((row: rowProps) => row.idOfRow === Id)[0].data.secondVar = newValue;
         break;
       case "third":
-        this.getNode(nodeId).data.rows.filter(row => row.idOfRow === Id)[0].data.thirdVar = newValue;
+        this.getNode(nodeId).data.rows.filter((row: rowProps) => row.idOfRow === Id)[0].data.thirdVar = newValue;
         break;
 
       default:
@@ -159,7 +148,7 @@ class FlowStore {
   }
 
   updateTextInPlayerChoiceNode(nodeId: string, rowId: number, text : string) {
-    this.nodes.filter(node => node.id === nodeId)[0].data.rows.filter(row => row.idOfRow === rowId)[0].data.text = text
+    this.nodes.filter(node => node.id === nodeId)[0].data.rows.filter((row: rowProps) => row.idOfRow === rowId)[0].data.text = text
   }
 
   updateCharacterInNode(nodeId: string, characterId : number | undefined) {
