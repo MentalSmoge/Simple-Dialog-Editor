@@ -38,7 +38,7 @@ const initialDialogs = [
             "text": "Привет, Ева! Меня зовут Адам, приятно познакомиться.",
             "portrait": "",
             "character": {
-              "id": 4
+              "id": 1
             }
           },
           "position": {
@@ -61,7 +61,7 @@ const initialDialogs = [
             "text": "И тебе не хворать, Адам.",
             "portrait": "",
             "character": {
-              "id": 5
+              "id": 2
             }
           },
           "position": {
@@ -146,7 +146,7 @@ const initialDialogs = [
           "data": {
             "text": "Не мешайся под ногами, Адам!",
             "character": {
-              "id": 5
+              "id": 2
             },
             "portrait": ""
           },
