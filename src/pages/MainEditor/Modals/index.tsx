@@ -7,4 +7,5 @@ export { default as ModalEditDialog } from "./Modal_EditDialog/index"
 export { default as ModalEditVariable } from "./Modal_EditVariable/index"
 export { default as ModalPlayerChoiceTextEditor } from "./Modal_TextEditor/PlayerChoiceTextEditorView"
 export { default as ModalTextEditor } from "./Modal_TextEditor/TextEditorView"
-
+export { default as ModalLogin} from "./Modal_Login/AuthModal"
+export { default as ModalRegister} from "./Modal_Register/RegisterModal"

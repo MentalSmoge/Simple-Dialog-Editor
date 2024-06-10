@@ -13,6 +13,27 @@ import VariablesStore, { Variable } from '../store/VariablesStore';
 import Modals from '../pages/MainEditor/Modals/Modals';
 import { Dialog } from '../Flow/types';
 
+import AuthModalStore from '../pages/MainEditor/Modals/Modal_Login/AuthModalStore';
+import RegisterModalStore from '../pages/MainEditor/Modals/Modal_Register/RegisterModalStore';
+
+// declare global {
+//   interface Window {
+//       electron: {
+//           getStoreValue: (key: string) => Promise<any>;
+//           setStoreValue: (key: string, value: any) => void;
+//       };
+//   }
+// }
+
+window.electron.onLogin(() => {
+  // window.electron.getStoreValue('token');
+  AuthModalStore.openModal();
+})
+
+window.electron.onRegister(() => {
+  RegisterModalStore.openModal();
+})
+
 window.electron.onSaveFile(() => {
   const response = {
     dialogs: [] as Dialog[],
