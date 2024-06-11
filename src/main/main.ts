@@ -13,11 +13,11 @@ import { writeFile } from 'fs';
 import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
-// import Store from 'electron-store';
+import Store from 'electron-store';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
-const Store = require('electron-store');
+// const Store = require('electron-store');
 const store = new Store();
 
 // ipcMain.on('get-token', (event, arg) => {
@@ -51,6 +51,7 @@ ipcMain.handle('setStoreValue', (event, key, value) => {
 
 ipcMain.handle('getStoreValue', (event, key) => {
   store.get(key);
+  return store.get(key);
   // console.log(store.get(key));
 });
 

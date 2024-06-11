@@ -177,6 +177,8 @@ export default class MenuBuilder {
                 label: "Logout",
                 click: () => {
                   this.store.delete('token');
+                  // window.location.reload();
+                  this.mainWindow.webContents.reload();
                   this.buildMenu();
                 },
             }

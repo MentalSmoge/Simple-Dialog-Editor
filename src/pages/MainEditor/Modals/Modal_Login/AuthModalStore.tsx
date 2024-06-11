@@ -10,6 +10,7 @@ declare global {
     }
 }
 
+
 class AuthModalStore {
   isOpen = false;
   email = '';
@@ -60,6 +61,9 @@ class AuthModalStore {
       if (result.status === 'success') {
         // const tok = window.electron.getStoreValue('token');
         window.electron.setStoreValue('token', result.token);
+        // console.log(window.electron.getStoreValue('token'));
+        window.location.reload();
+        // this.mainWindow.webContents.reload();
         this.closeModal();
       }
     } catch (error) {

@@ -71,7 +71,7 @@ const RegisterModal = observer(() => {
             onChange={togglePasswordVisibility}
             className="show-password-checkbox"
           />
-          <span className="show-password-text">Show password</span>
+          <span className="show-password-text">Show passwords</span>
         </label>
         <ErrorMessage />
         <div className='button-row'>
