@@ -8,31 +8,42 @@ import {
 } from 'electron';
 import { readFile } from 'fs';
 
+const Store = require('electron-store');
+// const { ipcRenderer } = require('electron');
+
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string;
   submenu?: DarwinMenuItemConstructorOptions[] | Menu;
 }
 
 export default class MenuBuilder {
+  // static buildMenu() {
+  //   throw new Error('Method not implemented.');
+  // }
+  // static refreshMenu() {
+  //   throw new Error('Method not implemented.');
+  // }
+
   mainWindow: BrowserWindow;
+
+  store: any;
 
   constructor(mainWindow: BrowserWindow) {
     this.mainWindow = mainWindow;
+    this.store = new Store();
   }
 
-  buildMenu(): Menu {
+  async buildMenu(): Promise<Menu> {
     const template =
-      process.platform === 'darwin'
-        ? this.buildDarwinTemplate()
-        : this.buildDefaultTemplate();
+        process.platform === 'darwin'
+            ? this.buildDarwinTemplate()
+            : await this.buildDefaultTemplate();
 
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
 
     return menu;
   }
-
-
 
   buildDarwinTemplate(): MenuItemConstructorOptions[] {
     const subMenuAbout: DarwinMenuItemConstructorOptions = {
@@ -154,8 +165,43 @@ export default class MenuBuilder {
     return [subMenuAbout, subMenuEdit, subMenuView, subMenuWindow, subMenuHelp];
   }
 
-  buildDefaultTemplate() {
-    const templateDefault = [
+  async buildDefaultTemplate(): Promise<MenuItemConstructorOptions[]>{
+
+    let webStuffSubMenu: MenuItemConstructorOptions[] = [];
+
+    const myToken = this.store.get('token');
+
+    if (myToken) {
+        webStuffSubMenu = [
+            {
+                label: "Logout",
+                click: () => {
+                  this.store.delete('token');
+                  // window.location.reload();
+                  this.mainWindow.webContents.reload();
+                  this.buildMenu();
+                },
+            }
+        ];
+    } else {
+        webStuffSubMenu = [
+            {
+                label: "Login",
+                click: () => {
+                    this.mainWindow.webContents.send('login-command');
+                },
+            },
+            {
+                label: "Registration",
+                click: () => {
+                    this.mainWindow.webContents.send('register-command');
+                },
+            }
+        ];
+    }
+    // this.buildMenu();
+
+    const templateDefault: MenuItemConstructorOptions[] = [
       {
         label: '&File',
         submenu: [
@@ -266,8 +312,12 @@ export default class MenuBuilder {
           },
         ],
       },
+      {
+        label: 'WebStuff',
+        submenu: webStuffSubMenu,
+      },
     ];
 
-    return templateDefault;
+    return Promise.resolve(templateDefault);
   }
 }

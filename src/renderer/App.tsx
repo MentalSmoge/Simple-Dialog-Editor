@@ -1,6 +1,7 @@
 import { ReactFlowProvider } from 'reactflow';
-import { MouseEvent, SetStateAction, useState } from 'react';
+import { MouseEvent, SetStateAction, useState, useEffect} from 'react';
 import { observer } from 'mobx-react-lite';
+import { jwtDecode } from "jwt-decode";
 import Flow from '../pages/MainEditor/components/EditorField';
 
 import './App.css';
@@ -12,6 +13,47 @@ import CharacterStore, { Character } from '../store/CharacterStore';
 import VariablesStore, { Variable } from '../store/VariablesStore';
 import Modals from '../pages/MainEditor/Modals/Modals';
 import { Dialog } from '../Flow/types';
+
+import AuthModalStore from '../pages/MainEditor/Modals/Modal_Login/AuthModalStore';
+import RegisterModalStore from '../pages/MainEditor/Modals/Modal_Register/RegisterModalStore';
+
+declare global {
+  interface Window {
+      electron: {
+          getStoreValue: (key: string) => Promise<any>;
+          setStoreValue: (key: string, value: any) => void;
+      };
+  }
+}
+
+// const jwt = require('jsonwebtoken');
+
+window.electron.onLogin(() => {
+  // window.electron.getStoreValue('token');
+  AuthModalStore.openModal();
+})
+
+window.electron.onRegister(() => {
+  RegisterModalStore.openModal();
+})
+
+async function extractToken() {
+  // store.get('token');
+  const token = await window.electron.getStoreValue('token');
+  // window.electron.getStoreValue('token');
+  if (!token) {
+    return null;
+  }
+
+  try {
+    const { username } = jwtDecode(token) as { username: string };
+    // console.log("Имя пользователя из токена:", username);
+    return username;
+  } catch (error) {
+    // console.error('Ошибка при декодировании токена:', error);
+    return null;
+  }
+}
 
 window.electron.onSaveFile(() => {
   const response = {
@@ -72,6 +114,7 @@ window.electron.onProjectOpen((args : string) => {
   }
 })
 function App() {
+  const [username, setUsername] = useState("");
   const [contextMenuIsOpen, setContextMenuIsOpen] = useState(false);
   const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
   const [destiny, setDestiny] = useState("");
@@ -81,6 +124,22 @@ function App() {
     setAnchorPoint({ x: e.clientX, y: e.clientY });
     setContextMenuIsOpen(true);
   }
+
+  useEffect(() => {
+    async function fetchUsername() {
+      try {
+        const extractedUsername = await extractToken();
+        if (extractedUsername !== null) {
+          setUsername(extractedUsername);
+
+      }
+      } catch (error) {
+        console.error('Ошибка при получении имени пользователя:', error);
+      }
+    }
+    fetchUsername();
+  }, []);
+
 
   return (
     <ReactFlowProvider>
@@ -99,11 +158,19 @@ function App() {
             }
             if (classlist.contains('RightSideBar-button-variable')) {
               openContextMenu(e, "SideBarVariable")
+
             }
           }}>
       <Modals />
       <ContextMenu destiny={destiny} anchorPoint={anchorPoint} isOpen={contextMenuIsOpen} setOpen={setContextMenuIsOpen} />
-      <header className="App-header">Отображаемый диалог:<b>{DialogsStore.getDialogName(DialogsStore.currentDialogId)}</b></header>
+      <header className="App-header">
+          <p>
+            {username
+              ? `Отображаемый диалог (пользователя "${username}"): `
+              : 'Отображаемый диалог: '}
+            <b>{DialogsStore.getDialogName(DialogsStore.currentDialogId)}</b>
+          </p>
+        </header>
       <div style={{display:"flex", flexDirection:"row", height:"100%", overflow:"hidden"}}>
         <SideBar />
         <Flow />
