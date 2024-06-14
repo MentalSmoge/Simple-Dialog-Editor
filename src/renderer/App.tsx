@@ -16,101 +16,120 @@ import { Dialog } from '../Flow/types';
 window.electron.onSaveFile(() => {
   const response = {
     dialogs: [] as Dialog[],
-    characters : [] as Character[],
-    variables : [] as Variable[]
-  }
-  const dialogs = DialogsStore.getDialogsForSave()
-  response.dialogs = dialogs
-  response.characters = CharacterStore.getCharactersForSave()
-  response.variables = VariablesStore.getVariablesForSave()
-  console.log(JSON.stringify(response, null, 2))
-  window.electron.saveFile(JSON.stringify(response, null, 2))
-})
-
+    characters: [] as Character[],
+    variables: [] as Variable[],
+  };
+  const dialogs = DialogsStore.getDialogsForSave();
+  response.dialogs = dialogs;
+  response.characters = CharacterStore.getCharactersForSave();
+  response.variables = VariablesStore.getVariablesForSave();
+  console.log(JSON.stringify(response, null, 2));
+  window.electron.saveFile(JSON.stringify(response, null, 2));
+});
 
 window.electron.onExportFile(() => {
   const response = {
     dialogs: [] as Dialog[],
-    characters : [] as Character[],
-    variables : [] as Variable[]
-  }
-  const dialogs = DialogsStore.getDialogsForExport()
-  response.dialogs = dialogs
-  response.characters = CharacterStore.getCharactersForExport()
-  response.variables = VariablesStore.getVariablesForExport()
+    characters: [] as Character[],
+    variables: [] as Variable[],
+  };
+  const dialogs = DialogsStore.getDialogsForExport();
+  response.dialogs = dialogs;
+  response.characters = CharacterStore.getCharactersForExport();
+  response.variables = VariablesStore.getVariablesForExport();
   // const responce = reactflow.toObject()
   // DialogsStore.dialogs.forEach(dialog => {
   //   response.dialogs.push(dialog)
   // });
-  console.log(JSON.stringify(response, null, 2))
+  console.log(JSON.stringify(response, null, 2));
   // const responce = JSON.stringify(reactflow.toObject())
-  window.electron.exportFile(JSON.stringify(response, null, 2))
-})
+  window.electron.exportFile(JSON.stringify(response, null, 2));
+});
 
-window.electron.onProjectOpen((args : string) => {
-  console.log('got FILE_OPEN', args)
-  let result
-  let resuldDialogs
-  let resultCharacters
-  let resultVariables
+window.electron.onProjectOpen((args: string) => {
+  console.log('got FILE_OPEN', args);
+  let result;
+  let resuldDialogs;
+  let resultCharacters;
+  let resultVariables;
   try {
-    result = JSON.parse(args)
-    resuldDialogs = result.dialogs
-    resultCharacters = result.characters
-    resultVariables = result.variables
-
+    result = JSON.parse(args);
+    resuldDialogs = result.dialogs;
+    resultCharacters = result.characters;
+    resultVariables = result.variables;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
   try {
-    DialogsStore.setDialogs(resuldDialogs)
-    CharacterStore.setCharacters(resultCharacters)
-    VariablesStore.setVariables(resultVariables)
+    DialogsStore.setDialogs(resuldDialogs);
+    CharacterStore.setCharacters(resultCharacters);
+    VariablesStore.setVariables(resultVariables);
   } catch (error) {
-    console.log(error)
-
+    console.log(error);
   }
-})
+});
 function App() {
   const [contextMenuIsOpen, setContextMenuIsOpen] = useState(false);
   const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
-  const [destiny, setDestiny] = useState("");
-  const openContextMenu = (e: MouseEvent<HTMLDivElement>, newDestiny: SetStateAction<string>) => {
+  const [destiny, setDestiny] = useState('');
+  const openContextMenu = (
+    e: MouseEvent<HTMLDivElement>,
+    newDestiny: SetStateAction<string>,
+  ) => {
     e.preventDefault();
-    setDestiny(newDestiny)
+    setDestiny(newDestiny);
     setAnchorPoint({ x: e.clientX, y: e.clientY });
     setContextMenuIsOpen(true);
-  }
+  };
 
   return (
     <ReactFlowProvider>
-    <div className="App"
-    // TODO: Сделать адекватное контекстное меню
-      onContextMenu={ (e: MouseEvent<HTMLDivElement>) => {
-            const classlist = (e.target as HTMLElement).classList;
-            if (classlist.contains('react-flow__pane')) {
-              openContextMenu(e, "addNode")
-            }
-            if (classlist.contains('SideBar-button')) {
-              openContextMenu(e, "SideBarDialog")
-            }
-            if (classlist.contains('RightSideBar-button-character')) {
-              openContextMenu(e, "SideBarCharacter")
-            }
-            if (classlist.contains('RightSideBar-button-variable')) {
-              openContextMenu(e, "SideBarVariable")
-            }
-          }}>
-      <Modals />
-      <ContextMenu destiny={destiny} anchorPoint={anchorPoint} isOpen={contextMenuIsOpen} setOpen={setContextMenuIsOpen} />
-      <header className="App-header">Отображаемый диалог:<b>{DialogsStore.getDialogName(DialogsStore.currentDialogId)}</b></header>
-      <div style={{display:"flex", flexDirection:"row", height:"100%", overflow:"hidden"}}>
-        <SideBar />
-        <Flow />
-        <RightSideBar />
+      <div
+        className="App"
+        // TODO: Сделать адекватное контекстное меню
+        onContextMenu={(e: MouseEvent<HTMLDivElement>) => {
+          const classlist = (e.target as HTMLElement).classList;
+          if (classlist.contains('react-flow__pane')) {
+            openContextMenu(e, 'addNode');
+          }
+          if (classlist.contains('SideBar-button')) {
+            openContextMenu(e, 'SideBarDialog');
+          }
+          if (classlist.contains('RightSideBar-button-character')) {
+            openContextMenu(e, 'SideBarCharacter');
+          }
+          if (classlist.contains('RightSideBar-button-variable')) {
+            openContextMenu(e, 'SideBarVariable');
+          }
+        }}
+      >
+        <Modals />
+        <ContextMenu
+          destiny={destiny}
+          anchorPoint={anchorPoint}
+          isOpen={contextMenuIsOpen}
+          setOpen={setContextMenuIsOpen}
+        />
+
+        <header className="App-header">
+          Отображаемый диалог:
+          <b>{DialogsStore.getDialogName(DialogsStore.currentDialogId)}</b>
+        </header>
+
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            height: '100%',
+            overflow: 'hidden',
+          }}
+        >
+          <SideBar />
+          <Flow />
+          <RightSideBar />
+        </div>
+        <footer className="App-footer" />
       </div>
-      <footer className="App-footer" />
-    </div>
     </ReactFlowProvider>
   );
 }

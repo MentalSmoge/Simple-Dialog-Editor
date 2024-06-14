@@ -1,0 +1,25 @@
+@startuml
+autonumber
+actor "Директор" as user
+participant "Клиент" as program
+participant "Сервер" as server
+database "DB" as db
+
+user -> program : Рассчитать ЗП
+program -> server : Запрос рассчета базовой ЗП
+server -> db : Запросить рабочие смены
+db -> server : Смены сотрудника
+server -> program : отображение базовой ЗП
+program -> user : отображение базовой ЗП юзеру
+user -> program : Рассчитать итоговую ЗП
+program -> server : запрос на рассчет итоговой ЗП
+server -> db : запрос штрафов
+db -> server : штрафы
+server -> server : расчет ЗП с учетом штрафов
+server -> db : запрос премий
+db -> server : премии
+server -> server : расчет ЗП с учетом премий
+server -> program : отображение ЗП
+program -> user : отображение итоговой ЗП юзеру
+
+@enduml

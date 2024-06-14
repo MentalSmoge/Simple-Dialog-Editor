@@ -1,0 +1,14 @@
+@startuml
+autonumber
+actor "Бариста" as barman
+participant "QR-сканер" as scan
+participant "Касса" as kassa
+note over barman: "Касса учитывает скидку от QR-кода"
+
+barman -> scan : Сканирует QR-код
+scan -> scan : Проверяет валидность QR-кода
+scan -> kassa : Передает данные о скидке кассе
+kassa -> kassa : Применяет скидку к заказу
+kassa -> barman : Выводит итоговую сумму заказа
+
+@enduml
