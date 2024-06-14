@@ -24,8 +24,21 @@ class ProjectsStore {
   description = '';
   errorMessage = '';
   currentProject = null;
+  newProjectName = '';
+  newProjectDescription = '';
   // json_proj = '';
   // mainWindow: BrowserWindow | null = null;
+
+  addProject(project: any) {
+    this.projects.push(project);
+  }
+  setNewProjectName(name: string) {
+    this.newProjectName = name;
+  }
+
+  setNewProjectDescription(description: string) {
+    this.newProjectDescription = description;
+  }
 
   openModal() {
     this.isOpen = true;
@@ -150,36 +163,42 @@ class ProjectsStore {
     this.currentProject = project;
   }
 
-  async createProject() {
+  async createNewProject() {
+    if (!this.newProjectName) {
+      console.error('Project name is required');
+      return;
+    }
+
     try {
       const token = await window.electron.getStoreValue('token');
       if (token) {
         const { id } = jwtDecode(token) as { id: number };
-        const response = await axios.post('http://localhost:3000/api/v1/projects/', {
-          title: this.title,
-          description: this.description,
-          createdBy: id
-        }, {
+        const newProject = {
+          title: this.newProjectName,
+          description: this.newProjectDescription,
+          createdBy: id,
+          jsonValue: {DialogsStore}
+          // Initialize other fields as necessary
+        };
+
+        const response = await axios.post(`http://localhost:3000/api/v1/projects/`, newProject, {
           headers: {
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`,
+            // 'Content-Type': 'application/json',
           }
         });
 
-        const result = response.data;
-
-        if (result.status === 'success') {
+        if (response.data.status === 'success') {
+          this.projects.push(response.data.data);
+          this.newProjectName = '';
+          this.newProjectDescription= '';
           this.closeModal();
-          this.fetchProjects();  // Обновляем список проектов после создания нового
         } else {
-          this.setErrorMessage(result.message);
+          console.error('Ошибка при создании проекта:', response.data.message);
         }
       }
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
-        this.setErrorMessage(error.response.data.message);
-      } else {
-        this.setErrorMessage('Creation failed. Please try again.');
-      }
+      console.error('Ошибка при выполнении запроса:', error);
     }
   }
 }

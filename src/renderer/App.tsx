@@ -18,6 +18,7 @@ import AuthModalStore from '../pages/MainEditor/Modals/Modal_Login/AuthModalStor
 import RegisterModalStore from '../pages/MainEditor/Modals/Modal_Register/RegisterModalStore';
 
 import ProjectsStore from '../pages/MainEditor/Modals/Modal_myProj/ProjectsStore';
+import NewProjectModalStore from '../pages/MainEditor/Modals/Modal_AddProj/NewProjectModalStore';
 
 declare global {
   interface Window {
@@ -31,6 +32,10 @@ declare global {
 // const jwt = require('jsonwebtoken');
 window.electron.myprojectsget(() => {
   ProjectsStore.openModal();
+})
+window.electron.addnewproj(() => {
+  NewProjectModalStore.openModal();
+  // ProjectsStore.openModal();
 })
 
 window.electron.onLogin(() => {

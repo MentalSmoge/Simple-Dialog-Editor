@@ -130,6 +130,15 @@
   transform: translate(-50%, -50%);
 }
 
+.add-modal {
+  width: 400px;
+  height: 400px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .register-modal {
   width: 400px;
   height: 570px;
@@ -164,7 +173,7 @@
 }
 
 .proj-modal {
-  width: 400px;
+  width: 600px;
   height: 500px;
   position: fixed;
   top: 50%;

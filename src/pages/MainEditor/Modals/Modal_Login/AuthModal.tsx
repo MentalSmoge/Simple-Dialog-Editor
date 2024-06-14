@@ -40,7 +40,7 @@ const AuthModal = observer(() => {
       onRequestClose={closeModal}
       contentLabel="Login Modal"
       ariaHideApp={false}
-      className="modal auth-modal"
+      className="modal add-modal"
     >
       <h2 className='header modal_login_text'>Authorization</h2>
       <p className='p'>E-mail</p>

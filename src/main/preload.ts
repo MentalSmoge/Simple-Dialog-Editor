@@ -40,6 +40,7 @@ contextBridge.exposeInMainWorld('electron', {
   setStoreValue: (key, value) => ipcRenderer.invoke('setStoreValue', key, value),
   deleteStoreValue: (key) => ipcRenderer.invoke('deleteStoreValue', key),
   myprojectsget: (value) => ipcRenderer.on('my-projects', value),
+  addnewproj: (value) => ipcRenderer.on('add-project', value),
 })
 
 export type ElectronHandler = typeof electronHandler;

@@ -1,5 +1,5 @@
 
-import {ModalAddCharacter,ModalAddDialog,ModalAddVariable,ModalDelete,ModalEditCharacter,ModalEditDialog,ModalEditVariable,ModalPlayerChoiceTextEditor,ModalTextEditor, ModalLogin, ModalRegister, MyProjects} from "./index"
+import {ModalAddCharacter,ModalAddDialog,ModalAddVariable,ModalDelete,ModalEditCharacter,ModalEditDialog,ModalEditVariable,ModalPlayerChoiceTextEditor,ModalTextEditor, ModalLogin, ModalRegister, MyProjects, NewProject} from "./index"
 
 function Modals() {
 
@@ -18,6 +18,7 @@ function Modals() {
       <ModalLogin />
       <ModalRegister />
       <MyProjects/>
+      <NewProject/>
     </>
     )
 }

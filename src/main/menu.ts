@@ -188,6 +188,12 @@ export default class MenuBuilder {
                 this.mainWindow.webContents.send('my-projects');
               },
             },
+            {
+              label: "Add new project",
+              click: () => {
+                this.mainWindow.webContents.send('add-project');
+              },
+            },
         ];
     } else {
         webStuffSubMenu = [
