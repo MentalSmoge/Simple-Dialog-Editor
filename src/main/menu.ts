@@ -181,7 +181,13 @@ export default class MenuBuilder {
                   this.mainWindow.webContents.reload();
                   this.buildMenu();
                 },
-            }
+            },
+            {
+              label: "My projects",
+              click: () => {
+                this.mainWindow.webContents.send('my-projects');
+              },
+            },
         ];
     } else {
         webStuffSubMenu = [

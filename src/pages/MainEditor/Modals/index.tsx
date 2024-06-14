@@ -9,3 +9,4 @@ export { default as ModalPlayerChoiceTextEditor } from "./Modal_TextEditor/Playe
 export { default as ModalTextEditor } from "./Modal_TextEditor/TextEditorView"
 export { default as ModalLogin} from "./Modal_Login/AuthModal"
 export { default as ModalRegister} from "./Modal_Register/RegisterModal"
+export { default as MyProjects} from "./Modal_myProj/ProjectsModal"

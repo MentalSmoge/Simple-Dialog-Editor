@@ -38,7 +38,8 @@ contextBridge.exposeInMainWorld('electron', {
   onRegister: (value) => ipcRenderer.on('register-command', value),
   getStoreValue: (key) => ipcRenderer.invoke('getStoreValue', key),
   setStoreValue: (key, value) => ipcRenderer.invoke('setStoreValue', key, value),
-  deleteStoreValue: (key) => ipcRenderer.invoke('deleteStoreValue', key)
+  deleteStoreValue: (key) => ipcRenderer.invoke('deleteStoreValue', key),
+  myprojectsget: (value) => ipcRenderer.on('my-projects', value),
 })
 
 export type ElectronHandler = typeof electronHandler;

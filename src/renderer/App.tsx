@@ -17,6 +17,8 @@ import { Dialog } from '../Flow/types';
 import AuthModalStore from '../pages/MainEditor/Modals/Modal_Login/AuthModalStore';
 import RegisterModalStore from '../pages/MainEditor/Modals/Modal_Register/RegisterModalStore';
 
+import ProjectsStore from '../pages/MainEditor/Modals/Modal_myProj/ProjectsStore';
+
 declare global {
   interface Window {
       electron: {
@@ -27,6 +29,9 @@ declare global {
 }
 
 // const jwt = require('jsonwebtoken');
+window.electron.myprojectsget(() => {
+  ProjectsStore.openModal();
+})
 
 window.electron.onLogin(() => {
   // window.electron.getStoreValue('token');
@@ -38,7 +43,6 @@ window.electron.onRegister(() => {
 })
 
 async function extractToken() {
-  // store.get('token');
   const token = await window.electron.getStoreValue('token');
   // window.electron.getStoreValue('token');
   if (!token) {
@@ -110,7 +114,6 @@ window.electron.onProjectOpen((args : string) => {
     VariablesStore.setVariables(resultVariables)
   } catch (error) {
     console.log(error)
-
   }
 })
 function App() {
@@ -126,19 +129,21 @@ function App() {
   }
 
   useEffect(() => {
-    async function fetchUsername() {
+    async function fetchUsernameAndDialogs() {
       try {
         const extractedUsername = await extractToken();
         if (extractedUsername !== null) {
           setUsername(extractedUsername);
+          //await DialogsStore.fetchAndSetDialogs();
 
       }
       } catch (error) {
         console.error('Ошибка при получении имени пользователя:', error);
       }
     }
-    fetchUsername();
-  }, []);
+    fetchUsernameAndDialogs();
+  },[]);
+
 
 
   return (

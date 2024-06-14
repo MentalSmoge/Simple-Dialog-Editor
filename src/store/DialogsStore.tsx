@@ -1,5 +1,8 @@
 import { makeAutoObservable } from "mobx"
+import { jwtDecode } from "jwt-decode";
+import axios from "axios";
 import FlowStore from "../pages/MainEditor/components/EditorField/FlowStore"
+
 
 type Dialog = {
   id : number, name: string, reactflowInstance : object
@@ -225,11 +228,47 @@ class DialogsStore {
 
   constructor(){
     makeAutoObservable(this)
+    // this.fetchAndSetDialogs()
     const flow = this.getDialog(this.currentDialogId).reactflowInstance;
       if (flow) {
         FlowStore.setNodes(flow.nodes || []);
         FlowStore.setEdges(flow.edges || []);
       }
+  }
+
+  // Изменение: Новый метод для получения и объединения диалогов
+  async fetchAndSetDialogs() {
+    try {
+      const token = await window.electron.getStoreValue('token');
+
+      if (token) {
+        // Декодирование токена для получения идентификатора пользователя
+        const { id } = jwtDecode(token) as { id: number };
+
+        // Выполнение запроса к серверу для получения проектов
+        const response = await axios.get(`http://localhost:3000/api/v1/projects/?createdBy=${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        // Проверка успешности ответа от сервера
+        if (response.data.status === 'success') {
+          // Фильтрация проектов для текущего пользователя (который создал проект)
+          const fetchedDialogs = response.data.data.map(project => ({
+            id: project.id,
+            name: project.title, // Используйте поле title в качестве имени диалога
+          }));
+          // Обновление состояния диалогов
+          this.dialogs = [...this.dialogs, ...fetchedDialogs];
+          this.setDialogs(this.dialogs);
+        } else {
+          console.error('Ошибка при получении диалогов:', response.data.message);
+        }
+      }
+    } catch (error) {
+      console.error('Ошибка при выполнении запроса:', error);
+    }
   }
 
   saveCurrent() {

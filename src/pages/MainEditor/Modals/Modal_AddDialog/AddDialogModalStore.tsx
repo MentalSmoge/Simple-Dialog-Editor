@@ -8,6 +8,7 @@ class AddDialogModalStore {
 
   constructor(){
     makeAutoObservable(this)
+    // DialogsStore.fetchAndSetDialogs()
   }
 
   addDialog(name : string) {
