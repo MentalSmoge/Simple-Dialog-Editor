@@ -244,34 +244,31 @@ class DialogsStore {
 
 
 
-  // Изменение: Новый метод для получения и объединения диалогов
-  // async fetchAndSetDialogs() {
+  // async saveProjectChanges(projectId: number) {
   //   try {
   //     const token = await window.electron.getStoreValue('token');
-
   //     if (token) {
-  //       // Декодирование токена для получения идентификатора пользователя
-  //       const { id } = jwtDecode(token) as { id: number };
+  //       const projectData = {
+  //         title,
+  //         description,
 
-  //       // Выполнение запроса к серверу для получения проектов
-  //       const response = await axios.get(`http://localhost:3000/api/v1/projects/?createdBy=${id}`, {
-  //         headers: {
-  //           'Authorization': `Bearer ${token}`
+  //       };
+
+  //       const response = await axios.put(
+  //         `http://localhost:3000/api/v1/projects/${projectId}`,
+  //         projectData,
+  //         {
+  //           headers: {
+  //             'Authorization': `Bearer ${token}`,
+  //             'Content-Type': 'application/json',
+  //           },
   //         }
-  //       });
+  //       );
 
-  //       // Проверка успешности ответа от сервера
   //       if (response.data.status === 'success') {
-  //         // Фильтрация проектов для текущего пользователя (который создал проект)
-  //         const fetchedDialogs = response.data.data.map(project => ({
-  //           id: project.id,
-  //           name: project.title, // Используйте поле title в качестве имени диалога
-  //         }));
-  //         // Обновление состояния диалогов
-  //         this.dialogs = [...this.dialogs, ...fetchedDialogs];
-  //         this.setDialogs(this.dialogs);
+  //         console.log('Проект успешно сохранен');
   //       } else {
-  //         console.error('Ошибка при получении диалогов:', response.data.message);
+  //         console.error('Ошибка при сохранении проекта:', response.data.message);
   //       }
   //     }
   //   } catch (error) {
@@ -365,6 +362,13 @@ class DialogsStore {
   }
 
   getDialogsForSave() {
+    this.saveCurrent()
+    return this.dialogs
+  }
+
+  getDefaultDialog() {
+    this.dialogs = []
+    this.dialogs = initialDialogs as Dialog[]
     this.saveCurrent()
     return this.dialogs
   }

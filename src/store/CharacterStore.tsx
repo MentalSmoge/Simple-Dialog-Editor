@@ -8,6 +8,20 @@ export type Character = {
 }
 
 class CharacterStore {
+
+  default_characters : Character[] = [
+    {
+      "id": 1,
+      "name": "Адам",
+      "bio": "",
+    },
+    {
+      "id": 2,
+      "name": "Ева",
+      "bio": "",
+    }
+  ];
+
   characters : Character[] = [
     {
       "id": 1,
@@ -86,6 +100,11 @@ class CharacterStore {
   }
 
   getCharactersForSave() {
+    return this.characters
+  }
+
+  getDefaultCharacters() {
+    this.characters = this.default_characters
     return this.characters
   }
 

@@ -3,6 +3,8 @@ import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import DialogsStore from '../../../../store/DialogsStore';
 import FlowStore from '../../components/EditorField/FlowStore';
+import CharacterStore from '../../../../store/CharacterStore';
+import VariablesStore from '../../../../store/VariablesStore';
 // import DialogsStore from '../../../../store/DialogsStore';
 // import ProjectsStore from '../Modal_myProj/ProjectsStore';
 
@@ -53,21 +55,27 @@ class NewProjectModalStore {
         const { id } = jwtDecode(token) as { id: number };
 
         // DialogsStore.dialogs.push(flow)
-        const dialogsJson = {
-          "dialogs": [DialogsStore.dialogs[0]]
-          }
+        const responser = {
+          dialogs: [] as Dialog[],
+          characters : [] as Character[],
+          variables : [] as Variable[]
+        }
+        const dialogs = DialogsStore.getDefaultDialog()
+        responser.dialogs = dialogs
+        responser.characters = CharacterStore.getDefaultCharacters()
+        responser.variables = VariablesStore.getDefaultCharacter()
 
         const newProject = {
           title: this.newProjectName,
           description: this.newProjectDescription,
           createdBy: id,
-          jsonValue: dialogsJson,// Add other fields as necessary
+          jsonValue: responser
         };
 
         const response = await axios.post(`http://localhost:3000/api/v1/projects/`, newProject, {
           headers: {
             'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            // 'Content-Type': 'application/json',
           },
         });
 

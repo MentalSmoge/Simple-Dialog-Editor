@@ -174,10 +174,7 @@ function App() {
       <Modals />
       <ContextMenu destiny={destiny} anchorPoint={anchorPoint} isOpen={contextMenuIsOpen} setOpen={setContextMenuIsOpen} />
       <header className="App-header">
-          <p>
-            {username
-              ? `Отображаемый диалог (пользователя "${username}"): `
-              : 'Отображаемый диалог: '}
+          <p>Отображаемый диалог:
             <b>{DialogsStore.getDialogName(DialogsStore.currentDialogId)}</b>
           </p>
         </header>

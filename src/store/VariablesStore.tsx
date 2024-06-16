@@ -5,6 +5,13 @@ export type Variable = {
 }
 
 class VariableStore {
+  default_variables = [
+    {
+      "id": 4,
+      "value": "Настроение",
+      "label": "Настроение"
+    }];
+
   variables = [
     {
       "id": 4,
@@ -46,6 +53,11 @@ class VariableStore {
   }
 
   getVariablesForSave() {
+    return this.variables
+  }
+
+  getDefaultCharacter() {
+    this.variables = this.default_variables
     return this.variables
   }
 

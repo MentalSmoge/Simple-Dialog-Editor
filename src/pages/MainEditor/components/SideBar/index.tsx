@@ -4,8 +4,10 @@ import "./SideBar.css"
 import DialogsStore from "../../../../store/DialogsStore";
 import SideBarButton from "./SideBar-button";
 import AddDialogButton from "./components/AddDialogButton";
+import SaveDialogButton from "./components/SaveDialogButton";
+import ProjectsStore from "../../Modals/Modal_myProj/ProjectsStore";
 
-
+const projectId = ProjectsStore.currentProject ? ProjectsStore.currentProject.id : "6";
 // eslint-disable-next-line react/function-component-definition
 const SideBar = () => {
   return (<div className="SideBar">
@@ -15,6 +17,7 @@ const SideBar = () => {
         ))}
       </div>
       <AddDialogButton />
+      <SaveDialogButton projectId={projectId} />
     </div>);
 }
 

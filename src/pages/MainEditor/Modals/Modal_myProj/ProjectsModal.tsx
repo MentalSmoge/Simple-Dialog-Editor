@@ -28,6 +28,7 @@ const ProjectModal = observer(() => {
 
   const handleProjectClick = (projectId) => {
     ProjectsStore.fetchProjectDetails(projectId);
+    ProjectsStore.setSelectedProjectId(projectId);
   }
 
   const projectsPerPage = 4; // Количество проектов на одной странице
@@ -49,12 +50,6 @@ const ProjectModal = observer(() => {
       className="modal proj-modal"
     >
       <h2 className='header'>My projects</h2>
-      {ProjectsStore.currentProject ? (
-        <div className="project-details">
-          <h3 className="project-title">Project name: {ProjectsStore.currentProject.title}</h3>
-          <p className="project-description">Project description: {ProjectsStore.currentProject.description}</p>
-        </div>
-      ) : (
       <ul>
           {ProjectsStore.projects.slice(startIndex, endIndex).map(project => (
             <li key={project.id} onClick={() => handleProjectClick(project.id)}>
@@ -78,7 +73,6 @@ const ProjectModal = observer(() => {
             <button onClick={handleCreateProject} type="button" className='add'>Create Project</button>
           </div> */}
         </ul>
-      )}
       <div className='button-row'>
         <button onClick={() => handlePageChange(-1)} disabled={currentPage === 0} type="button" className='delete'>Previous</button>
         <button onClick={() => handlePageChange(1)} disabled={endIndex >= ProjectsStore.projects.length} type="button" className='delete'>Next</button>

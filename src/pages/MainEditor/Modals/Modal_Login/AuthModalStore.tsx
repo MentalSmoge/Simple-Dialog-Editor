@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import axios from 'axios';
+import DialogsStore from '../../../../store/DialogsStore';
 
 declare global {
     interface Window {
@@ -17,6 +18,7 @@ class AuthModalStore {
   password = '';
   errorMessage = '';
   token = null;
+  json_example = DialogsStore;
 
   constructor() {
     makeAutoObservable(this);
@@ -33,6 +35,10 @@ class AuthModalStore {
   closeModal() {
     this.isOpen = false;
     this.clearFields();
+  }
+
+  getDialogDefault() {
+    return this.json_example;
   }
 
   setEmail(email) {
@@ -61,8 +67,11 @@ class AuthModalStore {
       if (result.status === 'success') {
         // const tok = window.electron.getStoreValue('token');
         window.electron.setStoreValue('token', result.token);
+        this.json_example = DialogsStore
+        // console.log(this.json_example)
         // console.log(window.electron.getStoreValue('token'));
-        window.location.reload();
+        // window.location.reload();
+        // DialogsStore = json_example;
         // this.mainWindow.webContents.reload();
         this.closeModal();
       }
