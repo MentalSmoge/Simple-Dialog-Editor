@@ -7,12 +7,12 @@ import ProjectsStore from "../../../Modals/Modal_myProj/ProjectsStore";
 
 const SaveChangesButton = observer(() => {
   const handleSaveChangesClick = () => {
-    ProjectsStore.saveProjectChanges();
+    ProjectsStore.deleteProject();
   };
 
   return (
-    <button className='AddButton nodrag color_from_save' type='button' onClick={handleSaveChangesClick}>
-      Сохранить изменения
+    <button className='AddButton nodrag color_from_del' type='button' onClick={handleSaveChangesClick}>
+      Удалить проект
     </button>
   );
 });

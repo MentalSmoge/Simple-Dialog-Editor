@@ -91,8 +91,28 @@ class ProjectsStore {
     makeAutoObservable(this);
   }
 
-  deleteProject(id: any) {
-    this.projects = this.projects.filter(project => project.id !== id);
+  async deleteProject() {
+    const projectId = this.selectedProjectId; // get id project
+    try {
+      const token = await window.electron.getStoreValue('token');
+      if (token) {
+        const response = await axios.delete(`http://localhost:3000/api/v1/projects/${projectId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.data.status === 'success') {
+          // this.openModal();
+          window.location.reload();
+          // console.log('Проект успешно удален');
+        } else {
+          console.error('Ошибка при удалении проекта:', response.data.message);
+        }
+      }
+    } catch (error) {
+      console.error('Ошибка при выполнении запроса:', error);
+    }
   }
 
 

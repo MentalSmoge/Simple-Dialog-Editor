@@ -13,3 +13,11 @@
   overflow:hidden;
   white-space: nowrap;
 }
+
+.color_from_save {
+  background-color: rgba(187, 114, 55, 0.738);
+}
+
+.color_from_del {
+  background-color: red;
+}
