@@ -7,6 +7,7 @@ import DialogsStore from '../../../../store/DialogsStore';
 import CharacterStore, { Character } from '../../../../store/CharacterStore';
 import VariablesStore, { Variable } from '../../../../store/VariablesStore';
 import { Dialog } from '../../../../Flow/types';
+// eslint-disable-next-line import/no-cycle
 import SaveStore from '../Modal_saveProj/SaveStore';
 
 
@@ -34,11 +35,12 @@ class ProjectsStore {
   newProjectName = 'default';
   newProjectDescription = '';
   selectedProjectId = 0;
-  // mainWindow: BrowserWindow | null = null;
+  hasUnsavedChanges = false; // флаг для проверки сохранения изменений
 
-  // addProject(project: any) {
-  //   this.projects.push(project);
-  // }
+  setUnsavedChanges(status) {
+    this.hasUnsavedChanges = status;
+  }
+
   setSelectedProjectId(projectId: number) {
     this.selectedProjectId = projectId;
   }
@@ -244,17 +246,6 @@ class ProjectsStore {
     }
   }
 
-  loadProjectDetails() {
-    // Метод для загрузки данных проекта
-    if (this.title === "") {
-      this.title = 'Default name project';
-      this.description = 'Default Description';
-    }
-    else {
-      this.title = this.currentProject.title;
-      this.description = this.currentProject.description;
-    }
-  }
 
   async saveProjectExample(title_new: string, description_new: string) {
     const token = await window.electron.getStoreValue('token');

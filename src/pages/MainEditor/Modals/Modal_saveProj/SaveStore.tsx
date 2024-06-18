@@ -12,7 +12,7 @@ import ProjectsStore from '../Modal_myProj/ProjectsStore';
 
 class SaveModalStore {
   isOpen = false
-  title = "Default name project";
+  title = "Default project";
   description = 'Default description project';
   errorMessage = '';
   selectedProjectId = 0;

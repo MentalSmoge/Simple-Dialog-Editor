@@ -19,6 +19,7 @@ import RegisterModalStore from '../pages/MainEditor/Modals/Modal_Register/Regist
 
 import ProjectsStore from '../pages/MainEditor/Modals/Modal_myProj/ProjectsStore';
 import NewProjectModalStore from '../pages/MainEditor/Modals/Modal_AddProj/NewProjectModalStore';
+import SaveStore from '../pages/MainEditor/Modals/Modal_saveProj/SaveStore';
 
 declare global {
   interface Window {
@@ -173,11 +174,22 @@ function App() {
           }}>
       <Modals />
       <ContextMenu destiny={destiny} anchorPoint={anchorPoint} isOpen={contextMenuIsOpen} setOpen={setContextMenuIsOpen} />
+      {username ? (
+              <header className="App-header">
+              <p>Проект:
+                <b>{SaveStore.title}</b>
+              </p>
+          </header>
+      ):(
+        <header className="App-header">
+        <p>Чтобы увидеть свои проекты, войдите в аккаунт или зарегистрируйтесь!</p>
+        </header>
+      )}
       <header className="App-header">
           <p>Отображаемый диалог:
             <b>{DialogsStore.getDialogName(DialogsStore.currentDialogId)}</b>
           </p>
-        </header>
+      </header>
       <div style={{display:"flex", flexDirection:"row", height:"100%", overflow:"hidden"}}>
         {username ? (
           <>
