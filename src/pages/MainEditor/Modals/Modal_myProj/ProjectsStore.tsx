@@ -119,6 +119,7 @@ class ProjectsStore {
           CharacterStore.getDefaultCharacters()
           VariablesStore.getDefaultCharacter()
           SaveStore.title = "Default project"
+          SaveStore.title = ""
           // this.openModal();
           // window.location.reload();
           // console.log('Проект успешно удален');
