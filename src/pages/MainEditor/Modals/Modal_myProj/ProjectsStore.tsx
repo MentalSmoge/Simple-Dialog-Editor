@@ -115,8 +115,12 @@ class ProjectsStore {
         });
 
         if (response.data.status === 'success') {
+          DialogsStore.getDefaultDialog()
+          CharacterStore.getDefaultCharacters()
+          VariablesStore.getDefaultCharacter()
+          SaveStore.title = "Default project"
           // this.openModal();
-          window.location.reload();
+          // window.location.reload();
           // console.log('Проект успешно удален');
         } else {
           console.error('Ошибка при удалении проекта:', response.data.message);

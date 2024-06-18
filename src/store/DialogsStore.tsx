@@ -243,39 +243,6 @@ class DialogsStore {
   }
 
 
-
-  // async saveProjectChanges(projectId: number) {
-  //   try {
-  //     const token = await window.electron.getStoreValue('token');
-  //     if (token) {
-  //       const projectData = {
-  //         title,
-  //         description,
-
-  //       };
-
-  //       const response = await axios.put(
-  //         `http://localhost:3000/api/v1/projects/${projectId}`,
-  //         projectData,
-  //         {
-  //           headers: {
-  //             'Authorization': `Bearer ${token}`,
-  //             'Content-Type': 'application/json',
-  //           },
-  //         }
-  //       );
-
-  //       if (response.data.status === 'success') {
-  //         console.log('Проект успешно сохранен');
-  //       } else {
-  //         console.error('Ошибка при сохранении проекта:', response.data.message);
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error('Ошибка при выполнении запроса:', error);
-  //   }
-  // }
-
   saveCurrent() {
     this.getDialog(this.currentDialogId).reactflowInstance = FlowStore.getFlow();
   }
