@@ -67,12 +67,9 @@ class AuthModalStore {
       if (result.status === 'success') {
         // const tok = window.electron.getStoreValue('token');
         window.electron.setStoreValue('token', result.token);
-        this.json_example = DialogsStore
-        // console.log(this.json_example)
-        // console.log(window.electron.getStoreValue('token'));
-        // window.location.reload();
-        // DialogsStore = json_example;
-        // this.mainWindow.webContents.reload();
+        // this.json_example = DialogsStore
+        window.location.reload();
+
         this.closeModal();
       }
     } catch (error) {

@@ -6,29 +6,19 @@ import ProjectsStore from './ProjectsStore';
 import '../Modal.css';
 // import ErrorMessage from '../../components/Error/ErrorMessage';
 import './Proj.css'
+import SaveStore from '../Modal_saveProj/SaveStore';
 
 const ProjectModal = observer(() => {
-  const [newProjectName, setNewProjectName] = useState('');
-  const [newProjectDescription, setNewProjectDescription] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
 
   const closeModal = () => {
     ProjectsStore.closeModal();
   }
 
-  const handleCreateProject = () => {
-    ProjectsStore.setNewProjectName(newProjectName);
-    ProjectsStore.setNewProjectDescription(newProjectDescription);
-    ProjectsStore.createNewProject();
-  };
-
-  // const handleProj = () => {
-  //   ProjectsStore.createProject();
-  // }
-
   const handleProjectClick = (projectId) => {
     ProjectsStore.fetchProjectDetails(projectId);
     ProjectsStore.setSelectedProjectId(projectId);
+    SaveStore.setSelectedProjectId(projectId);
   }
 
   const projectsPerPage = 4; // Количество проектов на одной странице
@@ -58,20 +48,6 @@ const ProjectModal = observer(() => {
             </li>
             ))
           }
-          {/* <div>
-            <input
-              type="text"
-              placeholder="Enter project name"
-              value={newProjectName}
-              onChange={(e) => setNewProjectName(e.target.value)}
-            />
-            <textarea
-              placeholder="Enter project description"
-              value={newProjectDescription}
-              onChange={(e) => setNewProjectDescription(e.target.value)}
-            />
-            <button onClick={handleCreateProject} type="button" className='add'>Create Project</button>
-          </div> */}
         </ul>
       <div className='button-row'>
         <button onClick={() => handlePageChange(-1)} disabled={currentPage === 0} type="button" className='delete'>Previous</button>

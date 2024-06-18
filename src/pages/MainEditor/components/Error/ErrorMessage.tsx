@@ -5,10 +5,11 @@ import RegisterModalStore from '../../Modals/Modal_Register/RegisterModalStore';
 import ProjectsStore from '../../Modals/Modal_myProj/ProjectsStore';
 import './ErrorMessage.css';
 import NewProjectModalStore from '../../Modals/Modal_AddProj/NewProjectModalStore';
+import SaveStore from '../../Modals/Modal_saveProj/SaveStore';
 
 
 const ErrorMessage = observer(() => {
-  if (!AuthModalStore.errorMessage && !RegisterModalStore.errorMessage && !ProjectsStore.errorMessage && !NewProjectModalStore.errorMessage) return null;
+  if (!AuthModalStore.errorMessage && !RegisterModalStore.errorMessage && !ProjectsStore.errorMessage && !NewProjectModalStore.errorMessage && !SaveStore.errorMessage) return null;
 
   return (
     <div className="error-message">
@@ -16,6 +17,7 @@ const ErrorMessage = observer(() => {
       {RegisterModalStore.errorMessage}
       {ProjectsStore.errorMessage}
       {NewProjectModalStore.errorMessage}
+      {SaveStore.errorMessage}
     </div>
   );
 });

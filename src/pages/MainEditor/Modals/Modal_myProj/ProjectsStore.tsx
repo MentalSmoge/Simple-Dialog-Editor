@@ -7,6 +7,7 @@ import DialogsStore from '../../../../store/DialogsStore';
 import CharacterStore, { Character } from '../../../../store/CharacterStore';
 import VariablesStore, { Variable } from '../../../../store/VariablesStore';
 import { Dialog } from '../../../../Flow/types';
+import SaveStore from '../Modal_saveProj/SaveStore';
 
 
 declare global {
@@ -16,6 +17,11 @@ declare global {
           setStoreValue: (key: string, value: any) => void;
       };
   }
+}
+
+export function updateSaveStore(title, description) {
+  SaveStore.setTitle(title);
+  SaveStore.setDescription(description);
 }
 
 class ProjectsStore {
@@ -66,6 +72,10 @@ class ProjectsStore {
 
   setTitle(title: string) {
     this.title = title;
+  }
+
+  getTitle() {
+    return this.title;
   }
 
   setDescription(description: string) {
@@ -138,6 +148,7 @@ class ProjectsStore {
     }
   }
 
+
   async fetchProjectDetails(projectId: any) {
     try {
       const token = await window.electron.getStoreValue('token');
@@ -150,7 +161,13 @@ class ProjectsStore {
         if (response.data.status === 'success') {
           this.currentProject = response.data.data;
           this.title = this.currentProject.title;
+          console.log(this.title)
+          // Save
           this.description = this.currentProject.description;
+          console.log(this.description)
+
+          updateSaveStore(this.title, this.description);
+
           const json_proj = response.data.data.jsonValue
           let result
           let resuldDialogs
@@ -167,15 +184,12 @@ class ProjectsStore {
 
             console.log(resuldDialogs)
             console.log(resultCharacters)
-            // console.log("МЯУ")
             console.log(resultVariables)
+
           } catch (error) {
             console.log(error)
           }
           try {
-            // DialogsStore.getDialog(result.dialogs)
-            // DialogsStore.saveCurrent()
-
             DialogsStore.setDialogs(resuldDialogs)
             CharacterStore.setCharacters(resultCharacters)
             VariablesStore.setVariables(resultVariables)
@@ -230,13 +244,25 @@ class ProjectsStore {
     }
   }
 
-  async saveProjectExample() {
+  loadProjectDetails() {
+    // Метод для загрузки данных проекта
+    if (this.title === "") {
+      this.title = 'Default name project';
+      this.description = 'Default Description';
+    }
+    else {
+      this.title = this.currentProject.title;
+      this.description = this.currentProject.description;
+    }
+  }
+
+  async saveProjectExample(title_new: string, description_new: string) {
     const token = await window.electron.getStoreValue('token');
       if (token) {
         const { id } = jwtDecode(token) as { id: number };
         const newProject = {
-          title: "Example project",
-          description: "",
+          title: title_new,
+          description: description_new,
           createdBy: id,
           jsonValue: {DialogsStore}
         }
@@ -257,12 +283,12 @@ class ProjectsStore {
       return null;
     }
 
-  async saveProjectChanges() {
+  async saveProjectChanges(title_new: string, description_new: string) {
     try {
       let projectId = 0;
       if (this.selectedProjectId === 0)
         {
-          projectId = await this.saveProjectExample()
+          projectId = await this.saveProjectExample(title_new, description_new)
         }
       else {
         projectId = await this.selectedProjectId;
@@ -285,14 +311,8 @@ class ProjectsStore {
       // console.log("json:", JSON.stringify(response2, null, 2))
 
       if (token) {
-        const response3 = await axios.get(`http://localhost:3000/api/v1/projects/${projectId}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        const save = response3.data.data;
-        this.title = save.title;
-        this.description = save.description;
+        this.title = title_new;
+        this.description = description_new;
 
 
         const Proj = {

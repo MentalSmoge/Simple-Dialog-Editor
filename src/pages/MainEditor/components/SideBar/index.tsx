@@ -5,10 +5,9 @@ import DialogsStore from "../../../../store/DialogsStore";
 import SideBarButton from "./SideBar-button";
 import AddDialogButton from "./components/AddDialogButton";
 import SaveDialogButton from "./components/SaveDialogButton";
-import ProjectsStore from "../../Modals/Modal_myProj/ProjectsStore";
 import DeleteButton from "./components/DeleteButton";
 
-const projectId = ProjectsStore.currentProject ? ProjectsStore.currentProject.id : "6";
+// const projectId = ProjectsStore.currentProject ? ProjectsStore.currentProject.id : "6";
 // eslint-disable-next-line react/function-component-definition
 const SideBar = () => {
   return (<div className="SideBar">
@@ -23,4 +22,17 @@ const SideBar = () => {
     </div>);
 }
 
-export default observer(SideBar)
+// eslint-disable-next-line react/function-component-definition
+const SideBar2 = () => {
+  return (<div className="SideBar">
+      <div className="SideBar-wrapper">
+        {DialogsStore.dialogs.map((dialog) => (
+          <SideBarButton key={dialog.id} dialog={dialog} />
+        ))}
+      </div>
+      <AddDialogButton />
+    </div>);
+}
+
+export {SideBar, SideBar2}
+

@@ -5,7 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import Flow from '../pages/MainEditor/components/EditorField';
 
 import './App.css';
-import SideBar from '../pages/MainEditor/components/SideBar';
+import { SideBar, SideBar2 } from '../pages/MainEditor/components/SideBar';
 import ContextMenu from '../pages/MainEditor/components/ContextMenu';
 import DialogsStore from '../store/DialogsStore';
 import RightSideBar from '../pages/MainEditor/components/RightSideBar';
@@ -179,9 +179,19 @@ function App() {
           </p>
         </header>
       <div style={{display:"flex", flexDirection:"row", height:"100%", overflow:"hidden"}}>
-        <SideBar />
-        <Flow />
-        <RightSideBar />
+        {username ? (
+          <>
+            <SideBar />
+            <Flow />
+            <RightSideBar />
+          </>
+        ):(
+          <>
+            <SideBar2 />
+            <Flow />
+            <RightSideBar />
+          </>
+        )}
       </div>
       <footer className="App-footer" />
     </div>
