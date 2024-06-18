@@ -182,7 +182,7 @@ function App() {
           </header>
       ):(
         <header className="App-header">
-        <p>Чтобы увидеть свои проекты, войдите в аккаунт или зарегистрируйтесь!</p>
+        <p className='bold-text'>Хотите иметь свои проекты? Войдите в аккаунт или зарегистрируйтесь!</p>
         </header>
       )}
       <header className="App-header">
