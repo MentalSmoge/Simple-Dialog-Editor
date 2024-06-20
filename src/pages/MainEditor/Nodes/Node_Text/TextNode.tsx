@@ -54,7 +54,7 @@ function TextNode({ id, data } : NodeProps) {
         }),
       }}/>
 
-      {character!==undefined && character!==null && <> <CharacterCard id={id} OpenPortrait={() => OpenPortrait}/> </>}
+      {/* {character!==undefined && character!==null && <> <CharacterCard id={id} OpenPortrait={() => OpenPortrait}/> </>} */}
 
       <div className='TextNode-wrapper'>
         <DefaultInput textContent={data.text} readOnly/>
