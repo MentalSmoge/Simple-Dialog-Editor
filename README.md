@@ -9,6 +9,9 @@
 ## Установка
 Скачайте [последнюю версию](https://github.com/MentalSmoge/Simple-Dialog-Editor/releases/latest) из Releases и откройте скачанный файл. Установка не требуется.
 
+Версия Node.js = **v16.15.0**
+Для запуска прописать **npm start**
+
 ## Технологический стек
 Программа была разработана с помощью Electron.js и React.js.
 
