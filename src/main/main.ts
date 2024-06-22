@@ -9,12 +9,26 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
+import { writeFile } from 'fs';
 import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import Store from 'electron-store';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-import { writeFile } from 'fs';
+
+// const Store = require('electron-store');
+const store = new Store();
+
+// ipcMain.on('get-token', (event, arg) => {
+//   const token = store.get('token')
+//   event.reply('token', token);
+// });
+// ipcMain.on('refresh-menu', async (event, mainWindow) => {
+//   const menuBuilder = new MenuBuilder(mainWindow); // Создаем экземпляр класса MenuBuilder
+//   await menuBuilder.buildMenu();
+// });
+
 
 class AppUpdater {
   constructor() {
@@ -25,6 +39,27 @@ class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
+
+ipcMain.handle('setStoreValue', (event, key, value) => {
+  store.set(key, value);
+  if (mainWindow) {
+    const menuBuilder = new MenuBuilder(mainWindow);
+    menuBuilder.buildMenu();
+  }
+  // console.log(store.get(key))
+});
+
+ipcMain.handle('getStoreValue', (event, key) => {
+  store.get(key);
+  return store.get(key);
+  // console.log(store.get(key));
+});
+
+
+ipcMain.handle('deleteStoreValue', (event, key) => {
+  store.delete(key);
+  // console.log(store.get(key))
+});
 
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
@@ -50,11 +85,12 @@ ipcMain.on('save-file-value', (_event, value) => {
     ],
   }).then(result => {
     if (!result.canceled) {
-      writeFile(result.filePath, (value), function(error){
-        if(error){
-            return console.log(error);
-        }
-        console.log("Файл успешно записан");
+      if (result.filePath)
+        writeFile(result.filePath, (value), (error) => {
+          if(error){
+              return console.log(error);
+          }
+          return console.log("Файл успешно записан");
     });
     }
   }).catch(err => {
@@ -69,11 +105,12 @@ ipcMain.on('export-file-value', (_event, value) => {
     ],
   }).then(result => {
     if (!result.canceled) {
-      writeFile(result.filePath, (value), function(error){
+      if (result.filePath)
+      writeFile(result.filePath, (value), (error) => {
         if(error){  // если ошибка
             return console.log(error);
         }
-        console.log("Файл успешно записан");
+        return console.log("Файл успешно записан");
     });
     }
   }).catch(err => {
@@ -86,6 +123,7 @@ async function handleFileOpen () {
   if (!canceled) {
     return filePaths[0]
   }
+  return null
 }
 
 if (process.env.NODE_ENV === 'production') {
@@ -181,6 +219,7 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+
 
 app
   .whenReady()

@@ -1,28 +1,76 @@
 import { ReactFlowProvider } from 'reactflow';
-import { useState } from 'react';
+import { MouseEvent, SetStateAction, useState, useEffect} from 'react';
 import { observer } from 'mobx-react-lite';
-import Flow from '../Flow';
-import TextEditorView from '../Flow/TextEditorView';
+import { jwtDecode } from "jwt-decode";
+import Flow from '../pages/MainEditor/components/EditorField';
 
 import './App.css';
-import SideBar from '../Flow/Components/SideBar';
-import ContextMenu from '../Flow/Components/ContextMenu';
-import DeleteModal from '../Flow/Components/DeleteModal';
-import RenameModal from '../Flow/Components/RenameModal';
+import { SideBar, SideBar2 } from '../pages/MainEditor/components/SideBar';
+import ContextMenu from '../pages/MainEditor/components/ContextMenu';
 import DialogsStore from '../store/DialogsStore';
-import AddDialogModal from '../Flow/Components/AddDialogModal';
-import RightSideBar from '../Flow/Components/RightSideBar';
-import EditModalCharacter from '../Flow/Components/EditModalCharacter';
-import EditModalVariable from '../Flow/Components/EditModalVariable';
-import AddCharacterModal from '../Flow/Components/AddCharacterModal';
-import AddVarModal from '../Flow/Components/AddVarModal';
-import CharacterStore from '../store/CharacterStore';
-import VariablesStore from '../store/VariablesStore';
-import PlayerChoiceTextEditorView from '../Flow/PlayerChoiceTextEditorView';
+import RightSideBar from '../pages/MainEditor/components/RightSideBar';
+import CharacterStore, { Character } from '../store/CharacterStore';
+import VariablesStore, { Variable } from '../store/VariablesStore';
+import Modals from '../pages/MainEditor/Modals/Modals';
+import { Dialog } from '../Flow/types';
 
+import AuthModalStore from '../pages/MainEditor/Modals/Modal_Login/AuthModalStore';
+import RegisterModalStore from '../pages/MainEditor/Modals/Modal_Register/RegisterModalStore';
+
+import ProjectsStore from '../pages/MainEditor/Modals/Modal_myProj/ProjectsStore';
+import NewProjectModalStore from '../pages/MainEditor/Modals/Modal_AddProj/NewProjectModalStore';
+import SaveStore from '../pages/MainEditor/Modals/Modal_saveProj/SaveStore';
+
+declare global {
+  interface Window {
+      electron: {
+          getStoreValue: (key: string) => Promise<any>;
+          setStoreValue: (key: string, value: any) => void;
+      };
+  }
+}
+
+// const jwt = require('jsonwebtoken');
+window.electron.myprojectsget(() => {
+  ProjectsStore.openModal();
+})
+window.electron.addnewproj(() => {
+  NewProjectModalStore.openModal();
+  // ProjectsStore.openModal();
+})
+
+window.electron.onLogin(() => {
+  // window.electron.getStoreValue('token');
+  AuthModalStore.openModal();
+})
+
+window.electron.onRegister(() => {
+  RegisterModalStore.openModal();
+})
+
+async function extractToken() {
+  const token = await window.electron.getStoreValue('token');
+  // window.electron.getStoreValue('token');
+  if (!token) {
+    return null;
+  }
+
+  try {
+    const { username } = jwtDecode(token) as { username: string };
+    // console.log("Имя пользователя из токена:", username);
+    return username;
+  } catch (error) {
+    // console.error('Ошибка при декодировании токена:', error);
+    return null;
+  }
+}
 
 window.electron.onSaveFile(() => {
-  const response = {dialogs : [], characters : [], variables : []}
+  const response = {
+    dialogs: [] as Dialog[],
+    characters : [] as Character[],
+    variables : [] as Variable[]
+  }
   const dialogs = DialogsStore.getDialogsForSave()
   response.dialogs = dialogs
   response.characters = CharacterStore.getCharactersForSave()
@@ -33,7 +81,11 @@ window.electron.onSaveFile(() => {
 
 
 window.electron.onExportFile(() => {
-  const response = {dialogs : [], characters : [], variables : []}
+  const response = {
+    dialogs: [] as Dialog[],
+    characters : [] as Character[],
+    variables : [] as Variable[]
+  }
   const dialogs = DialogsStore.getDialogsForExport()
   response.dialogs = dialogs
   response.characters = CharacterStore.getCharactersForExport()
@@ -46,46 +98,66 @@ window.electron.onExportFile(() => {
   // const responce = JSON.stringify(reactflow.toObject())
   window.electron.exportFile(JSON.stringify(response, null, 2))
 })
-window.electron.onProjectOpen((args) => {
+
+window.electron.onProjectOpen((args : string) => {
   console.log('got FILE_OPEN', args)
   let result
-  let result_dialog
-  let result_char
-  let result_var
+  let resuldDialogs
+  let resultCharacters
+  let resultVariables
   try {
     result = JSON.parse(args)
-    result_dialog = result.dialogs
-    result_char = result.characters
-    result_var = result.variables
+    resuldDialogs = result.dialogs
+    resultCharacters = result.characters
+    resultVariables = result.variables
 
   } catch (error) {
     console.log(error)
   }
   try {
-    DialogsStore.setDialogs(result_dialog)
-    CharacterStore.setCharacters(result_char)
-    VariablesStore.setVariables(result_var)
+    DialogsStore.setDialogs(resuldDialogs)
+    CharacterStore.setCharacters(resultCharacters)
+    VariablesStore.setVariables(resultVariables)
   } catch (error) {
     console.log(error)
-
   }
 })
 function App() {
+  const [username, setUsername] = useState("");
   const [contextMenuIsOpen, setContextMenuIsOpen] = useState(false);
   const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
   const [destiny, setDestiny] = useState("");
-  const openContextMenu = (e, newDestiny) => {
+  const openContextMenu = (e: MouseEvent<HTMLDivElement>, newDestiny: SetStateAction<string>) => {
     e.preventDefault();
     setDestiny(newDestiny)
     setAnchorPoint({ x: e.clientX, y: e.clientY });
     setContextMenuIsOpen(true);
   }
 
+  useEffect(() => {
+    async function fetchUsernameAndDialogs() {
+      try {
+        const extractedUsername = await extractToken();
+        if (extractedUsername !== null) {
+          setUsername(extractedUsername);
+          //await DialogsStore.fetchAndSetDialogs();
+
+      }
+      } catch (error) {
+        console.error('Ошибка при получении имени пользователя:', error);
+      }
+    }
+    fetchUsernameAndDialogs();
+  },[]);
+
+
+
   return (
     <ReactFlowProvider>
     <div className="App"
-      onContextMenu={ (e) => {
-            const classlist = e.target.classList;
+    // TODO: Сделать адекватное контекстное меню
+      onContextMenu={ (e: MouseEvent<HTMLDivElement>) => {
+            const classlist = (e.target as HTMLElement).classList;
             if (classlist.contains('react-flow__pane')) {
               openContextMenu(e, "addNode")
             }
@@ -97,25 +169,42 @@ function App() {
             }
             if (classlist.contains('RightSideBar-button-variable')) {
               openContextMenu(e, "SideBarVariable")
+
             }
           }}>
-      <DeleteModal />
-      <RenameModal />
-      <AddDialogModal />
-      <AddCharacterModal />
-      <AddVarModal />
-      <EditModalCharacter />
-      <EditModalVariable />
-      <PlayerChoiceTextEditorView />
+      <Modals />
       <ContextMenu destiny={destiny} anchorPoint={anchorPoint} isOpen={contextMenuIsOpen} setOpen={setContextMenuIsOpen} />
-      <header className="App-header">Отображаемый диалог:<b>{DialogsStore.getDialogName(DialogsStore.currentDialogId)}</b></header>
-      {/* <FpsView/> */}
+      {username ? (
+              <header className="App-header">
+              <p>Проект:
+                <b>{SaveStore.title}</b>
+              </p>
+          </header>
+      ):(
+        <header className="App-header">
+        <p className='bold-text'>Хотите иметь свои проекты? Войдите в аккаунт или зарегистрируйтесь!</p>
+        </header>
+      )}
+      <header className="App-header">
+          <p>Отображаемый диалог:
+            <b>{DialogsStore.getDialogName(DialogsStore.currentDialogId)}</b>
+          </p>
+      </header>
       <div style={{display:"flex", flexDirection:"row", height:"100%", overflow:"hidden"}}>
-        <SideBar />
-        <Flow />
-        <RightSideBar />
+        {username ? (
+          <>
+            <SideBar />
+            <Flow />
+            <RightSideBar />
+          </>
+        ):(
+          <>
+            <SideBar2 />
+            <Flow />
+            <RightSideBar />
+          </>
+        )}
       </div>
-      <TextEditorView />
       <footer className="App-footer" />
     </div>
     </ReactFlowProvider>

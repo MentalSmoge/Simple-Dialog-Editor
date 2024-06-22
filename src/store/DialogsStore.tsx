@@ -1,5 +1,8 @@
 import { makeAutoObservable } from "mobx"
-import FlowStore from "./FlowStore"
+import { jwtDecode } from "jwt-decode";
+import axios from "axios";
+import FlowStore from "../pages/MainEditor/components/EditorField/FlowStore"
+
 
 type Dialog = {
   id : number, name: string, reactflowInstance : object
@@ -38,7 +41,7 @@ const initialDialogs = [
             "text": "Привет, Ева! Меня зовут Адам, приятно познакомиться.",
             "portrait": "",
             "character": {
-              "id": 4
+              "id": 1
             }
           },
           "position": {
@@ -61,7 +64,7 @@ const initialDialogs = [
             "text": "И тебе не хворать, Адам.",
             "portrait": "",
             "character": {
-              "id": 5
+              "id": 2
             }
           },
           "position": {
@@ -146,7 +149,7 @@ const initialDialogs = [
           "data": {
             "text": "Не мешайся под ногами, Адам!",
             "character": {
-              "id": 5
+              "id": 2
             },
             "portrait": ""
           },
@@ -223,14 +226,22 @@ class DialogsStore {
 
   currentDialogId = 1
 
+  currentProjectId = 0;
+
   constructor(){
     makeAutoObservable(this)
+    // this.fetchAndSetDialogs()
     const flow = this.getDialog(this.currentDialogId).reactflowInstance;
       if (flow) {
         FlowStore.setNodes(flow.nodes || []);
         FlowStore.setEdges(flow.edges || []);
       }
   }
+
+  setCurrentProjectId(id: number) {
+    this.currentProjectId = id;
+  }
+
 
   saveCurrent() {
     this.getDialog(this.currentDialogId).reactflowInstance = FlowStore.getFlow();
@@ -322,9 +333,16 @@ class DialogsStore {
     return this.dialogs
   }
 
+  getDefaultDialog() {
+    this.dialogs = []
+    this.dialogs = initialDialogs as Dialog[]
+    this.saveCurrent()
+    return this.dialogs
+  }
+
   getDialogsForExport() {
     this.saveCurrent()
-    let returnDialogs = []
+    const returnDialogs = []
     const copyDialogs = this.dialogs as Dialog[]
     // eslint-disable-next-line array-callback-return
     copyDialogs.map(dialog => {

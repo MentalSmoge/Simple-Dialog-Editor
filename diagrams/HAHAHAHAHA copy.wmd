@@ -1,0 +1,23 @@
+@startuml
+autonumber
+actor "Бариста" as barman
+participant "Касса" as kassa
+participant "Бэкенд" as back
+note over barman: "Касса учитывает скидку от кодового слова"
+
+barman -> kassa : Нажимает кнопку "Кодовое слово"
+alt Список кодовых слов не обновлялся в течении последних 6 часов
+kassa -> back : Запрашивает список кодовых слов
+back -> back : Формирует список кодовых слов
+back -> kassa : Отправляет новый список кодовых слов
+end
+kassa -> barman : Выводит список кодовых слов
+alt Искомое слово есть в списке
+barman -> kassa : Выбирает нужное слово
+kassa -> kassa : Применяет скидку к заказу
+else Слова нет
+barman -> kassa : Нажимает кнопку "Назад"
+end
+kassa -> barman : Выводит итоговую сумму заказа
+
+@enduml

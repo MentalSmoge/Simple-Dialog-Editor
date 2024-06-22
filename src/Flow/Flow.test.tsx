@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import Flow from '.';
+import Flow from '../pages/MainEditor/components/EditorField';
 
 const wrapperStyle = { height: 500 };
 

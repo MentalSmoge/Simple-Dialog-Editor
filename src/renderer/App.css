@@ -44,3 +44,7 @@ button:active {
   border-top: 1px solid var(--handle-color);
   padding: 0 1rem;
 }
+
+.bold-text {
+  font-weight: bold;
+}

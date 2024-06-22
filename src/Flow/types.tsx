@@ -51,7 +51,7 @@ export type DialogFileData = {
   /**
    * Did user cancel dialog?
    */
-  cancelled: boolean
+  canceled: boolean
   /**
    * Array of file paths that user selected
    */

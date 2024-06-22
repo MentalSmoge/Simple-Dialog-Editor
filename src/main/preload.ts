@@ -22,6 +22,7 @@ const electronHandler = {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
   },
+
 };
 
 contextBridge.exposeInMainWorld('electron', {
@@ -33,6 +34,13 @@ contextBridge.exposeInMainWorld('electron', {
   onProjectOpen: (callback) => {ipcRenderer.on('PROJECT_OPEN', (_event, args) => callback(args))},
   saveFile: (value) => ipcRenderer.send('save-file-value', value),
   exportFile: (value) => ipcRenderer.send('export-file-value', value),
+  onLogin: (value) => ipcRenderer.on('login-command', value),
+  onRegister: (value) => ipcRenderer.on('register-command', value),
+  getStoreValue: (key) => ipcRenderer.invoke('getStoreValue', key),
+  setStoreValue: (key, value) => ipcRenderer.invoke('setStoreValue', key, value),
+  deleteStoreValue: (key) => ipcRenderer.invoke('deleteStoreValue', key),
+  myprojectsget: (value) => ipcRenderer.on('my-projects', value),
+  addnewproj: (value) => ipcRenderer.on('add-project', value),
 })
 
 export type ElectronHandler = typeof electronHandler;

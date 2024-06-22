@@ -5,48 +5,45 @@ import {
   BrowserWindow,
   MenuItemConstructorOptions,
   dialog,
-  ipcMain,
 } from 'electron';
 import { readFile } from 'fs';
-const contextMenu = require('electron-context-menu');
+
+const Store = require('electron-store');
+// const { ipcRenderer } = require('electron');
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string;
   submenu?: DarwinMenuItemConstructorOptions[] | Menu;
 }
 
-contextMenu({
-	prepend: (defaultActions, parameters, browserWindow : BrowserWindow) => [
-	],
-  showSelectAll: false
-});
 export default class MenuBuilder {
+  // static buildMenu() {
+  //   throw new Error('Method not implemented.');
+  // }
+  // static refreshMenu() {
+  //   throw new Error('Method not implemented.');
+  // }
+
   mainWindow: BrowserWindow;
+
+  store: any;
 
   constructor(mainWindow: BrowserWindow) {
     this.mainWindow = mainWindow;
+    this.store = new Store();
   }
 
-  buildMenu(): Menu {
-    if (
-      process.env.NODE_ENV === 'development' ||
-      process.env.DEBUG_PROD === 'true'
-    ) {
-
-    }
-
+  async buildMenu(): Promise<Menu> {
     const template =
-      process.platform === 'darwin'
-        ? this.buildDarwinTemplate()
-        : this.buildDefaultTemplate();
+        process.platform === 'darwin'
+            ? this.buildDarwinTemplate()
+            : await this.buildDefaultTemplate();
 
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
 
     return menu;
   }
-
-
 
   buildDarwinTemplate(): MenuItemConstructorOptions[] {
     const subMenuAbout: DarwinMenuItemConstructorOptions = {
@@ -168,8 +165,55 @@ export default class MenuBuilder {
     return [subMenuAbout, subMenuEdit, subMenuView, subMenuWindow, subMenuHelp];
   }
 
-  buildDefaultTemplate() {
-    const templateDefault = [
+  async buildDefaultTemplate(): Promise<MenuItemConstructorOptions[]>{
+
+    let webStuffSubMenu: MenuItemConstructorOptions[] = [];
+
+    const myToken = this.store.get('token');
+
+    if (myToken) {
+        webStuffSubMenu = [
+            {
+                label: "Logout",
+                click: () => {
+                  this.store.delete('token');
+                  // window.location.reload();
+                  this.mainWindow.webContents.reload();
+                  this.buildMenu();
+                },
+            },
+            {
+              label: "My projects",
+              click: () => {
+                this.mainWindow.webContents.send('my-projects');
+              },
+            },
+            {
+              label: "Add new project",
+              click: () => {
+                this.mainWindow.webContents.send('add-project');
+              },
+            },
+        ];
+    } else {
+        webStuffSubMenu = [
+            {
+                label: "Login",
+                click: () => {
+                    this.mainWindow.webContents.send('login-command');
+                },
+            },
+            {
+                label: "Registration",
+                click: () => {
+                    this.mainWindow.webContents.send('register-command');
+                },
+            }
+        ];
+    }
+    // this.buildMenu();
+
+    const templateDefault: MenuItemConstructorOptions[] = [
       {
         label: '&File',
         submenu: [
@@ -196,11 +240,10 @@ export default class MenuBuilder {
                  if (!fileObj.canceled) {
                   readFile(fileObj.filePaths[0],'utf8',(err,contents)=>{
                     if(err){
-                       console.log(err);
-                       return;
+                      return console.log(err);
                     }
                     this.mainWindow.webContents.send('PROJECT_OPEN', contents)
-                    console.log(contents);
+                    return console.log(contents);
                   })
 
 
@@ -208,8 +251,8 @@ export default class MenuBuilder {
                  }
               })
   // should always handle the error yourself, later Electron release might crash if you don't
-              .catch(function(err) {
-                 console.error(err)
+              .catch((err) => {
+                return console.error(err)
               })
            }
           },
@@ -281,8 +324,12 @@ export default class MenuBuilder {
           },
         ],
       },
+      {
+        label: 'WebStuff',
+        submenu: webStuffSubMenu,
+      },
     ];
 
-    return templateDefault;
+    return Promise.resolve(templateDefault);
   }
 }
